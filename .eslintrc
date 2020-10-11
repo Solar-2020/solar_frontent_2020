@@ -1,0 +1,13 @@
+{
+    "parser": "babel-eslint",
+    "plugins": ["react"],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "indent": [2, 4]
+    },
+    "extends": "google"
+}
