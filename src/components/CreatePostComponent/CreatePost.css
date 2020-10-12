@@ -40,6 +40,9 @@
     background-color: var(--background-light-green);
     padding: 23px 35px 23px 35px;
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .create-post-component__white-part__interview-container {
@@ -78,4 +81,18 @@
 .create-post-component__green-part__buttons_survey {
     background-image: url('../../images/survey.png');
     margin-left: 10px;
+}
+
+.create-post-component__green-part__buttons_create-post {
+    background: linear-gradient(90deg, var(--main-light-green) 0%, var(--main-gren-color) 100%);
+    border-radius: 3px;
+    border-style: none;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    color: var(--cards-background);
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 37px;
+    margin-left: auto;
 }

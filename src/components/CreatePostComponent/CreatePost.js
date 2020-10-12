@@ -6,6 +6,8 @@ import './InterviewComponent/InterviewComp.css';
 import PaymentComponent from './PaymentComponent/PaymentComponent';
 import DocsComponent from './DocsComponent/DocsComponent';
 import PhotoComponent from './PhotoComponet/PhotoComponent';
+import fetchModule from '../../utils/API/FetchModule.js';
+import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
 
 function CreatePost() {
     const initialArr = new Array(3)
@@ -69,11 +71,69 @@ function CreatePost() {
         }
     };
 
+    const addImageToPostFetch = (event) => {
+        event.preventDefault();
+
+        console.log('image!');
+        console.log(event.target.files[0]);
+
+        // Будет дёргать функцию, которая меняет стайт
+        postPhoto(event.target.files[0]);
+        changeComponentsView('photo');
+    }
+
+    const addDocToPostFetch = (event) => {
+        event.preventDefault();
+
+        console.log('doc!');
+        console.log(event.target.files[0]);
+
+        // Будет дёргать функцию, которая меняет стайт
+        postFile(event.target.files[0]);
+        changeComponentsView('docs');
+    }
+
     const delInterviewComponent = () => {
         setInterviewTitle('');
         setInterviewElems(initialArr);
         setInterviewComp(!interviewComp);
     };
+
+    const postPhoto = (file) => {
+        const formData = new FormData();
+        formData.append('body', JSON.stringify({name: file.name}));
+        formData.append('file', file);
+
+        fetchModule.Post({
+            url: BACKEND_ADDRESS + '/api/upload/photo',
+            body: formData,
+        })
+            .then((response) => {
+                console.log(response);
+                return response.json();
+            })
+            .then((responseBody) => {
+                console.log(responseBody);
+            });
+    };
+
+    const postFile = (file) => {
+        const formData = new FormData();
+        formData.append('body', JSON.stringify({name: file.name}));
+        formData.append('file', file);
+
+        fetchModule.Post({
+            url: BACKEND_ADDRESS + '/api/upload/file',
+            body: formData,
+        })
+            .then((response) => {
+                console.log(response);
+                return response.json();
+            })
+            .then((responseBody) => {
+                console.log(responseBody);
+            });
+    }
 
     return (
         <div className="create-post-component">
@@ -111,10 +171,32 @@ function CreatePost() {
 
             </div>
             <div className="create-post-component__green-part">
-            <button className="create-post-component__green-part__buttons create-post-component__green-part__buttons_photo" onClick={() => changeComponentsView('photo')}></button>
-                <button className="create-post-component__green-part__buttons create-post-component__green-part__buttons_survey" onClick={() => changeComponentsView('interview')}></button>
-                <button className="create-post-component__green-part__buttons create-post-component__green-part__buttons_payment" onClick={() => changeComponentsView('payment')}></button>
-                <button className="create-post-component__green-part__buttons create-post-component__green-part__buttons_doc" onClick={() => changeComponentsView('docs')}></button>
+                <button
+                    id="createPostComponentGreenPartPhoto" 
+                    value="photo" 
+                    className="create-post-component__green-part__buttons create-post-component__green-part__buttons_photo"
+                    onClick={() => document.getElementById('createPostComponentGreenPartAddPhoto').click()}/>
+                <input 
+                    id="createPostComponentGreenPartAddPhoto" 
+                    style={{display: 'none'}} 
+                    type="file" name="addPostPhoto" accept="image/png, image/jpeg, image/gif" 
+                    onChange={addImageToPostFetch}/>
+
+                <button className="create-post-component__green-part__buttons create-post-component__green-part__buttons_survey" onClick={() => changeComponentsView('interview')}/>
+                <button className="create-post-component__green-part__buttons create-post-component__green-part__buttons_payment" onClick={() => changeComponentsView('payment')}/>
+
+                <button
+                    id="createPostComponentGreenPartDocAdd" 
+                    value="doc" 
+                    onClick={() => document.getElementById('createPostComponentGreenPartDoc').click()} 
+                    className="create-post-component__green-part__buttons create-post-component__green-part__buttons_doc"/>
+                <input 
+                    id="createPostComponentGreenPartDoc"
+                    style={{display: 'none'}}
+                    type="file" name="addPostDoc" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf"
+                    onChange={addDocToPostFetch}/>
+
+                <button className="create-post-component__green-part__buttons_create-post">Опубликовать</button>
             </div>
         </div>
     );
