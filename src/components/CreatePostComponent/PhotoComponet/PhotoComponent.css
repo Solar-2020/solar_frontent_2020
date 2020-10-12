@@ -1,0 +1,21 @@
+.create-post-component__white-part__photo_container {
+    border-top: 1px solid var(--border-color);
+    margin-top: 30px;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+}
+
+.create-post-component__white-part__photo-container__img {
+    height: 88px;
+    width: 115px;
+}
+
+.create-post-component__white-part__photo-container__img_margin {
+    margin-left: 20px;
+}
+
+.create-post-component__white-part__photo-container__img_margin:first-child {
+    margin-left: 0px;
+}

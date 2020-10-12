@@ -1,0 +1,100 @@
+.create-post-component {
+    display:flex;
+    flex-direction: column;
+}
+
+.create-post-component__white-part {
+    background-color: var(--cards-background);
+    padding: 35px;
+}
+
+.create-post-component__white-part__avatar-text {
+    display: flex;
+    flex-direction: row;
+}
+
+.create-post-component__white-part__avatar-text__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    background-color: var(--background-light-green);
+}
+
+.create-post-component__white-part__avatar-text__text {
+    margin-left: 15px;
+    resize: none;
+    width: 565px;
+    border-color: var(--border-color);
+    color: var(--main-grey-text-color);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.create-post-component__white-part__avatar-text__text:focus {
+    outline: none;
+    border: 2px solid var(--main-light-green);
+    border-radius: 3px;
+}
+
+.create-post-component__green-part {
+    background-color: var(--background-light-green);
+    padding: 23px 35px 23px 35px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.create-post-component__white-part__interview-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 30px;
+}
+
+.create-post-component__green-part__buttons {
+    background-size: contain;
+    height: 37px;
+    width: 37px;
+    border: none;
+    outline: none;
+    background-color: var(--background-light-green);
+    cursor: pointer;
+    background-repeat: no-repeat;
+}
+
+.create-post-component__green-part__buttons_photo {
+    background-image: url('../../images/photo-camera.png');
+}
+
+.create-post-component__green-part__buttons_doc {
+    background-image: url('../../images/google-docs.png');
+    margin-left: 10px;
+}
+
+.create-post-component__green-part__buttons_payment {
+    background-image: url('../../images/payment.png');
+    margin-left: 10px;
+}
+
+.create-post-component__green-part__buttons_survey {
+    background-image: url('../../images/survey.png');
+    margin-left: 10px;
+}
+
+.create-post-component__green-part__buttons_create-post {
+    background: linear-gradient(90deg, var(--main-light-green) 0%, var(--main-gren-color) 100%);
+    border-radius: 3px;
+    border-style: none;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    color: var(--cards-background);
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 37px;
+    margin-left: auto;
+    outline: none;
+    cursor: pointer;
+}

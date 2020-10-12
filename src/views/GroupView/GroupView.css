@@ -1,0 +1,32 @@
+.group-view-banner {
+    display: flex;
+    background: var(--cards-background);
+    justify-content: center;
+}
+
+.group-view-banner__items {
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+}
+
+.group-view-banner__items__image {
+    height: 200px;
+    background-color: var(--background-light-green);
+}
+
+.group-view-banner__items__links {
+    display: flex;
+    flex-direction: row;
+}
+
+.group-view-posts-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.group-view-posts-container__create-post {
+    width: 700px;
+}
