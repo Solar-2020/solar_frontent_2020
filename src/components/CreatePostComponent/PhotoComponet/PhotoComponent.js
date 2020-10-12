@@ -1,6 +1,11 @@
 import React from 'react';
 import './PhotoComponent.css';
 
+/**
+ * Component with photos
+ * @param {object} param0 - photos
+ * @return {jsx}
+ */
 function PhotoComponent({photos}) {
     return (
         <div className="create-post-component__white-part__photo_container">
@@ -10,7 +15,7 @@ function PhotoComponent({photos}) {
                 </div>
             ))}
         </div>
-    )
+    );
 }
 
 export default PhotoComponent;

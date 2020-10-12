@@ -2,7 +2,6 @@ import {CORS_CONST} from '../Config/Config.js';
 
 /** Class create fetch. */
 class FetchModule {
-
     /**
      * Router constructor.
      * @constructor
@@ -14,7 +13,7 @@ class FetchModule {
      * @param {*} - list with url, body, credentials.
      * @return {promise}
      */
-    Get({
+    get({
         url = '/',
         body = null,
         credentials = 'include',
@@ -28,7 +27,7 @@ class FetchModule {
      * @param {*} - list with url, body, credentials.
      * @return {promise}
      */
-    Post({
+    post({
         url = '/',
         body = null,
         credentials = 'include',

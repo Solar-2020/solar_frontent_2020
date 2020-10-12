@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
 
+/**
+ * Component with form for create answer
+ * @param {object} param0 - handler
+ * @return {jsx}
+ */
 function InterviewForm({addHandler}) {
     const [value, setValue] = useState('');
 

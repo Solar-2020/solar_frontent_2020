@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * Component with interview elements
+ * @param {object} param0 - elements, handler for removing elements
+ * @return {jsx}
+ */
 function InterviewElements({interviewElems, delHandler}) {
     return (
         <div>
@@ -11,8 +16,8 @@ function InterviewElements({interviewElems, delHandler}) {
                 key={elem.id}
                 >{elem.title}
 
-                    <button className="create-post-component__white-part__interview-container__title__input-container__button" 
-                    type="button" onClick={() => delHandler(elem.id)}></button>
+                    <button className="create-post-component__white-part__interview-container__title__input-container__button"
+                        type="button" onClick={() => delHandler(elem.id)}></button>
                 </div>
             ))}
         </div>

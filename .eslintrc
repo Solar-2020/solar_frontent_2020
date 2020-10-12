@@ -7,6 +7,7 @@
         }
     },
     "rules": {
+        "max-len": [1, 120, 2, {"ignoreComments": true}],
         "indent": [2, 4]
     },
     "extends": "google"

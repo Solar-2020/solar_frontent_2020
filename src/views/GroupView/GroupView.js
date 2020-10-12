@@ -2,7 +2,10 @@ import React, {useState} from 'react';
 import CreatePost from '../../components/CreatePostComponent/CreatePost';
 import './GroupView.css';
 
-
+/**
+ * Group view
+ * @return {jsx}
+ */
 function GroupView() {
     const [groupInfo, setGroupInfo] = useState({
         title: 'Название группы',

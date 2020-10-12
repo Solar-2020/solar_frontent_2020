@@ -1,6 +1,11 @@
 import React from 'react';
 import './PaymentComp.css';
 
+/**
+ * Component with payment
+ * @param {object} param0 - handler for removing component
+ * @return {jsx}
+ */
 function PaymentComponent({delPaymentComp}) {
     return (
         <div className="payment-component">
@@ -10,8 +15,7 @@ function PaymentComponent({delPaymentComp}) {
             </div>
             <div className="payment-component__payment-form"></div>
         </div>
-    )
-
+    );
 }
 
 export default PaymentComponent;

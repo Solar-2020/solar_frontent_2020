@@ -95,4 +95,6 @@
     padding-right: 25px;
     height: 37px;
     margin-left: auto;
+    outline: none;
+    cursor: pointer;
 }

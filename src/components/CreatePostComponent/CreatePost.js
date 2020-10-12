@@ -9,12 +9,12 @@ import PhotoComponent from './PhotoComponet/PhotoComponent';
 import fetchModule from '../../utils/API/FetchModule.js';
 import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
 
+/**
+ * Create post component
+ * @return {jsx}
+ */
 function CreatePost() {
-    const initialArr = new Array(3)
-        .fill('')
-        .map((elem, i) => ({id: i, title: `Elem ${i + 1}`}));
-
-    const [interviewElems, setInterviewElems] = useState(initialArr);
+    const [interviewElems, setInterviewElems] = useState([]);
     const [interviewComp, setInterviewComp] = useState(false);
     const [interviewTitle, setInterviewTitle] = useState('');
 
@@ -24,7 +24,10 @@ function CreatePost() {
 
     const addInterviewElemHandler = (value) => {
         const elems = interviewElems.slice();
-        elems.push({id: 10 + 1, title: value});
+
+        const lastId = (elems.length) ? elems[elems.length - 1].id : 0;
+        elems.push({id: lastId + 1, title: value});
+
         setInterviewElems(elems);
     };
 
@@ -36,9 +39,9 @@ function CreatePost() {
     const delDocElemHandler = (id) => {
         const elems = docsComp.filter((elem) => elem.id !== id);
         setDocsComp(elems);
-    }
+    };
 
-    const changeComponentsView = (key) => {
+    const changeComponentsView = (key, response={}) => {
         switch (key) {
         case 'interview':
             if (!interviewComp) setInterviewComp(!interviewComp);
@@ -51,18 +54,17 @@ function CreatePost() {
         case 'docs':
             const docsElems = docsComp.slice();
 
-            const lastId = (docsElems.length) ? docsElems[docsElems.length - 1].id : 0;
+            // const lastId = (docsElems.length) ? docsElems[docsElems.length - 1].id : 0;
+            // docsElems.push({id: lastId + 1, title: `Doc ${lastId + 1}`, url: 'https://уютдома.ru.com/wp-content/uploads/2020/06/7yr5bsawwhm.jpg'});
 
-            docsElems.push({id: lastId + 1, title: `Doc ${lastId + 1}`, url: 'https://уютдома.ru.com/wp-content/uploads/2020/06/7yr5bsawwhm.jpg'});
+            docsElems.push({id: response.id, title: response.name, url: `${BACKEND_ADDRESS}/${response.url}`});
             setDocsComp(docsElems);
             break;
 
         case 'photo':
             const photoElems = photoComp.slice();
 
-            const lastPhotoId = (photoElems.length) ? photoElems[photoElems.length - 1].id : 0;
-
-            photoElems.push({id: lastPhotoId + 1, url: 'https://уютдома.ru.com/wp-content/uploads/2020/06/7yr5bsawwhm.jpg'});
+            photoElems.push({id: response.id, url: `${BACKEND_ADDRESS}/${response.url}`});
             setPhotoComp(photoElems);
             break;
 
@@ -74,28 +76,21 @@ function CreatePost() {
     const addImageToPostFetch = (event) => {
         event.preventDefault();
 
-        console.log('image!');
-        console.log(event.target.files[0]);
-
         // Будет дёргать функцию, которая меняет стайт
+        // changeComponentsView('photo');
         postPhoto(event.target.files[0]);
-        changeComponentsView('photo');
-    }
+    };
 
     const addDocToPostFetch = (event) => {
         event.preventDefault();
 
-        console.log('doc!');
-        console.log(event.target.files[0]);
-
         // Будет дёргать функцию, которая меняет стайт
+        // changeComponentsView('docs');
         postFile(event.target.files[0]);
-        changeComponentsView('docs');
-    }
+    };
 
     const delInterviewComponent = () => {
         setInterviewTitle('');
-        setInterviewElems(initialArr);
         setInterviewComp(!interviewComp);
     };
 
@@ -104,16 +99,18 @@ function CreatePost() {
         formData.append('body', JSON.stringify({name: file.name}));
         formData.append('file', file);
 
-        fetchModule.Post({
+        fetchModule.post({
             url: BACKEND_ADDRESS + '/api/upload/photo',
             body: formData,
         })
             .then((response) => {
-                console.log(response);
                 return response.json();
             })
             .then((responseBody) => {
-                console.log(responseBody);
+                if (!responseBody.id || !responseBody.url) {
+                    alert('Искать ошибку в запросе для создания фото');
+                }
+                changeComponentsView('photo', responseBody);
             });
     };
 
@@ -122,18 +119,79 @@ function CreatePost() {
         formData.append('body', JSON.stringify({name: file.name}));
         formData.append('file', file);
 
-        fetchModule.Post({
+        fetchModule.post({
             url: BACKEND_ADDRESS + '/api/upload/file',
             body: formData,
         })
             .then((response) => {
-                console.log(response);
                 return response.json();
             })
             .then((responseBody) => {
-                console.log(responseBody);
+                if (!responseBody.id || !responseBody.url) {
+                    alert('Искать ошибку в запросе для создания документа');
+                }
+                changeComponentsView('docs', responseBody);
             });
-    }
+    };
+
+    const submitInfo = () => {
+        const form = {
+            groupID: 1,
+            text: document.getElementById('createPostComponentText').value,
+            interviews: [
+                {
+                    text: interviewTitle,
+                    type: 1,
+                    answers: interviewElems.reduce((acc, elem) => {
+                        acc.push({text: elem.title});
+                        return acc;
+                    }, []),
+                },
+            ],
+            photos: photoComp.reduce((acc, elem) => {
+                acc.push(elem.id);
+                return acc;
+            }, []),
+            files: docsComp.reduce((acc, elem) => {
+                acc.push(elem.id);
+                return acc;
+            }, []),
+            payments: [
+                {
+                    cost: 300,
+                    currency: 1,
+                },
+            ],
+        };
+
+        fetchModule.post({
+            url: BACKEND_ADDRESS + '/api/posts/post',
+            body: JSON.stringify(form),
+            header: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((responseBody) => {
+                // if (!responseBody.id || !responseBody.url) {
+                //     alert('Искать ошибку в запросе для отправки поста');
+                // }
+                alert('Успешно отправлен пост!');
+                clearPostForm();
+            });
+    };
+
+    const clearPostForm = () => {
+        setInterviewElems([]);
+        setInterviewComp(false);
+        setInterviewTitle('');
+        setPaymentComp(false);
+        setDocsComp([]);
+        setPhotoComp([]);
+        document.getElementById('createPostComponentText').value = '';
+    };
 
     return (
         <div className="create-post-component">
@@ -172,31 +230,31 @@ function CreatePost() {
             </div>
             <div className="create-post-component__green-part">
                 <button
-                    id="createPostComponentGreenPartPhoto" 
-                    value="photo" 
+                    id="createPostComponentGreenPartPhoto"
+                    value="photo"
                     className="create-post-component__green-part__buttons create-post-component__green-part__buttons_photo"
                     onClick={() => document.getElementById('createPostComponentGreenPartAddPhoto').click()}/>
-                <input 
-                    id="createPostComponentGreenPartAddPhoto" 
-                    style={{display: 'none'}} 
-                    type="file" name="addPostPhoto" accept="image/png, image/jpeg, image/gif" 
+                <input
+                    id="createPostComponentGreenPartAddPhoto"
+                    style={{display: 'none'}}
+                    type="file" name="addPostPhoto" accept="image/png, image/jpeg, image/gif"
                     onChange={addImageToPostFetch}/>
 
                 <button className="create-post-component__green-part__buttons create-post-component__green-part__buttons_survey" onClick={() => changeComponentsView('interview')}/>
                 <button className="create-post-component__green-part__buttons create-post-component__green-part__buttons_payment" onClick={() => changeComponentsView('payment')}/>
 
                 <button
-                    id="createPostComponentGreenPartDocAdd" 
-                    value="doc" 
-                    onClick={() => document.getElementById('createPostComponentGreenPartDoc').click()} 
+                    id="createPostComponentGreenPartDocAdd"
+                    value="doc"
+                    onClick={() => document.getElementById('createPostComponentGreenPartDoc').click()}
                     className="create-post-component__green-part__buttons create-post-component__green-part__buttons_doc"/>
-                <input 
+                <input
                     id="createPostComponentGreenPartDoc"
                     style={{display: 'none'}}
                     type="file" name="addPostDoc" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf"
                     onChange={addDocToPostFetch}/>
 
-                <button className="create-post-component__green-part__buttons_create-post">Опубликовать</button>
+                <button className="create-post-component__green-part__buttons_create-post" onClick={() => submitInfo()}>Опубликовать</button>
             </div>
         </div>
     );

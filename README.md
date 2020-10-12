@@ -9,10 +9,16 @@ git clone https://github.com/Solar-2020/solar_frontent_2020.git
 
 cd solar_frontent_2020
 
+npm i
+
 npm run build && npm run start
 ```
 
 ## В случае проблем
+
+```
+sudo npm run build && sudo npm run start
+```
 
 ```
 npm run fix-err-start
