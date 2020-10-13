@@ -7,13 +7,46 @@
     overflow-x: auto;
 }
 
+.create-post-component__white-part__photo-container__img__close {
+    position: absolute;
+    right: 0;
+    z-index: 10;
+    opacity: 0;
+    cursor: pointer;
+    background-image: url('../../../images/close_1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 10px;
+    width: 10px;
+    margin: 10px 10px 0 0;
+}
+
 .create-post-component__white-part__photo-container__img {
-    height: 88px;
-    width: 115px;
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    border-radius: 3px;
+}
+
+.create-post-component__white-part__photo-container__img_margin:hover .create-post-component__white-part__photo-container__img {
+    opacity: 0.5;
+}
+
+.create-post-component__white-part__photo-container__img_margin:hover .create-post-component__white-part__photo-container__img__close {
+    opacity: 1;
 }
 
 .create-post-component__white-part__photo-container__img_margin {
     margin-left: 20px;
+    position: relative;
+    height: 88px;
+    width: 115px;
+    background: var(--background-light-green);
+    border-radius: 3px;
+}
+
+.create-post-component__white-part__photo-container__img_margin:hover {
+    background: black;
 }
 
 .create-post-component__white-part__photo-container__img_margin:first-child {

@@ -14,7 +14,8 @@ function InterviewElements({interviewElems, delHandler}) {
                 <div className="create-post-component__white-part__interview-container__title__input-container
                 create-post-component__white-part__interview-container__title__input-container__elements"
                 key={elem.id}
-                >{elem.title}
+                >   
+                    <div className="create-post-component__white-part__interview-container__title__input-container__elements__text">{elem.title}</div>
 
                     <button className="create-post-component__white-part__interview-container__title__input-container__button"
                         type="button" onClick={() => delHandler(elem.id)}></button>
