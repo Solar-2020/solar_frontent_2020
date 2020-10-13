@@ -87,7 +87,11 @@
 }
 
 .create-post-component__green-part__buttons_create-post {
-    background: linear-gradient(90deg, var(--main-light-green) 0%, var(--main-green-color) 100%);
+    background: linear-gradient(to left, var(--main-light-green), var(--main-green-color), var(--main-light-green));
+    background-size: 200%;
+    transition: 0.5s;
+
+
     border-radius: 3px;
     border-style: none;
     font-family: Roboto, sans-serif;
@@ -100,4 +104,8 @@
     margin-left: auto;
     outline: none;
     cursor: pointer;
+}
+
+.create-post-component__green-part__buttons_create-post:hover {
+    background-position: right;
 }
