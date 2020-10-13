@@ -57,11 +57,27 @@
     transition: background-size .3s;
 }
 
+.group-view-banner__items__links__active-link {
+    margin-left: 20px;
+    padding-bottom: 15px;
+    color: var(--main-text-color);
+    cursor: pointer;
+
+    background-image: linear-gradient(var(--main-light-green), var(--main-light-green));
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 3px;
+}
+
 .group-view-banner__items__links__normal-link:hover {
     background-size: 100% 3px;
     color: var(--main-text-color);
 }
 
 .group-view-banner__items__links__normal-link:first-child {
+    margin-left: 0px;
+}
+
+.group-view-banner__items__links__active-link:first-child {
     margin-left: 0px;
 }

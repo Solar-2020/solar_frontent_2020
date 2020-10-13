@@ -203,7 +203,7 @@ function CreatePost() {
             <div className="create-post-component__white-part">
                 <div className="create-post-component__white-part__avatar-text">
                     <div className="create-post-component__white-part__avatar-text__avatar"></div>
-                    <textarea id="createPostComponentText" className="create-post-component__white-part__avatar-text__text"></textarea>
+                    <textarea id="createPostComponentText" className="create-post-component__white-part__avatar-text__text" placeholder="Добавьте текст.."></textarea>
                 </div>
                 {interviewComp && (
                     <div className="create-post-component__white-part__interview-container">
