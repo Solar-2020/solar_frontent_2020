@@ -62,13 +62,13 @@ function CreatePost() {
             // const lastId = (docsElems.length) ? docsElems[docsElems.length - 1].id : 0;
             // docsElems.push({id: lastId + 1, title: `Doc ${lastId + 1}`, url: 'https://уютдома.ru.com/wp-content/uploads/2020/06/7yr5bsawwhm.jpg'});
 
-            docsElems.push({id: response.id, title: response.name, url: `${BACKEND_ADDRESS}/${response.url}`});
+            docsElems.push({id: response.id, title: response.name, url: `${BACKEND_ADDRESS}${response.url}`});
             setDocsComp(docsElems);
             break;
 
         case 'photo':
             const photoElems = photoComp.slice();
-            photoElems.push({id: response.id, url: `${BACKEND_ADDRESS}/${response.url}`});
+            photoElems.push({id: response.id, url: `${BACKEND_ADDRESS}${response.url}`});
             // photoElems.push({id: response.id, url: 'http://nl-mail.ru/static/dwoilp3BVjlE.jpg'});
             setPhotoComp(photoElems);
             break;

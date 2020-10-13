@@ -25,7 +25,12 @@ code {
 
 body {
   font-family: 'Roboto', sans-serif;
+  font-size: 14px;
   margin: 0;
   padding: 0;
   background-color: var(--main-background-color);
+}
+
+input, textarea, button {
+  font-size: 14px;
 }
