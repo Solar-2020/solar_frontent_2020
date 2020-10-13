@@ -172,7 +172,7 @@ function CreatePost() {
         fetchModule.post({
             url: BACKEND_ADDRESS + '/api/posts/post',
             body: JSON.stringify(form),
-            header: {
+            headers: {
                 'Content-Type': 'application/json',
             },
         })
