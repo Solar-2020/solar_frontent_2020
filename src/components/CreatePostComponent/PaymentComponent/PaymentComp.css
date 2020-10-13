@@ -27,6 +27,7 @@
 .payment-component__payment-form {
     height: 200px;
     background-color: var(--background-light-green);
+    border-radius: 3px;
 }
 
 .payment-component {

@@ -41,6 +41,11 @@ function CreatePost() {
         setDocsComp(elems);
     };
 
+    const delPhotoHandler = (id) => {
+        const elems = photoComp.filter((elem) => elem.id !== id);
+        setPhotoComp(elems);
+    };
+
     const changeComponentsView = (key, response={}) => {
         switch (key) {
         case 'interview':
@@ -63,8 +68,8 @@ function CreatePost() {
 
         case 'photo':
             const photoElems = photoComp.slice();
-
             photoElems.push({id: response.id, url: `${BACKEND_ADDRESS}/${response.url}`});
+            // photoElems.push({id: response.id, url: 'http://nl-mail.ru/static/dwoilp3BVjlE.jpg'});
             setPhotoComp(photoElems);
             break;
 
@@ -221,7 +226,7 @@ function CreatePost() {
                     <PaymentComponent delPaymentComp={() => setPaymentComp(false)}/>
                 )}
                 {photoComp.length > 0 && (
-                    <PhotoComponent photos={photoComp}/>
+                    <PhotoComponent photos={photoComp} delPhotoHandler={delPhotoHandler}/>
                 )}
                 {docsComp.length > 0 && (
                     <DocsComponent docs={docsComp} delDocHandler={delDocElemHandler}/>

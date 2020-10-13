@@ -19,7 +19,7 @@ npm run build && npm run start
 ```
 sudo npm run build && sudo npm run start
 ```
-
+Или же
 ```
 npm run fix-err-start
 ```

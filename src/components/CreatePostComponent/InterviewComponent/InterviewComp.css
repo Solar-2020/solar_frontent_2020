@@ -61,3 +61,9 @@
     outline: none;
     color: var(--main-text-color);
 }
+
+.create-post-component__white-part__interview-container__title__input-container__elements__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 5px;
+}

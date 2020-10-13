@@ -1,4 +1,5 @@
 import React from 'react';
+import './Header.css';
 
 /**
  * Header component
@@ -6,9 +7,7 @@ import React from 'react';
  */
 function Header() {
     return (
-        <div className="container">
-        Header
-        </div>
+        <div className="header-component"/>
     );
 }
 
