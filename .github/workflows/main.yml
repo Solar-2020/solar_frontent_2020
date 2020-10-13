@@ -23,8 +23,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Set backend env
+        run: (echo "${GITHUB_REF##*/}" | grep -Eq  '^(develop)|(predev)$' ) && (echo "SUBDOMAIN=${GITHUB_REF##*/}." >> $GITHUB_ENV ) || echo "Standart"
+
       - name: Build for production
-        run: CI= npm run build
+        run: REACT_APP_BACKEND=http://${SUBDOMAIN}nl-mail.ru CI= npm run build
       
       - name: Files list
         run: ls && ls build/
