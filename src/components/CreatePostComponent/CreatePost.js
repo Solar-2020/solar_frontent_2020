@@ -26,7 +26,7 @@ function CreatePost() {
 
     const changePaymentHandler = (key, value) => {
         const newPayment = Object.assign({}, paymentValue);
-        newPayment[key] = value;
+        newPayment[key] = Number(value);
         setPaymentValue(newPayment);
     };
 
