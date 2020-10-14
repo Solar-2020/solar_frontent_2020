@@ -4,6 +4,7 @@ import ShowDocsComponent from './ShowDocsComponent.css/ShowDocsComponent';
 import ShowPhotosComponent from './ShowPhotosComponent/ShowPotosComponent';
 import ShowInterviewComponent from './ShowInterviewComponent/ShowInterviewComponent';
 import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
+import ShowPaymentComponent from './ShowPaymentComponent/ShowPaymentComponent';
 
 /**
  * Show post component
@@ -27,6 +28,9 @@ function ShowPostComponent({data}) {
             )}
             {dataComp.interviews[0].answers.length > 0 && (
                 <ShowInterviewComponent interview={dataComp.interviews[0]}/>
+            )}
+            {dataComp.payments[0].cost > 0 && (
+                <ShowPaymentComponent payment={dataComp.payments[0]}/>
             )}
             {dataComp.photos.length > 0 && (
                 <ShowPhotosComponent photos={dataComp.photos} backendAddress={BACKEND_ADDRESS}/>
