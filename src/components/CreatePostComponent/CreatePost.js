@@ -181,14 +181,14 @@ function CreatePost() {
             },
         })
             .then((response) => {
-                console.log(response);
+                // console.log(response);
+                if (response.status === 200) alert('Успешно отправлен пост!');
                 return response.json();
             })
             .then((responseBody) => {
                 // if (!responseBody.id || !responseBody.url) {
                 //     alert('Искать ошибку в запросе для отправки поста');
                 // }
-                alert('Успешно отправлен пост!');
                 clearPostForm();
             });
     };
