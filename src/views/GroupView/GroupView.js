@@ -55,7 +55,9 @@ function GroupView() {
             })
             .then((responseBody) => {
                 console.log(responseBody);
-                setPostsData(responseBody);
+                if (Array.isArray(responseBody)) {
+                    setPostsData(responseBody);
+                }
             });
     };
 
