@@ -19,8 +19,16 @@ function CreatePost() {
     const [interviewTitle, setInterviewTitle] = useState('');
 
     const [paymentComp, setPaymentComp] = useState(false);
+    const [paymentValue, setPaymentValue] = useState({cost: 0, currency: 1});
+
     const [docsComp, setDocsComp] = useState([]);
     const [photoComp, setPhotoComp] = useState([]);
+
+    const changePaymentHandler = (key, value) => {
+        const newPayment = Object.assign({}, paymentValue);
+        newPayment[key] = value;
+        setPaymentValue(newPayment);
+    };
 
     const addInterviewElemHandler = (value) => {
         const elems = interviewElems.slice();
@@ -161,14 +169,10 @@ function CreatePost() {
                 acc.push(elem.id);
                 return acc;
             }, []),
-            payments: [
-                {
-                    cost: 300,
-                    currency: 1,
-                },
-            ],
+            payments: [paymentValue],
         };
 
+        console.log(form);
         fetchModule.post({
             url: BACKEND_ADDRESS + '/api/posts/post',
             body: JSON.stringify(form),
@@ -195,6 +199,7 @@ function CreatePost() {
         setPaymentComp(false);
         setDocsComp([]);
         setPhotoComp([]);
+        setPaymentValue({cost: 0, currency: 1});
         document.getElementById('createPostComponentText').value = '';
     };
 
@@ -223,7 +228,7 @@ function CreatePost() {
                     </div>
                 )}
                 {paymentComp && (
-                    <PaymentComponent delPaymentComp={() => setPaymentComp(false)}/>
+                    <PaymentComponent delPaymentComp={() => setPaymentComp(false)} changePaymentHandler={changePaymentHandler}/>
                 )}
                 {photoComp.length > 0 && (
                     <PhotoComponent photos={photoComp} delPhotoHandler={delPhotoHandler}/>
