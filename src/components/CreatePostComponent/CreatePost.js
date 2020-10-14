@@ -181,6 +181,7 @@ function CreatePost() {
             },
         })
             .then((response) => {
+                console.log(response);
                 return response.json();
             })
             .then((responseBody) => {
@@ -261,7 +262,7 @@ function CreatePost() {
                 <input
                     id="createPostComponentGreenPartDoc"
                     style={{display: 'none'}}
-                    type="file" name="addPostDoc" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf"
+                    type="file" name="addPostDoc" accept=".doc, .docx, .txt"
                     onChange={addDocToPostFetch}/>
 
                 <button className="create-post-component__green-part__buttons_create-post" onClick={() => submitInfo()}>Опубликовать</button>
