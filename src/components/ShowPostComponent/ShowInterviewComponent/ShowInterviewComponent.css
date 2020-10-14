@@ -1,0 +1,29 @@
+.show-post-component__white-part__show-interview-container {
+    margin-top: 30px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    padding: 30px 25px;
+}
+
+.show-post-component__white-part__show-interview-container__title {
+    text-align: center;
+    font-size: 16px;
+    color: var(--main-text-color);
+    margin-bottom: 30px;
+}
+
+.show-post-component__white-part__show-interview-container__answer {
+    display:flex;
+    height: 30px;
+    border: 1px solid var(--border-color);
+    color: var(--main-text-color);
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 3px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.show-post-component__white-part__show-interview-container__answer:first-child {
+    margin-top: 0px;
+}

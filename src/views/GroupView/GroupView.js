@@ -3,6 +3,9 @@ import CreatePost from '../../components/CreatePostComponent/CreatePost';
 import GroupMembersComponent from '../../components/GroupMembersComponent/GroupMembersComponent';
 import GroupSettingsComponent from '../../components/GroupSettingsComponent/GroupSettingsComponent';
 import './GroupView.css';
+import ShowPostComponent from '../../components/ShowPostComponent/ShowPostComponent';
+import {data} from './data.js';
+
 
 /**
  * Group view
@@ -60,7 +63,10 @@ function GroupView() {
             <div className="group-view-posts-container">
                 <div className="group-view-posts-container__create-post">
                     {componentActive.posts && (
-                        <CreatePost/>
+                        <div>
+                            <CreatePost/>
+                            <ShowPostComponent data={data}/>
+                        </div>
                     )}
                     {componentActive.members && (
                         <GroupMembersComponent/>

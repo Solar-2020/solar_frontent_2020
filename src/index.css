@@ -35,3 +35,7 @@ input, textarea, button {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
 }
+
+.not-a {
+  text-decoration: none;
+}

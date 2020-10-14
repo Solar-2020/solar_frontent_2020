@@ -1,0 +1,27 @@
+.show-post-component__white-part__show-photo_container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.show-post-component__white-part__show-photo-container__img_margin {
+    margin-left: 20px;
+    position: relative;
+    height: 88px;
+    width: 115px;
+    background: var(--background-light-green);
+    border-radius: 3px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+}
+
+.show-post-component__white-part__show-photo-container__img_margin:first-child {
+    margin-left: 0px;
+}
+
+.show-post-component__white-part__show-photo-container__img {
+    height: 100%;
+    width: 100%;
+    border-radius: 3px;
+}
