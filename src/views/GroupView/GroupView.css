@@ -81,3 +81,7 @@
 .group-view-banner__items__links__active-link:first-child {
     margin-left: 0px;
 }
+
+.group-view-posts-container__create-post__button-view {
+    margin-bottom: 20px;
+}

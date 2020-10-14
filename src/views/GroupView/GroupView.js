@@ -5,6 +5,8 @@ import GroupSettingsComponent from '../../components/GroupSettingsComponent/Grou
 import './GroupView.css';
 import ShowPostComponent from '../../components/ShowPostComponent/ShowPostComponent';
 import {data} from './data.js';
+import fetchModule from '../../utils/API/FetchModule.js';
+import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
 
 
 /**
@@ -12,6 +14,7 @@ import {data} from './data.js';
  * @return {jsx}
  */
 function GroupView() {
+    const [postsData, setPostsData] = useState([]);
     const [groupInfo, setGroupInfo] = useState({
         title: 'Название группы',
         count: 10,
@@ -35,6 +38,25 @@ function GroupView() {
             members: isMembers,
             settings: isSettings,
         });        
+    };
+
+    const getData = () => {
+        fetchModule.get({
+            url: BACKEND_ADDRESS + '/api/posts/posts?groupID=1&limit=10&startFro=2021-01-02',
+            body: null,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((responseBody) => {
+                console.log(responseBody);
+                setPostsData(responseBody);
+            });
     };
 
     return (
@@ -65,6 +87,12 @@ function GroupView() {
                     {componentActive.posts && (
                         <div>
                             <CreatePost/>
+                            <button 
+                                className="group-view-posts-container__create-post__button-view" 
+                                onClick={() => getData()}>Получить данные</button>
+                            {postsData.map((elem) => (
+                                <ShowPostComponent data={elem}/>
+                            ))}
                             <ShowPostComponent data={data}/>
                         </div>
                     )}

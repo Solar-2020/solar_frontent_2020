@@ -10,9 +10,9 @@ function ShowInterviewComponent({interview}) {
     return (
         <div className="show-post-component__white-part__show-interview-container">
             <div className="show-post-component__white-part__show-interview-container__title">{interview.text}</div>
-            {interview.answers.map((answer) => (
+            {/* {interview.answers.map((answer) => (
                 <div key={answer.id} className="show-post-component__white-part__show-interview-container__answer">{answer.text}</div>
-            ))}
+            ))} */}
         </div>
     );
 }

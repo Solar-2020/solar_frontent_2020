@@ -3,6 +3,7 @@ import './ShowPostComponent.css';
 import ShowDocsComponent from './ShowDocsComponent.css/ShowDocsComponent';
 import ShowPhotosComponent from './ShowPhotosComponent/ShowPotosComponent';
 import ShowInterviewComponent from './ShowInterviewComponent/ShowInterviewComponent';
+import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
 
 /**
  * Show post component
@@ -23,8 +24,8 @@ function ShowPostComponent({data}) {
             </div>
             <div className="show-post-component__white-part__post-text">{dataComp.text}</div>
             <ShowInterviewComponent interview={dataComp.interviews[0]}/>
-            <ShowPhotosComponent photos={dataComp.photos}/>
-            <ShowDocsComponent docs={dataComp.files}/>
+            <ShowPhotosComponent photos={dataComp.photos} backendAddress={BACKEND_ADDRESS}/>
+            <ShowDocsComponent docs={dataComp.files} backendAddress={BACKEND_ADDRESS}/>
         </div>
     );
 }

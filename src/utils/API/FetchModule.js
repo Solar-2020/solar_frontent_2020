@@ -17,9 +17,10 @@ class FetchModule {
         url = '/',
         body = null,
         credentials = 'include',
+        headers = {},
     } = {}
     ) {
-        return this._fetch({method: 'GET', url, body, credentials});
+        return this._fetch({method: 'GET', url, body, credentials, headers});
     }
 
     /**
