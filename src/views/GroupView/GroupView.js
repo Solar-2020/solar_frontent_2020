@@ -15,7 +15,7 @@ import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
  */
 function GroupView() {
     const [postsData, setPostsData] = useState([]);
-    const [groupInfo, setGroupInfo] = useState({
+    const [groupInfo] = useState({
         title: 'Название группы',
         count: 10,
     });
@@ -31,6 +31,12 @@ function GroupView() {
             'ов' : /[2-4]/.test(count) ?
             'а' : '';
     };
+
+    // useEffect(
+    //     () => {
+    //         console.log('hey');
+        
+    // }, []);
 
     const changeComponentActiveState = (isPosts, isMembers, isSettings) => {
         setComponentActive({

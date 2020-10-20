@@ -1,0 +1,20 @@
+.all-groups-view-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.all-groups-view-container_width {
+    width: 700px;
+}
+
+.all-groups-view-container__search-style {
+    background-color: var(--cards-background);
+    border-radius: 0 0 3px 3px;
+    padding: 35px;
+}
+
+.all-groups-view-container__search-style__title {
+    font-size: 16px;
+    font-weight: bolder;
+}

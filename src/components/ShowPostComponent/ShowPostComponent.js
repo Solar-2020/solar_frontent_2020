@@ -11,7 +11,7 @@ import ShowPaymentComponent from './ShowPaymentComponent/ShowPaymentComponent';
  * @return {jsx}
  */
 function ShowPostComponent({data}) {
-    const [dataComp, setDataComp] = useState(data);
+    const [dataComp] = useState(data);
 
     return (
         <div className="show-post-component">

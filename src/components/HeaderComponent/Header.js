@@ -7,7 +7,9 @@ import './Header.css';
  */
 function Header() {
     return (
-        <div className="header-component"/>
+        <div className="header-component">
+            <a href="/allgroups">Все группы</a>
+        </div>
     );
 }
 

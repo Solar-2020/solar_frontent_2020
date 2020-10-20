@@ -1,4 +1,7 @@
 .header-component {
     height: 30px;
     background-color: var(--main-green-color);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
