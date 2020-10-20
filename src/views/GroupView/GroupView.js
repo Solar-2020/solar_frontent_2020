@@ -48,7 +48,7 @@ function GroupView() {
 
     const getData = () => {
         fetchModule.get({
-            url: BACKEND_ADDRESS + '/api/posts/posts?groupID=1&limit=10&startFrom=2021-01-02',
+            url: BACKEND_ADDRESS + '/api/posts/posts?groupID=1&limit=10&startFrom=2020-10-14T15:43:17.541428+03:00',
             body: null,
             headers: {
                 'Content-Type': 'application/json',
