@@ -46,9 +46,11 @@ function GroupView() {
         });        
     };
 
+    // 2020-10-14T15%3A43%3A17.541428%2B03%3A00
+    // 2020-10-14T15:43:17.541428+03:00
     const getData = () => {
         fetchModule.get({
-            url: BACKEND_ADDRESS + '/api/posts/posts?groupID=1&limit=10&startFrom=2020-10-14T15:43:17.541428+03:00',
+            url: BACKEND_ADDRESS + '/api/posts/posts?groupID=1&limit=10&startFrom=2020-10-14T15%3A43%3A17.541428%2B03%3A00',
             body: null,
             headers: {
                 'Content-Type': 'application/json',

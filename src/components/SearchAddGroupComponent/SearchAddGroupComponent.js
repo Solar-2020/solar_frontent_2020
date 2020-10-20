@@ -130,6 +130,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
                         <form 
                             onSubmit={submitHandler}
                             className="search-add-group-component-container__create-group-form__card__form">
+                            <div></div>
                             <div className="search-add-group-component-container__create-group-form__card__form__text">Название</div>
                             <input 
                                 type="text" name="title" placeholder="Введите название"
