@@ -27,3 +27,26 @@
 .show-post-component__white-part__show-interview-container__answer:first-child {
     margin-top: 0px;
 }
+
+.show-post-component__white-part__show-interview-container__select-answer {
+    display:flex;
+    flex-grow: 1;
+    color: var(--main-text-color);
+    cursor: pointer;
+}
+
+.show-post-component__white-part__show-interview-container__select-answer-container:first-child {
+    margin-top: 0px;
+}
+
+.show-post-component__white-part__show-interview-container__select-answer-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 5px;
+    height: 30px;
+}
