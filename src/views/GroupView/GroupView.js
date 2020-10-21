@@ -59,7 +59,7 @@ function GroupView() {
         
         if (Math.trunc(y) === contentHeight) {
             console.log('addd');
-            fixTime(lastTime);
+            сщтыщдуюдщп(fixTime(lastTime));
             // getData(lastTime);
         }
     };
