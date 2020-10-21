@@ -16,7 +16,6 @@ import {getNowTime, fixTime} from '../../utils/time.js';
  */
 function GroupView() {
     const [postsData, setPostsData] = useState([]);
-    const [lastTime, setLastTime] = useState('');
     const [groupInfo] = useState({
         title: 'Название группы',
         count: 10,
@@ -59,8 +58,8 @@ function GroupView() {
         
         if (Math.trunc(y) === contentHeight) {
             console.log('appp');
-            console.log('lasttime' + lastTime);
-            console.log(fixTime(lastTime));
+            console.log('lasttime' + postsData[postsData.length - 1].publishDate);
+            // console.log(fixTime(lastTime));
             // getData(fixTime(lastTime));
         }
     };
@@ -96,8 +95,6 @@ function GroupView() {
                         newArr.push(elem);
                     });
                     setPostsData(newArr);
-                    console.log('response' + responseBody[9].publishDate);
-                    setLastTime(responseBody[9].publishDate);
                 }
             });
     };

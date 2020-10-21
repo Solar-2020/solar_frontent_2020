@@ -23,6 +23,8 @@ function SearchAddGroupComponent({changeAllGroups}) {
         if (checkValidationForm(event) && dataGroup.avatarURL) {
             console.log('успех');
             const data = getDataFromForm(event);
+            
+            // useState не заполняется данными
             setDataGroup(data);
 
             fetchModule.post({
@@ -66,13 +68,6 @@ function SearchAddGroupComponent({changeAllGroups}) {
             setErrorsData(newObj);
             return false;
         }
-
-        // if (!dataGroup.avatarURL) {
-        //     newObj.mainError.message = 'Выберите изображение'
-        //     newObj.mainError.isErr = true;
-        //     setDataGroup(newObj);
-        //     return false;
-        // }
 
         return true;
     }
