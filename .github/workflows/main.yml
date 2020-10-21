@@ -20,7 +20,19 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Cache npm deps
+        uses: actions/cache@v2
+        id: cache-npm
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install Dependencies
+        if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm install
 
       - name: Set backend env
