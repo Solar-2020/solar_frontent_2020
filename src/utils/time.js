@@ -9,3 +9,13 @@ export function getNowTime() {
     str = str.replaceAll('+', '%2B');
     return str;
 }
+
+/**
+ * Function for getting data
+ * @return {string}
+ */
+export function fixTime(str) {
+    str = str.replaceAll(':', '%3A');
+    str = str.replaceAll('+', '%2B');
+    return str;
+}

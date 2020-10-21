@@ -7,7 +7,7 @@ import ShowPostComponent from '../../components/ShowPostComponent/ShowPostCompon
 import {data} from './data.js';
 import fetchModule from '../../utils/API/FetchModule.js';
 import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
-import {getNowTime} from '../../utils/time.js';
+import {getNowTime, fixTime} from '../../utils/time.js';
 
 
 /**
@@ -16,6 +16,7 @@ import {getNowTime} from '../../utils/time.js';
  */
 function GroupView() {
     const [postsData, setPostsData] = useState([]);
+    const [lastTime, setLastTime] = useState('');
     const [groupInfo] = useState({
         title: 'Название группы',
         count: 10,
@@ -36,8 +37,32 @@ function GroupView() {
     useEffect(
         () => {
             getData(getNowTime());
-            // createScroll();
     }, []);
+
+    useEffect(
+        () => {
+            console.log('fff');
+            window.addEventListener('scroll', handleScroll);
+
+            return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const handleScroll = () => {        
+        let contentHeight = document.documentElement.offsetHeight;
+        let yOffset       = document.documentElement.scrollTop;
+        let window_height = window.innerHeight;
+        let y             = yOffset + window_height;
+
+        // console.log(contentHeight);
+        // console.log(yOffset);
+        // console.log(y);
+        
+        if (Math.trunc(y) === contentHeight) {
+            console.log('addd');
+            fixTime(lastTime);
+            // getData(lastTime);
+        }
+    };
 
     const changeComponentActiveState = (isPosts, isMembers, isSettings) => {
         setComponentActive({
@@ -70,38 +95,10 @@ function GroupView() {
                         newArr.push(elem);
                     });
                     setPostsData(newArr);
+                    setLastTime(responseBody[9].publishDate);
                 }
             });
     };
-
-    // const createScroll = () => {
-    //     window.addEventListener("scroll", function() {
-    //         if (!window.location.pathname.includes('/group/')) {
-    //             window.removeEventListener("scroll", function() {});
-    //             return;
-    //         }
-            
-    //         console.log('ok');
-    //         const block = document.getElementById('groupViewPostsContainer');
-           
-    //         let contentHeight = block.offsetHeight;      // 1) высота блока контента вместе с границами
-    //         let yOffset       = window.pageYOffset;      // 2) текущее положение скролбара
-    //         let window_height = window.innerHeight;      // 3) высота внутренней области окна документа
-    //         let y             = yOffset + window_height;
-
-    //         console.log(contentHeight);
-    //         console.log(y);
-           
-    //         // если пользователь достиг конца
-    //         // if (y >= contentHeight && (<any>window).lastEl != 1)
-    //         // {
-    //         //     // console.log('w: ', (<any>window).lastEl);
-    //         //     addPins(args, 20, (<any>window).lastEl);
-    //         // }
-    //         if (y >= contentHeight) {
-    //         }
-    //     });
-    // };
 
     return (
         <div className="container">
