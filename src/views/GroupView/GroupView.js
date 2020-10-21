@@ -42,7 +42,7 @@ function GroupView() {
 
     useEffect(
         () => {
-            console.log('fff');
+            // console.log('fff');
             window.addEventListener('scroll', handleScroll);
 
             return () => window.removeEventListener('scroll', handleScroll);
@@ -55,9 +55,9 @@ function GroupView() {
         let y             = yOffset + window_height;
 
         if (Math.trunc(y) === contentHeight) {
-            console.log('appp');
-            console.log(lastId);
-            getData(fixTime(lastId));
+            // console.log('appp');
+            // console.log(lastId);
+            // getData(fixTime(lastId));
         }
     };
 
