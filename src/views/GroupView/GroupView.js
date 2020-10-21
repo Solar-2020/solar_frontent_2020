@@ -33,10 +33,10 @@ function GroupView() {
             'а' : '';
     };
 
-    // useEffect(
-    //     () => {
-    //         getData(getNowTime());
-    // }, []);
+    useEffect(
+        () => {
+            getData(getNowTime());
+    }, []);
 
     const changeComponentActiveState = (isPosts, isMembers, isSettings) => {
         setComponentActive({
@@ -101,9 +101,9 @@ function GroupView() {
                     {componentActive.posts && (
                         <div>
                             <CreatePost/>
-                            <button 
+                            {/* <button 
                                 className="group-view-posts-container__create-post__button-view" 
-                                onClick={() => getData(getNowTime())}>Получить данные</button>
+                                onClick={() => getData(getNowTime())}>Получить данные</button> */}
                             {postsData.map((elem) => (
                                 <ShowPostComponent data={elem}/>
                             ))}

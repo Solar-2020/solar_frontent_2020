@@ -36,7 +36,7 @@ function ShowInterviewComponent({interview}) {
             ) : (
                 <div>
                     {interview.answers.map((answer) => (
-                        <div 
+                        <div key={answer.id}
                             className="show-post-component__white-part__show-interview-container__select-answer-container"
                             style={createStyle(60)}>
                             <div key={answer.id} 
