@@ -39,6 +39,12 @@ function SearchAddGroupComponent({changeAllGroups}) {
                 })
                 .then((responseBody) => {
                     console.log(responseBody);
+                    if (responseBody.error) {
+                        const newErrObj = Object.assign({}, errorsData);
+                        newErrObj.mainError.isErr = true;
+                        newErrObj.mainError.message = responseBody.error;
+                        setErrorsData(newErrObj);
+                    }
                     if (responseBody.creatAt) {
                         alert('Группа создана успешно!');
                         changeAllGroups(responseBody.id);
