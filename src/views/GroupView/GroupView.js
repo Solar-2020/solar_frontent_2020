@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import CreatePost from '../../components/CreatePostComponent/CreatePost';
 import GroupMembersComponent from '../../components/GroupMembersComponent/GroupMembersComponent';
 import GroupSettingsComponent from '../../components/GroupSettingsComponent/GroupSettingsComponent';
@@ -32,11 +32,10 @@ function GroupView() {
             'а' : '';
     };
 
-    // useEffect(
-    //     () => {
-    //         console.log('hey');
-        
-    // }, []);
+    useEffect(
+        () => {
+            getData();
+    }, []);
 
     const changeComponentActiveState = (isPosts, isMembers, isSettings) => {
         setComponentActive({
@@ -97,9 +96,9 @@ function GroupView() {
                     {componentActive.posts && (
                         <div>
                             <CreatePost/>
-                            <button 
+                            {/* <button 
                                 className="group-view-posts-container__create-post__button-view" 
-                                onClick={() => getData()}>Получить данные</button>
+                                onClick={() => getData()}>Получить данные</button> */}
                             {postsData.map((elem) => (
                                 <ShowPostComponent data={elem}/>
                             ))}
