@@ -57,6 +57,7 @@ function GroupView() {
         if (Math.trunc(y) === contentHeight) {
             console.log('appp');
             console.log(lastId);
+            getData(fixTime(lastId));
         }
     };
 
