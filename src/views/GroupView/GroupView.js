@@ -101,9 +101,9 @@ function GroupView() {
                     {componentActive.posts && (
                         <div>
                             <CreatePost/>
-                            {/* <button 
+                            <button 
                                 className="group-view-posts-container__create-post__button-view" 
-                                onClick={() => getData()}>Получить данные</button> */}
+                                onClick={() => getData(getNowTime())}>Получить данные</button>
                             {postsData.map((elem) => (
                                 <ShowPostComponent data={elem}/>
                             ))}
