@@ -21,6 +21,8 @@ function GroupView() {
         count: 10,
     });
 
+    let lastId = '';
+
     const [componentActive, setComponentActive] = useState({
         posts: true,
         members: false,
@@ -58,9 +60,10 @@ function GroupView() {
         
         if (Math.trunc(y) === contentHeight) {
             console.log('appp');
-            console.log(postsData);
-            console.log(postsData[postsData.length - 1]);
-            console.log('lasttime' + postsData[postsData.length - 1].publishDate);
+            console.log(lastId);
+            // console.log(postsData);
+            // console.log(postsData[postsData.length - 1]);
+            // console.log('lasttime' + postsData[postsData.length - 1].publishDate);
             // console.log(fixTime(lastTime));
             // getData(fixTime(lastTime));
         }
@@ -97,6 +100,7 @@ function GroupView() {
                         newArr.push(elem);
                     });
                     setPostsData(newArr);
+                    lastId = responseBody[9].publishDate;
                 }
             });
     };
