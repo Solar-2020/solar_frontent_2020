@@ -34,15 +34,28 @@ function SearchAddGroupComponent({changeAllGroups}) {
     };
 
     const checkValidationForm = (event) => {
+        const newObj = Object.assign({}, errorsData);
+
         if (event.target.elements['title'].value.trim() === '' ||
         event.target.elements['title'].patternMismatch) {
+            newObj.title.isErr = true;
+            setDataGroup(newObj);
             return false;
         }
 
         if (event.target.elements['url'].value.trim() === '' ||
         event.target.elements['url'].patternMismatch) {
+            newObj.url.isErr = true;
+            setDataGroup(newObj);
             return false;
         }
+
+        // if (!dataGroup.avatarURL) {
+        //     newObj.mainError.message = 'Выберите изображение'
+        //     newObj.mainError.isErr = true;
+        //     setDataGroup(newObj);
+        //     return false;
+        // }
 
         return true;
     }
@@ -57,6 +70,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
 
         const newObj = Object.assign({}, errorsData);
         newObj.mainError.isErr = false;
+        newObj.mainError.message = '';
         newObj.title.isErr = false;
         newObj.url.isErr = false;
         setErrorsData(newObj);
@@ -125,6 +139,13 @@ function SearchAddGroupComponent({changeAllGroups}) {
                 const newObj = Object.assign({}, dataGroup);
                 newObj.avatarURL = `${BACKEND_ADDRESS}${responseBody.url}`;
                 setDataGroup(newObj);
+
+                // if (errorsData.mainError.isErr) {
+                //     const newErrObj = Object.assign({}, errorsData);
+                //     newErrObj.mainError.isErr = false;
+                //     newErrObj.mainError.message = '';
+                //     setErrorsData(newErrObj);
+                // }
             });
     };
 
