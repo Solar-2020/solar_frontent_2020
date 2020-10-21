@@ -5,3 +5,9 @@
     flex-direction: row;
     align-items: center;
 }
+
+.header-component__links {
+    color: white;
+    font-weight: bolder;
+    margin-left: 20px;
+}

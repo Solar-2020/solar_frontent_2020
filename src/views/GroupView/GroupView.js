@@ -91,7 +91,7 @@ function GroupView() {
                         newArr.push(elem);
                     });
                     setPostsData(newArr);
-                    lastId = esponseBody[9].publishDate;
+                    lastId = responseBody[9].publishDate;
                 }
             });
     };

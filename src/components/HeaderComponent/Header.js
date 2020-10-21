@@ -8,7 +8,8 @@ import './Header.css';
 function Header() {
     return (
         <div className="header-component">
-            <a href="/allgroups">Все группы</a>
+            <a href="/allgroups" className="header-component__links">Все группы</a>
+            <a href="/" className="header-component__links">Главная</a>
         </div>
     );
 }
