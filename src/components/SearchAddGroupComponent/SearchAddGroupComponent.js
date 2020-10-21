@@ -10,7 +10,7 @@ import fetchModule from '../../utils/API/FetchModule.js';
  */
 function SearchAddGroupComponent({changeAllGroups}) {
     const [addGroup, setAddGroup] = useState(false);
-    const [dataGroup, setDataGroup] = useState({title: '', URL: '', description: '', avatarURL: ''});
+    const [dataGroup, setDataGroup] = useState({title: '', description: '', URL: '', avatarURL: ''});
     const [errorsData, setErrorsData] = useState({
         mainError: {isErr: false, message: ''},
         title: {isErr: false, message: 'Допустимы символы: a-z, A-Z, а-яб А-Я, _'},
@@ -43,10 +43,10 @@ function SearchAddGroupComponent({changeAllGroups}) {
 
     const getDataFromForm = (event) => {
         const newObj = {};
-        newObj.avatarURL = dataGroup.avatarURL;
         newObj.title = event.target.elements['title'].value;
-        newObj.URL = event.target.elements['url'].value;
         newObj.description = event.target.elements['description'].value;
+        newObj.URL = event.target.elements['url'].value;
+        newObj.avatarURL = dataGroup.avatarURL;
         return newObj;
     };
 
@@ -83,7 +83,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
     };
 
     const cleanForm = () => {
-        setDataGroup({title: '', URL: '', description: '', avatarURL: ''});
+        setDataGroup({title: '', description: '', URL: '', avatarURL: ''});
 
         const newObj = Object.assign({}, errorsData);
         newObj.mainError.isErr = false;
