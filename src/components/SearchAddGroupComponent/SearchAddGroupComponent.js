@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './SearchAddGroupComponent.css';
 import searchImg from '../../images/search-glass.svg';
+import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
+import fetchModule from '../../utils/API/FetchModule.js';
 
 /**
  * Header component
@@ -8,7 +10,7 @@ import searchImg from '../../images/search-glass.svg';
  */
 function SearchAddGroupComponent({changeAllGroups}) {
     const [addGroup, setAddGroup] = useState(false);
-    const [dataGroup, setDataGroup] = useState({title: '', url: '', description: ''});
+    const [dataGroup, setDataGroup] = useState({title: '', URL: '', description: '', avatarURL: ''});
     const [errorsData, setErrorsData] = useState({
         mainError: {isErr: false, message: ''},
         title: {isErr: false, message: 'Допустимы символы: a-z, A-Z, а-яб А-Я, _'},
@@ -51,7 +53,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
     };
 
     const cleanForm = () => {
-        setDataGroup({title: '', url: '', description: ''});
+        setDataGroup({title: '', URL: '', description: '', avatarURL: ''});
 
         const newObj = Object.assign({}, errorsData);
         newObj.mainError.isErr = false;
@@ -98,6 +100,34 @@ function SearchAddGroupComponent({changeAllGroups}) {
         };
     };
 
+    const addImageToPostFetch = (event) => {
+        event.preventDefault();
+        addPhoto(event.target.files[0]);
+    };
+
+    const addPhoto = (file) => {
+        const formData = new FormData();
+        formData.append('body', JSON.stringify({name: file.name}));
+        formData.append('file', file);
+
+        fetchModule.post({
+            url: BACKEND_ADDRESS + '/api/upload/photo',
+            body: formData,
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((responseBody) => {
+                if (!responseBody.id || !responseBody.url) {
+                    alert('Искать ошибку в запросе для создания фото');
+                }
+
+                const newObj = Object.assign({}, dataGroup);
+                newObj.avatarURL = `${BACKEND_ADDRESS}${responseBody.url}`;
+                setDataGroup(newObj);
+            });
+    };
+
     return (
         <div className="search-add-group-component-container">
             <form className="search-add-group-component-container__form">
@@ -130,7 +160,25 @@ function SearchAddGroupComponent({changeAllGroups}) {
                         <form 
                             onSubmit={submitHandler}
                             className="search-add-group-component-container__create-group-form__card__form">
-                            <div></div>
+                            <div className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container">
+                                {dataGroup.avatarURL !== '' ? (
+                                    <img 
+                                        className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container__avatar"
+                                        alt="" src={dataGroup.avatarURL}/>
+                                ) : (
+                                    <img alt="" className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container__avatar"/>
+                                )}
+                                <button
+                                    id="addAvatarGroup"
+                                    value="photo"
+                                    className="create-post-component__green-part__buttons create-post-component__green-part__buttons_photo"
+                                    onClick={() => document.getElementById('addAvatarGroupInput').click()}/>
+                                <input
+                                    id="addAvatarGroupInput"
+                                    style={{display: 'none'}}
+                                    type="file" name="addAvatarPhoto" accept="image/png, image/jpeg, image/gif"
+                                    onChange={addImageToPostFetch}/>
+                            </div>
                             <div className="search-add-group-component-container__create-group-form__card__form__text">Название</div>
                             <input 
                                 type="text" name="title" placeholder="Введите название"
