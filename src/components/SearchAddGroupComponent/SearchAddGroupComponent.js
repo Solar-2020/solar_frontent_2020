@@ -22,11 +22,12 @@ function SearchAddGroupComponent({changeAllGroups}) {
 
         if (checkValidationForm(event) && dataGroup.avatarURL) {
             console.log('успех');
-            getDataFromForm(event);
+            const data = getDataFromForm(event);
+            setDataGroup(data);
 
             fetchModule.post({
                 url: BACKEND_ADDRESS + '/api/group/group',
-                body: JSON.stringify(dataGroup),
+                body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -41,11 +42,12 @@ function SearchAddGroupComponent({changeAllGroups}) {
     };
 
     const getDataFromForm = (event) => {
-        const newObj = Object.assign({}, dataGroup);
-        newObj.title = event.target.elements['title'].value.trim();
-        newObj.url = event.target.elements['url'].value.trim();
-        newObj.description = event.target.elements['description'].value.trim();
-        setDataGroup(newObj);
+        const newObj = {};
+        newObj.avatarURL = dataGroup.avatarURL;
+        newObj.title = event.target.elements['title'].value;
+        newObj.URL = event.target.elements['url'].value;
+        newObj.description = event.target.elements['description'].value;
+        return newObj;
     };
 
     const checkValidationForm = (event) => {
@@ -54,14 +56,14 @@ function SearchAddGroupComponent({changeAllGroups}) {
         if (event.target.elements['title'].value.trim() === '' ||
         event.target.elements['title'].patternMismatch) {
             newObj.title.isErr = true;
-            setDataGroup(newObj);
+            setErrorsData(newObj);
             return false;
         }
 
         if (event.target.elements['url'].value.trim() === '' ||
         event.target.elements['url'].patternMismatch) {
             newObj.url.isErr = true;
-            setDataGroup(newObj);
+            setErrorsData(newObj);
             return false;
         }
 
