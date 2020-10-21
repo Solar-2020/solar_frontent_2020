@@ -11,7 +11,7 @@ function ShowPhotosComponent({photos, backendAddress}) {
         <div className="show-post-component__white-part__show-photo_container">
             {photos.map((photo) => (
                 <div key={photo.id} className="show-post-component__white-part__show-photo-container__img_margin">
-                    <a className="not-a" target="_blank" href={`${backendAddress}/${photo.url}`} download>
+                    <a className="not-a" target="_blank" href={`${backendAddress}${photo.url}`} download>
                         <img src={`${backendAddress}/${photo.url}`} alt={'фото'} className="show-post-component__white-part__show-photo-container__img"></img>
                     </a>
                 </div>
