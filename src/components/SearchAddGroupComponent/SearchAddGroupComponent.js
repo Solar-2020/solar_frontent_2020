@@ -28,7 +28,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
             setDataGroup(data);
 
             fetchModule.post({
-                url: BACKEND_ADDRESS + '/api/group/group',
+                url: BACKEND_ADDRESS + '/group/group',
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
