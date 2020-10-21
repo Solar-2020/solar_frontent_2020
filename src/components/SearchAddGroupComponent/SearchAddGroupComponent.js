@@ -20,7 +20,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
     const submitHandler = (event) => {
         event.preventDefault();
 
-        if (checkValidationForm(event)) {
+        if (checkValidationForm(event) && dataGroup.avatarURL) {
             console.log('успех');
         }
     };
