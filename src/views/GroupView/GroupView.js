@@ -21,8 +21,6 @@ function GroupView() {
         count: 10,
     });
 
-    // let lastId = '';
-
     const [componentActive, setComponentActive] = useState({
         posts: true,
         members: false,
@@ -35,39 +33,10 @@ function GroupView() {
             'а' : '';
     };
 
-    useEffect(
-        () => {
-            getData(getNowTime());
-    }, []);
-
     // useEffect(
     //     () => {
-    //         console.log('fff');
-    //         window.addEventListener('scroll', handleScroll);
-
-    //         return () => window.removeEventListener('scroll', handleScroll);
+    //         getData(getNowTime());
     // }, []);
-
-    const handleScroll = () => {        
-        let contentHeight = document.documentElement.offsetHeight;
-        let yOffset       = document.documentElement.scrollTop;
-        let window_height = window.innerHeight;
-        let y             = yOffset + window_height;
-
-        // console.log(contentHeight);
-        // console.log(yOffset);
-        // console.log(y);
-        
-        if (Math.trunc(y) === contentHeight) {
-            console.log('appp');
-            console.log(lastId);
-            // console.log(postsData);
-            // console.log(postsData[postsData.length - 1]);
-            // console.log('lasttime' + postsData[postsData.length - 1].publishDate);
-            // console.log(fixTime(lastTime));
-            // getData(fixTime(lastTime));
-        }
-    };
 
     const changeComponentActiveState = (isPosts, isMembers, isSettings) => {
         setComponentActive({
@@ -100,7 +69,6 @@ function GroupView() {
                         newArr.push(elem);
                     });
                     setPostsData(newArr);
-                    // lastId = responseBody[9].publishDate;
                 }
             });
     };
