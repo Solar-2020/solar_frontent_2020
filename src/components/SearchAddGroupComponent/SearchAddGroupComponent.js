@@ -39,6 +39,10 @@ function SearchAddGroupComponent({changeAllGroups}) {
                 })
                 .then((responseBody) => {
                     console.log(responseBody);
+                    if (responseBody.hasOwnProperty['avatarURL']) {
+                        alert('Группа создана успешно!');
+                        closeForm();
+                    }
                 });
         }
     };
