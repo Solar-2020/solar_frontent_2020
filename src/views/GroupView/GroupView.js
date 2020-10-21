@@ -58,9 +58,9 @@ function GroupView() {
         // console.log(y);
         
         if (Math.trunc(y) === contentHeight) {
-            console.log('addd');
+            console.log('appp');
             console.log(fixTime(lastTime));
-            // getData(lastTime);
+            getData(fixTime(lastTime));
         }
     };
 
