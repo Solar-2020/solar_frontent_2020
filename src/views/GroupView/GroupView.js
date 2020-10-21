@@ -58,6 +58,8 @@ function GroupView() {
         
         if (Math.trunc(y) === contentHeight) {
             console.log('appp');
+            console.log(postsData);
+            console.log(postsData[postsData.length - 1]);
             console.log('lasttime' + postsData[postsData.length - 1].publishDate);
             // console.log(fixTime(lastTime));
             // getData(fixTime(lastTime));
