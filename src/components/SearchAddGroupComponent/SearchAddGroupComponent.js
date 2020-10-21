@@ -22,15 +22,30 @@ function SearchAddGroupComponent({changeAllGroups}) {
 
         if (checkValidationForm(event) && dataGroup.avatarURL) {
             console.log('успех');
+            getDataFromForm();
+
+            fetchModule.post({
+                url: BACKEND_ADDRESS + '/api/group/group',
+                body: JSON.stringify(dataGroup),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((responseBody) => {
+                    console.log(responseBody);
+                });
         }
     };
 
     const getDataFromForm = (event) => {
-        return {
-            title: event.target.elements['title'].value.trim(),
-            url: event.target.elements['url'].value.trim(),
-            description: event.target.elements['description'].value.trim(),
-        };
+        const newObj = Object.assign({}, dataGroup);
+        newObj.title = event.target.elements['title'].value.trim();
+        newObj.url = event.target.elements['url'].value.trim();
+        newObj.description = event.target.elements['description'].value.trim();
+        setDataGroup(newObj);
     };
 
     const checkValidationForm = (event) => {
