@@ -22,7 +22,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
 
         if (checkValidationForm(event) && dataGroup.avatarURL) {
             console.log('успех');
-            getDataFromForm();
+            getDataFromForm(event);
 
             fetchModule.post({
                 url: BACKEND_ADDRESS + '/api/group/group',
