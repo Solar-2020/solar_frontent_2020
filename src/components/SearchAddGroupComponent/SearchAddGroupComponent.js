@@ -41,6 +41,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
                     console.log(responseBody);
                     if (responseBody.hasOwnProperty['avatarURL']) {
                         alert('Группа создана успешно!');
+                        changeAllGroups(responseBody.id);
                         closeForm();
                     }
                 });

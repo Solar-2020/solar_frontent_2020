@@ -6,10 +6,10 @@ import SearchAddGroupComponent from '../../components/SearchAddGroupComponent/Se
  * all groups view
  */
 function AllGroupsView() {
-    const [allGroups, setAllGroup] = useState(false);
+    const [allGroups, setAllGroup] = useState({isGroup: false, value: 0});
 
     const changeAllGroups = (value) => {
-        setAllGroup(value);
+        setAllGroup({isGroup: true, value: value});
     }
 
     return (
@@ -18,6 +18,10 @@ function AllGroupsView() {
                 <div className="all-groups-view-container__search-style">
                     <div className="all-groups-view-container__search-style__title">Мои группы</div>
                     <SearchAddGroupComponent changeAllGroups={changeAllGroups}/>
+
+                    {allGroups.isGroup && (
+                        <div className="all-groups-view-container__search-style__value">{allGroups.value}</div>
+                    )}
                 </div>
             </div>
         </div>
