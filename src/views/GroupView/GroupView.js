@@ -35,7 +35,8 @@ function GroupView() {
 
     useEffect(
         () => {
-            getData();
+            getData(getNowTime());
+            // createScroll();
     }, []);
 
     const changeComponentActiveState = (isPosts, isMembers, isSettings) => {
@@ -48,10 +49,9 @@ function GroupView() {
 
     // 2020-10-14T15%3A43%3A17.541428%2B03%3A00
     // 2020-10-14T15:43:17.541428+03:00
-    const getData = () => {
-        console.log(getNowTime());
+    const getData = (time) => {
         fetchModule.get({
-            url: BACKEND_ADDRESS + `/api/posts/posts?groupID=1&limit=10&startFrom=${getNowTime()}`,
+            url: BACKEND_ADDRESS + `/api/posts/posts?groupID=1&limit=10&startFrom=${time}`,
             body: null,
             headers: {
                 'Content-Type': 'application/json',
@@ -65,10 +65,43 @@ function GroupView() {
             .then((responseBody) => {
                 console.log(responseBody);
                 if (Array.isArray(responseBody)) {
-                    setPostsData(responseBody);
+                    let newArr = postsData.slice();
+                    responseBody.forEach((elem) => {
+                        newArr.push(elem);
+                    });
+                    setPostsData(newArr);
                 }
             });
     };
+
+    // const createScroll = () => {
+    //     window.addEventListener("scroll", function() {
+    //         if (!window.location.pathname.includes('/group/')) {
+    //             window.removeEventListener("scroll", function() {});
+    //             return;
+    //         }
+            
+    //         console.log('ok');
+    //         const block = document.getElementById('groupViewPostsContainer');
+           
+    //         let contentHeight = block.offsetHeight;      // 1) высота блока контента вместе с границами
+    //         let yOffset       = window.pageYOffset;      // 2) текущее положение скролбара
+    //         let window_height = window.innerHeight;      // 3) высота внутренней области окна документа
+    //         let y             = yOffset + window_height;
+
+    //         console.log(contentHeight);
+    //         console.log(y);
+           
+    //         // если пользователь достиг конца
+    //         // if (y >= contentHeight && (<any>window).lastEl != 1)
+    //         // {
+    //         //     // console.log('w: ', (<any>window).lastEl);
+    //         //     addPins(args, 20, (<any>window).lastEl);
+    //         // }
+    //         if (y >= contentHeight) {
+    //         }
+    //     });
+    // };
 
     return (
         <div className="container">
@@ -93,7 +126,7 @@ function GroupView() {
                 </div>
             </div>
 
-            <div className="group-view-posts-container">
+            <div id="groupViewPostsContainer" className="group-view-posts-container">
                 <div className="group-view-posts-container__create-post">
                     {componentActive.posts && (
                         <div>
