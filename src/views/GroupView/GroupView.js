@@ -59,8 +59,9 @@ function GroupView() {
         
         if (Math.trunc(y) === contentHeight) {
             console.log('appp');
+            console.log('lasttime' + lastTime);
             console.log(fixTime(lastTime));
-            getData(fixTime(lastTime));
+            // getData(fixTime(lastTime));
         }
     };
 
@@ -95,6 +96,7 @@ function GroupView() {
                         newArr.push(elem);
                     });
                     setPostsData(newArr);
+                    console.log('response' + responseBody[9].publishDate);
                     setLastTime(responseBody[9].publishDate);
                 }
             });
