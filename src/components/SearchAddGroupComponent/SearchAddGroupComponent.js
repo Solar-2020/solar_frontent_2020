@@ -39,7 +39,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
                 })
                 .then((responseBody) => {
                     console.log(responseBody);
-                    if (responseBody.hasOwnProperty['avatarURL']) {
+                    if (responseBody.creatAt) {
                         alert('Группа создана успешно!');
                         changeAllGroups(responseBody.id);
                         closeForm();
