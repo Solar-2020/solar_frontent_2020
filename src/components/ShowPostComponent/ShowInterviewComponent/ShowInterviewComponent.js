@@ -71,7 +71,7 @@ function ShowInterviewComponent({interview, postId}) {
     };
 
     const createStyle = (persents) => ({
-        'background': `linear-gradient(to right, var(--background-light-green) ${Number(persents)}%, white ${100 - Number(persents)}%)`,
+        'background': `linear-gradient(to right, var(--background-light-green) ${Number(persents)}%, white ${Number(persents)}%)`,
     });
 
     return (
@@ -112,34 +112,11 @@ function ShowInterviewComponent({interview, postId}) {
                             className="show-post-component__white-part__show-interview-container__select-answer-container"
                             style={createStyle(showAnswersRes[String(answer.id)])}>
                             <div className="show-post-component__white-part__show-interview-container__select-answer">{answer.text}</div>
-                            <div>{`${showAnswersRes[String(answer.id)]}`}</div>
+                            <div>{`${showAnswersRes[String(answer.id)]}%`}</div>
                         </div>
                     ))}
                 </div>
             )}
-            {/* {!selectedItem.size ? (
-                <div>
-                    {interview.answers.map((answer) => (
-                        <div key={answer.id}
-                            onClick={() => changeItem(answer.id)}
-                            className="show-post-component__white-part__show-interview-container__answer">{answer.text}</div>
-                    ))}
-                </div>
-            ) : (
-                <div>
-                    {interview.answers.map((answer) => (
-                        <div key={answer.id}
-                            className="show-post-component__white-part__show-interview-container__select-answer-container"
-                            style={createStyle(60)}>
-                            <div key={answer.id}
-                                onClick={() => changeItem(answer.id)}
-                                className="show-post-component__white-part__show-interview-container__select-answer"
-                            >{answer.text}</div>
-                            <div>{`60%`}</div>
-                        </div>
-                    ))}
-                </div>
-            )} */}
         </div>
     );
 }
