@@ -39,6 +39,21 @@ class FetchModule {
     }
 
     /**
+     * Fetch put methos.
+     * @param {*} - list with url, body, credentials.
+     * @return {promise}
+     */
+    put({
+        url = '/',
+        body = null,
+        credentials = 'include',
+        headers = {},
+    } = {}
+    ) {
+        return this._fetch({method: 'POST', url, body, credentials, headers});
+    }
+
+    /**
      * Method create fetch.
      * @param {*} - list with method, url, body, credentials.
      * @return {promise} - response.

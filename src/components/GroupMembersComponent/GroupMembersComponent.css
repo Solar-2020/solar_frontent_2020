@@ -27,3 +27,7 @@
     background-color: var(--cards-background);
     padding: 35px;
 }
+
+.margin-top__groups {
+    margin-top: 20px;
+}
