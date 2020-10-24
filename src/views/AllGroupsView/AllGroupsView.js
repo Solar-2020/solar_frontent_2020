@@ -4,13 +4,14 @@ import SearchAddGroupComponent from '../../components/SearchAddGroupComponent/Se
 
 /**
  * all groups view
+ * @return {jsx}
  */
 function AllGroupsView() {
     const [allGroups, setAllGroup] = useState({isGroup: false, value: 0});
 
     const changeAllGroups = (value) => {
         setAllGroup({isGroup: true, value: value});
-    }
+    };
 
     return (
         <div className="all-groups-view-container">
@@ -25,7 +26,7 @@ function AllGroupsView() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default AllGroupsView;

@@ -32,41 +32,41 @@ function GroupView() {
     const ending = (count) => {
         return (/[0, 5-9]/.test(count)) ?
             'ов' : /[2-4]/.test(count) ?
-            'а' : '';
+                'а' : '';
     };
 
     useEffect(
         () => {
             getData(getNowTime());
-    }, []);
+        }, []);
 
-    useEffect(
-        () => {
-            // console.log('fff');
-            window.addEventListener('scroll', handleScroll);
+    // useEffect(
+    //     () => {
+    //         // console.log('fff');
+    //         window.addEventListener('scroll', handleScroll);
 
-            return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    //         return () => window.removeEventListener('scroll', handleScroll);
+    // }, []);
 
-    const handleScroll = () => {        
-        let contentHeight = document.documentElement.offsetHeight;
-        let yOffset       = document.documentElement.scrollTop;
-        let window_height = window.innerHeight;
-        let y             = yOffset + window_height;
+    // const handleScroll = () => {
+    //     let contentHeight = document.documentElement.offsetHeight;
+    //     let yOffset       = document.documentElement.scrollTop;
+    //     let window_height = window.innerHeight;
+    //     let y             = yOffset + window_height;
 
-        if (Math.trunc(y) === contentHeight) {
-            // console.log('appp');
-            // console.log(lastId);
-            // getData(fixTime(lastId));
-        }
-    };
+    //     if (Math.trunc(y) === contentHeight) {
+    //         // console.log('appp');
+    //         // console.log(lastId);
+    //         // getData(fixTime(lastId));
+    //     }
+    // };
 
     const changeComponentActiveState = (isPosts, isMembers, isSettings) => {
         setComponentActive({
             posts: isPosts,
             members: isMembers,
             settings: isSettings,
-        });        
+        });
     };
 
     // 2020-10-14T15%3A43%3A17.541428%2B03%3A00
@@ -87,7 +87,7 @@ function GroupView() {
             .then((responseBody) => {
                 console.log(responseBody);
                 if (Array.isArray(responseBody)) {
-                    let newArr = postsData.slice();
+                    const newArr = postsData.slice();
                     responseBody.forEach((elem) => {
                         newArr.push(elem);
                     });
@@ -109,13 +109,13 @@ function GroupView() {
                         <div>{`${groupInfo.count} участник${ending(groupInfo.count % 10)}`}</div>
                     </div>
                     <div className="group-view-banner__items__links">
-                        <div 
+                        <div
                             className={`group-view-banner__items__links__${(componentActive.posts) ? 'active' : 'normal'}-link`}
                             onClick={() => changeComponentActiveState(true, false, false)}>Посты</div>
-                        <div 
+                        <div
                             className={`group-view-banner__items__links__${(componentActive.members) ? 'active' : 'normal'}-link`}
                             onClick={() => changeComponentActiveState(false, true, false)}>Участники</div>
-                        <div 
+                        <div
                             className={`group-view-banner__items__links__${(componentActive.settings) ? 'active' : 'normal'}-link`}
                             onClick={() => changeComponentActiveState(false, false, true)}>Настройки</div>
                     </div>
@@ -127,8 +127,8 @@ function GroupView() {
                     {componentActive.posts && (
                         <div>
                             <CreatePost/>
-                            {/* <button 
-                                className="group-view-posts-container__create-post__button-view" 
+                            {/* <button
+                                className="group-view-posts-container__create-post__button-view"
                                 onClick={() => getData(getNowTime())}>Получить данные</button> */}
                             {postsData.map((elem) => (
                                 <ShowPostComponent data={elem}/>

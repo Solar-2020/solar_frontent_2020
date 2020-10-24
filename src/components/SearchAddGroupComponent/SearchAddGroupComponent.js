@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './SearchAddGroupComponent.css';
 import searchImg from '../../images/search-glass.svg';
 import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
@@ -23,7 +23,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
         if (checkValidationForm(event) && dataGroup.avatarURL) {
             console.log('успех');
             const data = getDataFromForm(event);
-            
+
             // useState не заполняется данными
             setDataGroup(data);
 
@@ -81,7 +81,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
         }
 
         return true;
-    }
+    };
 
     const closeForm = () => {
         setAddGroup(!addGroup);
@@ -97,7 +97,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
         newObj.title.isErr = false;
         newObj.url.isErr = false;
         setErrorsData(newObj);
-    }
+    };
 
     const validationTitle = (event) => {
         if (event.target.value[0] === ' ') {
@@ -179,20 +179,20 @@ function SearchAddGroupComponent({changeAllGroups}) {
                     alt=""
                     className="search-add-group-component-container__form__glass"
                     src={searchImg}/>
-                <input 
+                <input
                     className="search-add-group-component-container__form__input"
                     placeholder="Поиск"/>
             </form>
             <button
                 onClick={() => setAddGroup(!addGroup)}
                 className="search-add-group-component-container__button"/>
-            
+
             {addGroup && (
                 <div className="search-add-group-component-container__create-group-form">
                     <div className="search-add-group-component-container__create-group-form__card">
                         <div className="search-add-group-component-container__create-group-form__card__header">
                             <div className="search-add-group-component-container__create-group-form__card__header__title">Создание группы</div>
-                            <button 
+                            <button
                                 onClick={() => closeForm()}
                                 className="search-add-group-component-container__create-group-form__card__header__close-button"/>
                         </div>
@@ -201,12 +201,12 @@ function SearchAddGroupComponent({changeAllGroups}) {
                             <div className="search-add-group-component-container__create-group-form__card__main-error">{errorsData.mainError.message}</div>
                         )}
 
-                        <form 
+                        <form
                             onSubmit={submitHandler}
                             className="search-add-group-component-container__create-group-form__card__form">
                             <div className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container">
                                 {dataGroup.avatarURL !== '' ? (
-                                    <img 
+                                    <img
                                         className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container__avatar"
                                         alt="" src={dataGroup.avatarURL}/>
                                 ) : (
@@ -224,7 +224,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
                                     onChange={addImageToPostFetch}/>
                             </div>
                             <div className="search-add-group-component-container__create-group-form__card__form__text">Название</div>
-                            <input 
+                            <input
                                 type="text" name="title" placeholder="Введите название"
                                 pattern="[а-яA-Яa-zA-Z _]+"
                                 onInput={validationTitle}
@@ -233,18 +233,18 @@ function SearchAddGroupComponent({changeAllGroups}) {
                                 <div className="search-add-group-component-container__create-group-form__card__form__input__error-text"
                                 >{errorsData.title.message}</div>
                             )}
-                            
+
                             <div className="search-add-group-component-container__create-group-form__card__form__text">Адрес</div>
-                            <input 
+                            <input
                                 type="text" name="url" placeholder="Введите url группы"
                                 pattern="[a-z]+"
                                 onInput={validationUrl}
                                 className="search-add-group-component-container__create-group-form__card__form__input"/>
                             {errorsData.url.isErr && (
                                 <div className="search-add-group-component-container__create-group-form__card__form__input__error-text">
-                                {errorsData.url.message}</div>
+                                    {errorsData.url.message}</div>
                             )}
-                            
+
                             <div className="search-add-group-component-container__create-group-form__card__form__text">Описание</div>
                             <textarea
                                 type="text" name="description" placeholder="Введите описание"
@@ -252,7 +252,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
                                 onInput={validationArea}
                                 className="search-add-group-component-container__create-group-form__card__form__textarea"/>
 
-                            <button 
+                            <button
                                 type="submit"
                                 className="search-add-group-component-container__create-group-form__card__form__button">Создать группу</button>
                         </form>

@@ -11,7 +11,8 @@ export function getNowTime() {
 }
 
 /**
- * Function for getting data
+ * Fix time function
+ * @param {string} str
  * @return {string}
  */
 export function fixTime(str) {
