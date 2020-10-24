@@ -35,10 +35,10 @@ function GroupView() {
                 'а' : '';
     };
 
-    useEffect(
-        () => {
-            getData(getNowTime());
-        }, []);
+    // useEffect(
+    //     () => {
+    //         getData(getNowTime());
+    //     }, []);
 
     // useEffect(
     //     () => {
