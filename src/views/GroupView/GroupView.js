@@ -39,7 +39,7 @@ function GroupView() {
     useEffect(
         () => {
             getData(getNowTime());
-        });
+        }, []);
 
     // useEffect(
     //     () => {
