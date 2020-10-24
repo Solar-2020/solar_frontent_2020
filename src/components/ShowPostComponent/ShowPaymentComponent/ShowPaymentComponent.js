@@ -10,7 +10,7 @@ function ShowPaymentComponent({payment}) {
     const symbol = (id) => {
         if (id === 1) return '₽';
         return '$';
-    }
+    };
 
     return (
         <div className="show-post-component__white-part__show-payment-container">

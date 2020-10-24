@@ -15,15 +15,15 @@ function PaymentComponent({delPaymentComp, changePaymentHandler}) {
             </div>
             <div className="payment-component__payment-form">
                 <input
-                    placeholder="Сумма" 
-                    className="payment-component__payment-form__summ" 
+                    placeholder="Сумма"
+                    className="payment-component__payment-form__summ"
                     type="number"
                     onChange={(e) => changePaymentHandler('cost', e.target.value)}/>
-                <select 
+                <select
                     className="payment-component__payment-form__list"
                     onChange={(e) => changePaymentHandler('currency', e.target.value)}>
                     <option value="1">Рубли</option>
-                    <option value="2">Доллары</option> 
+                    <option value="2">Доллары</option>
                 </select>
             </div>
         </div>
