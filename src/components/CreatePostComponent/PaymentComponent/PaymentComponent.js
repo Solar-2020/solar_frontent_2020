@@ -17,17 +17,17 @@ function PaymentComponent({delPaymentComp, changePaymentHandler}) {
                 className="payment-component__payment-form__summ payment-component__payment-form__summ__requisite"
                 type="text"
                 placeholder="Телефон или номер карты"
-                onChange={(e) => changePaymentHandler('requisite', e.target.value)}>
+                onChange={(e) => changePaymentHandler('requisite', String(e.target.value))}>
             </input>
             <div className="payment-component__payment-form">
                 <input
                     placeholder="Сумма"
                     className="payment-component__payment-form__summ"
                     type="number"
-                    onChange={(e) => changePaymentHandler('cost', e.target.value)}/>
+                    onChange={(e) => changePaymentHandler('cost', Number(e.target.value))}/>
                 <select
                     className="payment-component__payment-form__list"
-                    onChange={(e) => changePaymentHandler('currency', e.target.value)}>
+                    onChange={(e) => changePaymentHandler('currency', Number(e.target.value))}>
                     <option value="1">Рубли</option>
                     <option value="2">Доллары</option>
                 </select>
