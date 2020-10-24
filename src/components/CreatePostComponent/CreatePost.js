@@ -183,7 +183,7 @@ function CreatePost() {
         })
             .then((response) => {
                 // console.log(response);
-                if (response.status === 200) alert('Успешно отправлен пост!');
+                if (response.status === 200) alert('Успешно отправлен пост! Обновите страничку');
                 return response.json();
             })
             .then((responseBody) => {
