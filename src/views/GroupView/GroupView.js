@@ -15,6 +15,7 @@ import {getNowTime, fixTime} from '../../utils/time.js';
  * @return {jsx}
  */
 function GroupView() {
+    const getPosts = true;
     const [postsData, setPostsData] = useState([]);
     const [groupInfo] = useState({
         title: 'Название группы',
@@ -35,10 +36,10 @@ function GroupView() {
                 'а' : '';
     };
 
-    // useEffect(
-    //     () => {
-    //         getData(getNowTime());
-    //     }, []);
+    useEffect(
+        () => {
+            getData(getNowTime());
+        });
 
     // useEffect(
     //     () => {
