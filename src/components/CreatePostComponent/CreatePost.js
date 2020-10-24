@@ -19,7 +19,7 @@ function CreatePost() {
     const [interviewTitle, setInterviewTitle] = useState('');
 
     const [paymentComp, setPaymentComp] = useState(false);
-    const [paymentValue, setPaymentValue] = useState({cost: 0, currency: 1});
+    const [paymentValue, setPaymentValue] = useState({requisite: '', cost: 0, currency: 1});
 
     const [docsComp, setDocsComp] = useState([]);
     const [photoComp, setPhotoComp] = useState([]);
@@ -200,7 +200,7 @@ function CreatePost() {
         setPaymentComp(false);
         setDocsComp([]);
         setPhotoComp([]);
-        setPaymentValue({cost: 0, currency: 1});
+        setPaymentValue({requisite: '', cost: 0, currency: 1});
         document.getElementById('createPostComponentText').value = '';
     };
 

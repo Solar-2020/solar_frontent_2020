@@ -42,3 +42,7 @@
 .show-post-component__white-part__show-payment-container__button:hover {
     background-position: right;
 }
+
+.show-post-component__white-part__show-payment-container__reqisite {
+    margin: 20px 0 5px 0;
+}

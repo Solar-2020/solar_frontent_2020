@@ -60,3 +60,9 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+.payment-component__payment-form__summ__reqisite {
+    display: flex;
+    height: 30px;
+    margin-bottom: 10px;
+}

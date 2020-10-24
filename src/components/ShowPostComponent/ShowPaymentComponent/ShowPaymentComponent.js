@@ -15,6 +15,7 @@ function ShowPaymentComponent({payment}) {
     return (
         <div className="show-post-component__white-part__show-payment-container">
             <div className="show-post-component__white-part__show-payment-container__title">К оплате</div>
+            <div className="show-post-component__white-part__show-payment-container__reqisite">{`Перевести на: ${payment.requisite}`}</div>
             <div className="show-post-component__white-part__show-payment-container__cost">{`${payment.cost} ${symbol(payment.currency)}`}</div>
             <button className="show-post-component__white-part__show-payment-container__button">Оплатить</button>
         </div>

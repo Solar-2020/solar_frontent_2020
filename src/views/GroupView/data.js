@@ -23,6 +23,7 @@ export const data = {
     ],
     payments: [
         {
+            requisite: '89167305555',
             cost: 300,
             currency: 1,
         },
