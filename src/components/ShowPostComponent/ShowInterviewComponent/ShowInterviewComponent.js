@@ -11,6 +11,7 @@ import {BACKEND_ADDRESS} from '../../../utils/Config/Config.js';
  */
 function ShowInterviewComponent({interview, postId}) {
     const [selectedItem, setSelectedItem] = useState([]);
+    const [showAnswerOn, setShowAnswerOn] = useState(false);
     const [showAnswersRes, setShowAnswersRes] = useState({});
 
     const submitHandler = (event) => {
@@ -66,6 +67,7 @@ function ShowInterviewComponent({interview, postId}) {
         });
 
         console.log(showAnswersRes);
+        setShowAnswerOn(true);
     };
 
     const createStyle = (persents) => ({
@@ -78,30 +80,43 @@ function ShowInterviewComponent({interview, postId}) {
             {interview.text && (
                 <div className="show-post-component__white-part__show-interview-container__title">{interview.text}</div>
             )}
-            <form onSubmit={submitHandler}>
-                {interview.type === 1 ? (
-                    <div>
-                        {interview.answers.map((answer) => (
-                        <div key={answer.id} className="show-post-component__white-part__show-interview-container__answer">
-                            <input type="radio" value={answer.id} name="answer"/>
-                            <div>{answer.text} </div>
-                        </div>
-                    ))}
-                    </div>
-                ) : (
-                    <div>
-                        {interview.answers.map((answer) => (
+            {!showAnswerOn ? (
+                <form onSubmit={submitHandler}>
+                    {interview.type === 1 ? (
+                        <div>
+                            {interview.answers.map((answer) => (
                             <div key={answer.id} className="show-post-component__white-part__show-interview-container__answer">
-                                <input type="checkbox" value={answer.id} name="answer"/>
+                                <input type="radio" value={answer.id} name="answer"/>
                                 <div>{answer.text} </div>
                             </div>
                         ))}
+                        </div>
+                    ) : (
+                        <div>
+                            {interview.answers.map((answer) => (
+                                <div key={answer.id} className="show-post-component__white-part__show-interview-container__answer">
+                                    <input type="checkbox" value={answer.id} name="answer"/>
+                                    <div>{answer.text} </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                <div className="show-post-component__white-part__show-interview-container__form-button-container">
+                        <input className="show-post-component__white-part__show-interview-container__form-button-container__button" type="submit" value="Отправить ответ"/>
                     </div>
-                )}
-               <div className="show-post-component__white-part__show-interview-container__form-button-container">
-                    <input className="show-post-component__white-part__show-interview-container__form-button-container__button" type="submit" value="Отправить ответ"/>
+                </form>
+            ) : (
+                <div>
+                    {interview.answers.map((answer) => (
+                        <div key={answer.id}
+                            className="show-post-component__white-part__show-interview-container__select-answer-container"
+                            style={createStyle(showAnswersRes[String(answer.id)])}>
+                            <div className="show-post-component__white-part__show-interview-container__select-answer">{answer.text}</div>
+                            <div>{`${showAnswersRes[String(answer.id)]}`}</div>
+                        </div>
+                    ))}
                 </div>
-            </form>
+            )}
             {/* {!selectedItem.size ? (
                 <div>
                     {interview.answers.map((answer) => (
