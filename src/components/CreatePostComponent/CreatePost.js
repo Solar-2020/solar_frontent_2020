@@ -233,7 +233,7 @@ function CreatePost() {
                         create-post-component__white-part__interview-container__answers-type_margin">Количество ответов</div>
                             <select
                                 className="create-post-component__white-part__interview-container__answers-type"
-                                onChange={(e) => setInterviewType(e.target.value)}>
+                                onChange={(e) => setInterviewType(Number(e.target.value))}>
                                 <option value="1">Один вариант ответа</option>
                                 <option value="2">Много вариантов ответа</option>
                             </select>
