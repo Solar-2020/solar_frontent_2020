@@ -55,14 +55,14 @@ function ShowInterviewComponent({interview, postId}) {
     };
 
     const createAnswersObject = (answers) => {
-        const summ = 0;
+        let sum = 0;
         answers.forEach((elem) => {
             showAnswersRes[String(elem.id)] = elem.answerCount;
-            summ += elem.answerCount;
+            sum += elem.answerCount;
         });
 
         Object.keys(showAnswersRes).forEach((key) => {
-            showAnswersRes[key] = Math.trunc((showAnswersRes[key]/summ)*100);
+            showAnswersRes[key] = Math.trunc((showAnswersRes[key]/sum)*100);
         });
 
         console.log(showAnswersRes);
