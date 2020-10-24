@@ -18,15 +18,17 @@ function InterviewForm({addHandler}) {
     };
 
     return (
-        <form onSubmit={submitHandler} className="create-post-component__white-part__interview-container__title__input-container__add-answer">
-            <input
-                type="text"
-                placeholder="Введите новый вариант"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                className="create-post-component__white-part__interview-container__title__input-container__add-answer_text"
-            />
-        </form>
+        <div>
+            <form onSubmit={submitHandler} className="create-post-component__white-part__interview-container__title__input-container__add-answer">
+                <input
+                    type="text"
+                    placeholder="Введите новый вариант"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    className="create-post-component__white-part__interview-container__title__input-container__add-answer_text"
+                />
+            </form>
+        </div>
     );
 }
 

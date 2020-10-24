@@ -15,6 +15,7 @@ import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
  */
 function CreatePost() {
     const [interviewElems, setInterviewElems] = useState([]);
+    const [interviewType, setInterviewType] = useState(1);
     const [interviewComp, setInterviewComp] = useState(false);
     const [interviewTitle, setInterviewTitle] = useState('');
 
@@ -154,7 +155,7 @@ function CreatePost() {
             interviews: [
                 {
                     text: interviewTitle,
-                    type: 1,
+                    type: interviewType,
                     answers: interviewElems.reduce((acc, elem) => {
                         acc.push({text: elem.title});
                         return acc;
@@ -195,6 +196,7 @@ function CreatePost() {
 
     const clearPostForm = () => {
         setInterviewElems([]);
+        setInterviewType(1);
         setInterviewComp(false);
         setInterviewTitle('');
         setPaymentComp(false);
@@ -226,7 +228,16 @@ function CreatePost() {
                         </div>
                         <InterviewElements interviewElems={interviewElems} delHandler={delInterviewElemHandler}/>
                         <InterviewForm addHandler={addInterviewElemHandler}/>
-                    </div>
+
+                        <div className="create-post-component__white-part__interview-container__title 
+                        create-post-component__white-part__interview-container__answers-type_margin">Количество ответов</div>
+                            <select
+                                className="create-post-component__white-part__interview-container__answers-type"
+                                onChange={(e) => setInterviewType(e.target.value)}>
+                                <option value="1">Один вариант ответа</option>
+                                <option value="2">Много вариантов ответа</option>
+                            </select>
+                        </div>
                 )}
                 {paymentComp && (
                     <PaymentComponent delPaymentComp={() => setPaymentComp(false)} changePaymentHandler={changePaymentHandler}/>
