@@ -36,7 +36,7 @@ function ShowInterviewComponent({interview, postId}) {
         };
 
         fetchModule.post({
-            url: BACKEND_ADDRESS + '/interview/interview',
+            url: BACKEND_ADDRESS + '/interview',
             body: JSON.stringify(form),
             headers: {
                 'Content-Type': 'application/json',
