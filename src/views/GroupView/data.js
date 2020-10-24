@@ -7,9 +7,10 @@ export const data = {
         {
             text: 'Новый опросник',
             type: 1,
+            status: 0,
             answers: [
-                {id: 1, text: 'Сделать'},
-                {id: 2, text: 'Не сделать'},
+                {id: 231, text: "Красный", interviewID: 186, answerCount: 14, isMyAnswer: true},
+                {id: 232, text: "Оранжевый", interviewID: 186, answerCount: 5, isMyAnswer: true},
             ],
         },
     ],

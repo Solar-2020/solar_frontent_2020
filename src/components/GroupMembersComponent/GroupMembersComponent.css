@@ -1,0 +1,29 @@
+.group-view-container__group-memebers-conteiner__add-button {
+    height: 30px;
+    border: 1px solid var(--border-color);
+    color: var(--main-text-color);
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 3px;
+    margin-top: 20px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.group-view-container__group-memebers-conteiner__add-button:focus {
+    outline: none;
+}
+
+.group-view-container__group-memebers-conteiner__add-button:hover {
+    border: 2px solid var(--main-light-green);
+}
+
+.group-view-container__group-memebers-conteiner {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    background-color: var(--cards-background);
+    padding: 35px;
+}

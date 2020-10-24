@@ -11,7 +11,6 @@ import {BACKEND_ADDRESS} from '../../../utils/Config/Config.js';
  */
 function ShowInterviewComponent({interview, postId}) {
     const [selectedItem, setSelectedItem] = useState([]);
-    const [showAnswerOn, setShowAnswerOn] = useState(false);
     const [showAnswersRes, setShowAnswersRes] = useState({});
 
     const submitHandler = (event) => {
@@ -67,7 +66,7 @@ function ShowInterviewComponent({interview, postId}) {
         });
 
         console.log(showAnswersRes);
-        setShowAnswerOn(true);
+        return true;
     };
 
     const createStyle = (persents) => ({
@@ -80,7 +79,7 @@ function ShowInterviewComponent({interview, postId}) {
             {interview.text && (
                 <div className="show-post-component__white-part__show-interview-container__title">{interview.text}</div>
             )}
-            {!showAnswerOn ? (
+            {interview.status === 0 ? (
                 <form onSubmit={submitHandler}>
                     {interview.type === 1 ? (
                         <div>
@@ -107,14 +106,18 @@ function ShowInterviewComponent({interview, postId}) {
                 </form>
             ) : (
                 <div>
-                    {interview.answers.map((answer) => (
-                        <div key={answer.id}
-                            className="show-post-component__white-part__show-interview-container__select-answer-container"
-                            style={createStyle(showAnswersRes[String(answer.id)])}>
-                            <div className="show-post-component__white-part__show-interview-container__select-answer">{answer.text}</div>
-                            <div>{`${showAnswersRes[String(answer.id)]}%`}</div>
+                    {createAnswersObject(interview.answers) && (
+                        <div>
+                            {interview.answers.map((answer) => (
+                                <div key={answer.id}
+                                    className="show-post-component__white-part__show-interview-container__select-answer-container"
+                                    style={createStyle(showAnswersRes[String(answer.id)])}>
+                                    <div className="show-post-component__white-part__show-interview-container__select-answer">{answer.text}</div>
+                                    <div>{`${showAnswersRes[String(answer.id)]}%`}</div>
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    )}
                 </div>
             )}
         </div>

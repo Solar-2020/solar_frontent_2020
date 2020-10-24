@@ -7,7 +7,10 @@ import './GroupMembersComponent.css';
  */
 function GroupMembersComponent() {
     return (
-        <div className="group-members-component">Здесь будут участники!</div>
+        <div className="group-view-container__group-memebers-conteiner">
+            <div className="group-members-component">Здесь будут участники!</div>
+            <button className="group-view-container__group-memebers-conteiner__add-button">Добавить участника</button>
+        </div>
     );
 }
 
