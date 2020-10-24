@@ -11,6 +11,7 @@ import {BACKEND_ADDRESS} from '../../../utils/Config/Config.js';
  */
 function ShowInterviewComponent({interview, postId}) {
     const [selectedItem, setSelectedItem] = useState([]);
+    const [showAnswersRes, setShowAnswersRes] = useState({});
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -36,7 +37,7 @@ function ShowInterviewComponent({interview, postId}) {
         };
 
         fetchModule.post({
-            url: BACKEND_ADDRESS + `/interview/${interviewId}`,
+            url: BACKEND_ADDRESS + `/interview/result/${interviewId}`,
             body: JSON.stringify(form),
             headers: {
                 'Content-Type': 'application/json',
@@ -47,8 +48,25 @@ function ShowInterviewComponent({interview, postId}) {
             })
             .then((responseBody) => {
                console.log(responseBody);
+               if (responseBody.answers) {
+                    createAnswersObject(responseBody);
+               }
             });
-    }
+    };
+
+    const createAnswersObject = (answers) => {
+        const summ = 0;
+        answers.forEach((elem) => {
+            showAnswersRes[String(elem.id)] = elem.answerCount;
+            summ += elem.answerCount;
+        });
+
+        Object.keys(showAnswersRes).forEach((key) => {
+            showAnswersRes[key] = Math.trunc((showAnswersRes[key]/summ)*100);
+        });
+
+        console.log(showAnswersRes);
+    };
 
     const createStyle = (persents) => ({
         'background': `linear-gradient(to right, var(--background-light-green) ${Number(persents)}%, white ${100 - Number(persents)}%)`,
