@@ -61,7 +61,7 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-.payment-component__payment-form__summ__reqisite {
+.payment-component__payment-form__summ__requisite {
     display: flex;
     height: 30px;
     margin-bottom: 10px;

@@ -14,7 +14,7 @@ function PaymentComponent({delPaymentComp, changePaymentHandler}) {
                 <button className="payment-component__title-close__close-btn" onClick={delPaymentComp}/>
             </div>
             <input
-                className="payment-component__payment-form__summ payment-component__payment-form__summ__reqisite"
+                className="payment-component__payment-form__summ payment-component__payment-form__summ__requisite"
                 type="text"
                 placeholder="Телефон или номер карты"
                 onChange={(e) => changePaymentHandler('requisite', e.target.value)}>
