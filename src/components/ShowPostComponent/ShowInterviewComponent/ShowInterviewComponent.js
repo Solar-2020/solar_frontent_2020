@@ -49,7 +49,7 @@ function ShowInterviewComponent({interview, postId}) {
             .then((responseBody) => {
                console.log(responseBody);
                if (responseBody.answers) {
-                    createAnswersObject(responseBody);
+                    createAnswersObject(responseBody.answers);
                }
             });
     };
