@@ -25,18 +25,18 @@ function ShowInterviewComponent({interview, postId}) {
         }
 
         if (selectedItem.length) {
-            sendAnswers(postId, selectedItem);
+            sendAnswers(postId, selectedItem, interview.id);
         }
     };
 
-    const sendAnswers = (idPost, answersArr) => {
+    const sendAnswers = (idPost, answersArr, interviewId) => {
         const form = {
             postID: idPost,
             answers: answersArr,
         };
 
         fetchModule.post({
-            url: BACKEND_ADDRESS + '/interview',
+            url: BACKEND_ADDRESS + `/interview/${interviewId}`,
             body: JSON.stringify(form),
             headers: {
                 'Content-Type': 'application/json',
