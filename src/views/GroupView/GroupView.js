@@ -132,7 +132,9 @@ function GroupView() {
                                 className="group-view-posts-container__create-post__button-view"
                                 onClick={() => getData(getNowTime())}>Получить данные</button> */}
                             {postsData.map((elem) => (
-                                <ShowPostComponent data={elem}/>
+                                <div key={elem.id}>
+                                    <ShowPostComponent data={elem}/>
+                                </div>
                             ))}
                             <ShowPostComponent data={data}/>
                         </div>
