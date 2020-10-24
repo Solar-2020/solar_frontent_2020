@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
 import './ShowInterviewComponent.css';
 
+import fetchModule from '../../../utils/API/FetchModule.js';
+import {BACKEND_ADDRESS} from '../../../utils/Config/Config.js';
+
 /**
  * Component with interview
  * @param {object} param0 - answers
  * @return {jsx}
  */
-function ShowInterviewComponent({interview}) {
+function ShowInterviewComponent({interview, postId}) {
     const [selectedItem, setSelectedItem] = useState([]);
-    const [oneType, setOneType] = useState(false);
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -21,7 +23,32 @@ function ShowInterviewComponent({interview}) {
                 selectedItem.push(Number(formElems[i].value));
             }
         }
+
+        if (selectedItem.length) {
+            sendAnswers(postId, selectedItem);
+        }
     };
+
+    const sendAnswers = (idPost, answersArr) => {
+        const form = {
+            postID: idPost,
+            answers: answersArr,
+        };
+
+        fetchModule.post({
+            url: BACKEND_ADDRESS + '/interview/interview',
+            body: JSON.stringify(form),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((responseBody) => {
+               console.log(responseBody);
+            });
+    }
 
     const createStyle = (persents) => ({
         'background': `linear-gradient(to right, var(--background-light-green) ${Number(persents)}%, white ${100 - Number(persents)}%)`,
@@ -34,7 +61,7 @@ function ShowInterviewComponent({interview}) {
                 <div className="show-post-component__white-part__show-interview-container__title">{interview.text}</div>
             )}
             <form onSubmit={submitHandler}>
-                {oneType ? (
+                {interview.type === 1 ? (
                     <div>
                         {interview.answers.map((answer) => (
                         <div key={answer.id} className="show-post-component__white-part__show-interview-container__answer">

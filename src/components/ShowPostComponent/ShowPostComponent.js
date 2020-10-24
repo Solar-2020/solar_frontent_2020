@@ -27,7 +27,7 @@ function ShowPostComponent({data}) {
                 <div className="show-post-component__white-part__post-text">{dataComp.text}</div>
             )}
             {dataComp.interviews.length > 0 && dataComp.interviews[0].answers.length > 0 && (
-                <ShowInterviewComponent interview={dataComp.interviews[0]}/>
+                <ShowInterviewComponent interview={dataComp.interviews[0]} postId={dataComp.id}/>
             )}
             {dataComp.payments[0].cost > 0 && (
                 <ShowPaymentComponent payment={dataComp.payments[0]}/>
