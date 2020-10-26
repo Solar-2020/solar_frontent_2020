@@ -65,6 +65,7 @@
     padding: 30px;
     border-radius: 10px;
     width: 30%;
+    min-width: 250px;
 }
 
 .search-add-group-component-container__create-group-form__card__form {
