@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useReducer} from 'react';
 import './SearchAddGroupComponent.css';
 import searchImg from '../../images/search-glass.svg';
 import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
@@ -9,23 +9,77 @@ import fetchModule from '../../utils/API/FetchModule.js';
  * @return {jsx}
  */
 function SearchAddGroupComponent({changeAllGroups}) {
-    const [addGroup, setAddGroup] = useState(false);
-    const [dataGroup, setDataGroup] = useState({title: '', description: '', URL: '', avatarURL: ''});
-    const [errorsData, setErrorsData] = useState({
-        mainError: {isErr: false, message: ''},
-        title: {isErr: false, message: 'Допустимы символы: a-z, A-Z, а-яб А-Я, _'},
-        url: {isErr: false, message: 'Допустимы символы: a-z'},
-    });
+    const initialState = {
+        isOpenAddGroupModal: false,
+        title: '',
+        description: '',
+        URL: '',
+        avatarURL: '',
+        mainError: '',
+        titleError: false,
+        urlError: false,
+    };
+    
+    const errorMap = {
+        titleError: 'Допустимы символы: a-z, A-Z, а-яб А-Я, _',
+        urlError: 'Допустимы символы: a-z'
+    };
 
-    const submitHandler = (event) => {
+    function changeField(field, value) {
+        dispatch({type: 'CHANGE_FIELD', field, value})
+    };
+
+    function setMainError(message) {
+        dispatch({type: 'SET_MAIN_ERROR', message})
+    };
+
+    function toggleAddGroupModal() {
+        dispatch({type: 'TOGGLE_ADD_GROUP_MODAL'})
+    };
+
+    const [state, dispatch] = useReducer(
+        (state, action) => {
+            switch (action.type) {
+                case 'TOGGLE_ADD_GROUP_MODAL':
+                    return { ...state, isOpenAddGroupModal: !state.isOpenAddGroupModal }
+                case 'CHANGE_FIELD':
+                    return { ...state, [action.field]: action.value }
+                case 'SET_MAIN_ERROR':
+                    return { ...state, mainError: action.message }
+                case 'CLEAN_FORM':
+                    return { ...initialState }
+                default:
+                    return state
+            }
+        },
+        initialState
+    );
+
+    const {
+        isOpenAddGroupModal,
+        title,
+        description,
+        URL,
+        avatarURL,
+        mainError,
+        titleError,
+        urlError,
+    } = state;
+
+    function submitHandler(event) {
         event.preventDefault();
 
-        if (checkValidationForm(event) && dataGroup.avatarURL) {
-            console.log('успех');
-            const data = getDataFromForm(event);
+        console.log(state);
 
-            // useState не заполняется данными
-            setDataGroup(data);
+        if (checkValidationForm()) {
+            console.log('успех');
+
+            const data = {
+                title,
+                description,
+                URL,
+                avatarURL,
+            }
 
             fetchModule.post({
                 url: BACKEND_ADDRESS + '/group/group',
@@ -39,11 +93,9 @@ function SearchAddGroupComponent({changeAllGroups}) {
                 })
                 .then((responseBody) => {
                     console.log(responseBody);
+
                     if (responseBody.error) {
-                        const newErrObj = Object.assign({}, errorsData);
-                        newErrObj.mainError.isErr = true;
-                        newErrObj.mainError.message = responseBody.error;
-                        setErrorsData(newErrObj);
+                        setMainError(responseBody.error);
                     }
                     if (responseBody.creatAt) {
                         alert('Группа создана успешно!');
@@ -54,87 +106,27 @@ function SearchAddGroupComponent({changeAllGroups}) {
         }
     };
 
-    const getDataFromForm = (event) => {
-        const newObj = {};
-        newObj.title = event.target.elements['title'].value;
-        newObj.description = event.target.elements['description'].value;
-        newObj.URL = event.target.elements['url'].value;
-        newObj.avatarURL = dataGroup.avatarURL;
-        return newObj;
-    };
-
-    const checkValidationForm = (event) => {
-        const newObj = Object.assign({}, errorsData);
-
-        if (event.target.elements['title'].value.trim() === '' ||
-        event.target.elements['title'].patternMismatch) {
-            newObj.title.isErr = true;
-            setErrorsData(newObj);
+    function checkValidationForm() {
+        if (!/^[а-яA-Яa-zA-Z]+[а-яA-Яa-zA-Z _]+[а-яA-Яa-zA-Z]+$/.test(title.trim())) {
+            changeField('titleError', true);
             return false;
+        } else {
+            changeField('titleError', false);
         }
 
-        if (event.target.elements['url'].value.trim() === '' ||
-        event.target.elements['url'].patternMismatch) {
-            newObj.url.isErr = true;
-            setErrorsData(newObj);
+        if (!/^[a-z]{3,}$/.test(URL.trim())) {
+            changeField('urlError', true);
             return false;
+        } else {
+            changeField('urlError', false);
         }
 
         return true;
     };
 
     const closeForm = () => {
-        setAddGroup(!addGroup);
-        cleanForm();
-    };
-
-    const cleanForm = () => {
-        setDataGroup({title: '', description: '', URL: '', avatarURL: ''});
-
-        const newObj = Object.assign({}, errorsData);
-        newObj.mainError.isErr = false;
-        newObj.mainError.message = '';
-        newObj.title.isErr = false;
-        newObj.url.isErr = false;
-        setErrorsData(newObj);
-    };
-
-    const validationTitle = (event) => {
-        if (event.target.value[0] === ' ') {
-            event.target.value = event.target.value.slice(1);
-        };
-
-        const newObj = Object.assign({}, errorsData);
-
-        if (event.target.validity.patternMismatch) {
-            newObj.title.isErr = true;
-        } else {
-            newObj.title.isErr = false;
-        };
-
-        setErrorsData(newObj);
-    };
-
-    const validationUrl = (event) => {
-        if (event.target.value[0] === ' ') {
-            event.target.value = event.target.value.slice(1);
-        };
-
-        const newObj = Object.assign({}, errorsData);
-
-        if (event.target.validity.patternMismatch) {
-            newObj.url.isErr = true;
-        } else {
-            newObj.url.isErr = false;
-        };
-
-        setErrorsData(newObj);
-    };
-
-    const validationArea = (event) => {
-        if (event.target.value[0] === ' ') {
-            event.target.value = event.target.value.slice(1);
-        };
+        dispatch({type: 'TOGGLE_ADD_GROUP_MODAL'});
+        dispatch({type: 'CLEAN_FORM'});
     };
 
     const addImageToPostFetch = (event) => {
@@ -159,17 +151,14 @@ function SearchAddGroupComponent({changeAllGroups}) {
                     alert('Искать ошибку в запросе для создания фото');
                 }
 
-                const newObj = Object.assign({}, dataGroup);
-                newObj.avatarURL = `${BACKEND_ADDRESS}${responseBody.url}`;
-                setDataGroup(newObj);
-
-                // if (errorsData.mainError.isErr) {
-                //     const newErrObj = Object.assign({}, errorsData);
-                //     newErrObj.mainError.isErr = false;
-                //     newErrObj.mainError.message = '';
-                //     setErrorsData(newErrObj);
-                // }
+                changeField('avatarURL', `${BACKEND_ADDRESS}${responseBody.url}`);
             });
+    };
+
+    function validationArea(event) {
+        if (event.target.value[0] === ' ') {
+            event.target.value = event.target.value.slice(1);
+        };
     };
 
     return (
@@ -184,10 +173,10 @@ function SearchAddGroupComponent({changeAllGroups}) {
                     placeholder="Поиск"/>
             </form>
             <button
-                onClick={() => setAddGroup(!addGroup)}
+                onClick={() => toggleAddGroupModal()}
                 className="search-add-group-component-container__button"/>
 
-            {addGroup && (
+            {isOpenAddGroupModal && (
                 <div className="search-add-group-component-container__create-group-form">
                     <div className="search-add-group-component-container__create-group-form__card">
                         <div className="search-add-group-component-container__create-group-form__card__header">
@@ -197,18 +186,18 @@ function SearchAddGroupComponent({changeAllGroups}) {
                                 className="search-add-group-component-container__create-group-form__card__header__close-button"/>
                         </div>
 
-                        {errorsData.mainError.isErr && (
-                            <div className="search-add-group-component-container__create-group-form__card__main-error">{errorsData.mainError.message}</div>
+                        {mainError && (
+                            <div className="search-add-group-component-container__create-group-form__card__main-error">{mainError}</div>
                         )}
 
                         <form
                             onSubmit={submitHandler}
                             className="search-add-group-component-container__create-group-form__card__form">
                             <div className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container">
-                                {dataGroup.avatarURL !== '' ? (
+                                {avatarURL !== '' ? (
                                     <img
                                         className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container__avatar"
-                                        alt="" src={dataGroup.avatarURL}/>
+                                        alt="" src={avatarURL}/>
                                 ) : (
                                     <img alt="" className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container__avatar"/>
                                 )}
@@ -226,23 +215,23 @@ function SearchAddGroupComponent({changeAllGroups}) {
                             <div className="search-add-group-component-container__create-group-form__card__form__text">Название</div>
                             <input
                                 type="text" name="title" placeholder="Введите название"
-                                pattern="[а-яA-Яa-zA-Z _]+"
-                                onInput={validationTitle}
+                                pattern="[а-яA-Яa-zA-Z]+[а-яA-Яa-zA-Z _]+[а-яA-Яa-zA-Z]+"
+                                onChange={event => changeField('title', event.target.value)}
                                 className="search-add-group-component-container__create-group-form__card__form__input"/>
-                            {errorsData.title.isErr && (
+                            {titleError && (
                                 <div className="search-add-group-component-container__create-group-form__card__form__input__error-text"
-                                >{errorsData.title.message}</div>
+                                >{errorMap['titleError']}</div>
                             )}
 
                             <div className="search-add-group-component-container__create-group-form__card__form__text">Адрес</div>
                             <input
                                 type="text" name="url" placeholder="Введите url группы"
-                                pattern="[a-z]+"
-                                onInput={validationUrl}
+                                pattern="[a-z]{3,}"
+                                onInput={event => changeField('URL', event.target.value)}
                                 className="search-add-group-component-container__create-group-form__card__form__input"/>
-                            {errorsData.url.isErr && (
+                            {urlError && (
                                 <div className="search-add-group-component-container__create-group-form__card__form__input__error-text">
-                                    {errorsData.url.message}</div>
+                                    {errorMap['urlError']}</div>
                             )}
 
                             <div className="search-add-group-component-container__create-group-form__card__form__text">Описание</div>
@@ -250,6 +239,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
                                 type="text" name="description" placeholder="Введите описание"
                                 pattern=".+"
                                 onInput={validationArea}
+                                onChange={event => changeField('description', event.target.value)}
                                 className="search-add-group-component-container__create-group-form__card__form__textarea"/>
 
                             <button
