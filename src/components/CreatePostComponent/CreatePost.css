@@ -127,3 +127,9 @@
 .create-post-component__white-part__interview-container__answers-type_margin {
     margin-top: 20px;
 }
+
+.create-post-component__white-part__interview-container__error {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 5px;
+}

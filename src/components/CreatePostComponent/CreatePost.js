@@ -14,6 +14,8 @@ import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
  * @return {jsx}
  */
 function CreatePost() {
+    const [interviewError, setInterviewError] = useState(false);
+
     const [interviewElems, setInterviewElems] = useState([]);
     const [interviewType, setInterviewType] = useState(1);
     const [interviewComp, setInterviewComp] = useState(false);
@@ -148,6 +150,16 @@ function CreatePost() {
             });
     };
 
+    const checkInterview = () => {
+        if (!interviewTitle.trim() || interviewElems.filter(elem => elem.title.trim()).length < 2) {
+            setInterviewError(true);
+            return false;
+        };
+
+        setInterviewError(false);
+        return true;
+    };
+
     const submitInfo = () => {
         const form = {
             groupID: 1,
@@ -174,27 +186,31 @@ function CreatePost() {
         };
 
         console.log(form);
-        fetchModule.post({
-            url: BACKEND_ADDRESS + '/api/posts/post',
-            body: JSON.stringify(form),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((response) => {
-                // console.log(response);
-                if (response.status === 200) alert('Успешно отправлен пост! Обновите страничку');
-                return response.json();
+
+        if (checkInterview()) {
+            fetchModule.post({
+                url: BACKEND_ADDRESS + '/api/posts/post',
+                body: JSON.stringify(form),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             })
-            .then((responseBody) => {
-                // if (!responseBody.id || !responseBody.url) {
-                //     alert('Искать ошибку в запросе для отправки поста');
-                // }
-                clearPostForm();
-            });
+                .then((response) => {
+                    // console.log(response);
+                    if (response.status === 200) alert('Успешно отправлен пост! Обновите страничку');
+                    return response.json();
+                })
+                .then((responseBody) => {
+                    // if (!responseBody.id || !responseBody.url) {
+                    //     alert('Искать ошибку в запросе для отправки поста');
+                    // }
+                    clearPostForm();
+                });
+        };
     };
 
     const clearPostForm = () => {
+        setInterviewError(false);
         setInterviewElems([]);
         setInterviewType(1);
         setInterviewComp(false);
@@ -215,6 +231,9 @@ function CreatePost() {
                 </div>
                 {interviewComp && (
                     <div className="create-post-component__white-part__interview-container">
+                        {interviewError && (
+                            <div className="create-post-component__white-part__interview-container__error">Тема должна быть заполнена. В опросе следует иметь больше одного ответа</div>
+                        )}
                         <div className="create-post-component__white-part__interview-container__title">Тема опроса</div>
                         <div className="create-post-component__white-part__interview-container__title__input-container">
                             <input
