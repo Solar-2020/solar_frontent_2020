@@ -183,4 +183,17 @@
     flex-grow: 1;
     margin-right: 10px;
     object-fit: cover;
+    border-radius: 5px;
+}
+
+.search-add-group-component-container__create-group-form__card__form__avatar-photo-container__button {
+    background-size: contain;
+    height: 37px;
+    width: 37px;
+    border: none;
+    outline: none;
+    background-color: var(--cards-background);
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-image: url('../../images/photo-camera.png');
 }

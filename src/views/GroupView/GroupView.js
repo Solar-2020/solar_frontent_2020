@@ -61,20 +61,22 @@ function GroupView() {
             <div className="group-view-banner">
                 <div className="group-view-banner__items">
                     <div className="group-view-banner__items__image"></div>
-                    <div className="group-view-banner__items__info">
-                        <div className="group-view-banner__items__info__title">{groupInfo.title}</div>
-                        <div>{`${groupInfo.count} участник${ending(groupInfo.count % 10)}`}</div>
-                    </div>
-                    <div className="group-view-banner__items__links">
-                        <div
-                            className={`group-view-banner__items__links__${(componentActive.posts) ? 'active' : 'normal'}-link`}
-                            onClick={() => changeComponentActiveState(true, false, false)}>Посты</div>
-                        <div
-                            className={`group-view-banner__items__links__${(componentActive.members) ? 'active' : 'normal'}-link`}
-                            onClick={() => changeComponentActiveState(false, true, false)}>Участники</div>
-                        <div
-                            className={`group-view-banner__items__links__${(componentActive.settings) ? 'active' : 'normal'}-link`}
-                            onClick={() => changeComponentActiveState(false, false, true)}>Настройки</div>
+                    <div className="group-view-banner__items__info-container">
+                        <div className="group-view-banner__items__info">
+                            <div className="group-view-banner__items__info__title">{groupInfo.title}</div>
+                            <div>{`${groupInfo.count} участник${ending(groupInfo.count % 10)}`}</div>
+                        </div>
+                        <div className="group-view-banner__items__links">
+                            <div
+                                className={`group-view-banner__items__links__${(componentActive.posts) ? 'active' : 'normal'}-link`}
+                                onClick={() => changeComponentActiveState(true, false, false)}>Посты</div>
+                            <div
+                                className={`group-view-banner__items__links__${(componentActive.members) ? 'active' : 'normal'}-link`}
+                                onClick={() => changeComponentActiveState(false, true, false)}>Участники</div>
+                            <div
+                                className={`group-view-banner__items__links__${(componentActive.settings) ? 'active' : 'normal'}-link`}
+                                onClick={() => changeComponentActiveState(false, false, true)}>Настройки</div>
+                        </div>
                     </div>
                 </div>
             </div>

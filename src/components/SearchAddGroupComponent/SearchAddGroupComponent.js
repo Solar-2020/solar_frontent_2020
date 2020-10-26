@@ -204,7 +204,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
                                 <button
                                     id="addAvatarGroup"
                                     value="photo"
-                                    className="create-post-component__green-part__buttons create-post-component__green-part__buttons_photo"
+                                    className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container__button"
                                     onClick={() => document.getElementById('addAvatarGroupInput').click()}/>
                                 <input
                                     id="addAvatarGroupInput"

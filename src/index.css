@@ -21,6 +21,9 @@ code {
   --main-background-color: #F2F2F2;
   --background-light-green: #CDF4CA;
   --cards-background: #FFFFFF;
+
+  --width-app: 900px;
+  --cards-radius: 10px;
 }
 
 body {

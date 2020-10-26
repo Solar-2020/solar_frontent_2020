@@ -1,14 +1,16 @@
 .group-view-banner {
     display: flex;
-    background: var(--cards-background);
     justify-content: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.10);
 }
 
 .group-view-banner__items {
     display: flex;
     flex-direction: column;
-    width: 700px;
+    width: var(--width-app);
+    margin-top: 20px;
+    background: var(--cards-background);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    border-radius: var(--cards-radius);
 }
 
 .group-view-banner__items__image {
@@ -31,7 +33,7 @@
 }
 
 .group-view-posts-container__create-post {
-    width: 700px;
+    width: var(--width-app);
 }
 
 .group-view-banner__items__info {
@@ -84,4 +86,8 @@
 
 .group-view-posts-container__create-post__button-view {
     margin-bottom: 20px;
+}
+
+.group-view-banner__items__info-container {
+    padding: 0 35px;
 }
