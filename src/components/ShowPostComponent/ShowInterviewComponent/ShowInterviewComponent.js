@@ -9,12 +9,9 @@ import {BACKEND_ADDRESS} from '../../../utils/Config/Config.js';
  * @param {object} param0 - answers
  * @return {jsx}
  */
-function ShowInterviewComponent({interview, postId}) {
-    // переписать
-    const [view, setView] = useState(false);
-
+function ShowInterviewComponent({changeStatus, interview, postId}) {
     const [selectedItem, setSelectedItem] = useState([]);
-    const [showAnswersRes, setShowAnswersRes] = useState({});
+    const [showAnswersRes] = useState({});
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -39,6 +36,11 @@ function ShowInterviewComponent({interview, postId}) {
             answers: answersArr,
         };
 
+        // console.log('--------');
+        // console.log(form);
+        // let interviewOne = {"id":198,"text":"Тестовый опрос","type":1,"postID":200, status:0,"answers":[{"id":252,"text":"да","interviewID":198,"answerCount":1,"isMyAnswer":true},{"id":253,"text":"нет","interviewID":198,"answerCount":0,"isMyAnswer":false}]};
+        // changeStatus([{...interviewOne, status: 1}]);
+
         fetchModule.post({
             url: BACKEND_ADDRESS + `/interview/result/${interviewId}`,
             body: JSON.stringify(form),
@@ -50,12 +52,8 @@ function ShowInterviewComponent({interview, postId}) {
                 return response.json();
             })
             .then((responseBody) => {
-               console.log(responseBody);
                if (responseBody.answers) {
-                    createAnswersObject(responseBody.answers);
-
-                    // переписать
-                    setView(true);
+                    changeStatus([{...responseBody, status: 1}]);
                }
             });
     };
@@ -71,7 +69,7 @@ function ShowInterviewComponent({interview, postId}) {
             showAnswersRes[key] = Math.trunc((showAnswersRes[key]/sum)*100);
         });
 
-        console.log(showAnswersRes);
+        // console.log(showAnswersRes);
         return true;
     };
 
@@ -86,46 +84,30 @@ function ShowInterviewComponent({interview, postId}) {
                 <div className="show-post-component__white-part__show-interview-container__title">{interview.text}</div>
             )}
             {interview.status === 0 ? (
-                <div>
-                    {!view && (
-                        <form onSubmit={submitHandler}>
-                            {interview.type === 1 ? (
-                                <div>
-                                    {interview.answers.map((answer) => (
-                                    <div key={answer.id} className="show-post-component__white-part__show-interview-container__answer">
-                                        <input type="radio" value={answer.id} name="answer"/>
-                                        <div>{answer.text} </div>
-                                    </div>
-                                ))}
-                                </div>
-                            ) : (
-                                <div>
-                                    {interview.answers.map((answer) => (
-                                        <div key={answer.id} className="show-post-component__white-part__show-interview-container__answer">
-                                            <input type="checkbox" value={answer.id} name="answer"/>
-                                            <div>{answer.text} </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                            <div className="show-post-component__white-part__show-interview-container__form-button-container">
-                                <input className="show-post-component__white-part__show-interview-container__form-button-container__button" type="submit" value="Отправить ответ"/>
-                            </div>
-                        </form>
-                    )}
-                    {view && (
+                <form onSubmit={submitHandler}>
+                    {interview.type === 1 ? (
                         <div>
                             {interview.answers.map((answer) => (
-                                <div key={answer.id}
-                                    className="show-post-component__white-part__show-interview-container__select-answer-container"
-                                    style={createStyle(showAnswersRes[String(answer.id)])}>
-                                    <div className="show-post-component__white-part__show-interview-container__select-answer">{answer.text}</div>
-                                    <div>{`${showAnswersRes[String(answer.id)]}%`}</div>
+                            <div key={answer.id} className="show-post-component__white-part__show-interview-container__answer">
+                                <input type="radio" value={answer.id} name="answer"/>
+                                <div>{answer.text} </div>
+                            </div>
+                        ))}
+                        </div>
+                    ) : (
+                        <div>
+                            {interview.answers.map((answer) => (
+                                <div key={answer.id} className="show-post-component__white-part__show-interview-container__answer">
+                                    <input type="checkbox" value={answer.id} name="answer"/>
+                                    <div>{answer.text} </div>
                                 </div>
                             ))}
                         </div>
                     )}
-                </div>
+                    <div className="show-post-component__white-part__show-interview-container__form-button-container">
+                        <input className="show-post-component__white-part__show-interview-container__form-button-container__button" type="submit" value="Отправить ответ"/>
+                    </div>
+                </form>
             ) : (
                 <div>
                     {createAnswersObject(interview.answers) && (
