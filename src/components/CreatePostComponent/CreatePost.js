@@ -160,6 +160,13 @@ function CreatePost() {
         return true;
     };
 
+    const checkBeforFetch = () => {
+        if (interviewComp) {
+            return checkInterview();
+        }
+        return true;
+    };
+
     const submitInfo = () => {
         const form = {
             groupID: 1,
@@ -187,7 +194,7 @@ function CreatePost() {
 
         console.log(form);
 
-        if (checkInterview()) {
+        if (checkBeforFetch()) {
             fetchModule.post({
                 url: BACKEND_ADDRESS + '/api/posts/post',
                 body: JSON.stringify(form),
