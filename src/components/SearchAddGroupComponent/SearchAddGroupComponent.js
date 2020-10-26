@@ -1,4 +1,4 @@
-import React, {useState, useReducer} from 'react';
+import React, {useReducer} from 'react';
 import './SearchAddGroupComponent.css';
 import searchImg from '../../images/search-glass.svg';
 import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';

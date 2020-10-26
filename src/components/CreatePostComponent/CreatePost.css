@@ -32,6 +32,8 @@
     color: var(--main-grey-text-color);
     padding: 5px;
     border-radius: 3px;
+    display: flex;
+    flex-grow: 1;
 }
 
 .create-post-component__white-part__avatar-text__text:focus {
