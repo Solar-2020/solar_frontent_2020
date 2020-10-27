@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import GroupView from './views/GroupView/GroupView';
 import Header from './components/HeaderComponent/Header';
 import AllGroupsView from './views/AllGroupsView/AllGroupsView';
+import IndexView from './views/IndexView/IndexView';
 
 /**
  * Application root
@@ -25,7 +26,7 @@ function App() {
             <Header />
             <div className="container">
                 <Switch>
-                    <Route path={'/'} exact component={GroupView}/>
+                    <Route path={'/'} exact component={IndexView}/>
                     <Route path={'/allgroups'} exact component={AllGroupsView}/>
                     <Route path={'/group/:groupUrl'} component={GroupView}/>
                     <Route render={() => <h1>404: Страница не найдена</h1>} />

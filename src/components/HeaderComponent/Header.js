@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.css';
+import { Link } from 'react-router-dom';
 
 /**
  * Header component
@@ -8,8 +9,9 @@ import './Header.css';
 function Header() {
     return (
         <div className="header-component">
-            <a href="/allgroups" className="header-component__links">Все группы</a>
-            <a href="/" className="header-component__links">Главная</a>
+            <Link to="/allgroups" className="header-component__links">Все группы</Link>
+            <Link to="/" className="header-component__links">Главная</Link>
+            <Link to="/group/39" className="header-component__links">Группа 39</Link>
         </div>
     );
 }

@@ -1,42 +1,59 @@
-import React, {useState} from 'react';
+import React, {useState, useReducer} from 'react';
 import './GroupMembersComponent.css';
 import fetchModule from '../../utils/API/FetchModule.js';
 import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
+import AddDeleteGroupMembersComponent from './AddDeleteGroupMemebersComponent/AddDeleteGroupMembersComponent';
 
 /**
  * Group members component
  * @return {jsx}
  */
 function GroupMembersComponent() {
-    const [addUser, setAddUser] = useState({})
 
-    const addField = (field, value) => {
-        addUser[field] = value;
+    const initialState = {
+        isAddDelBtn: false,
+        addDelBtnFlag: '',
     };
 
-    const clickHandle = (event) => {
-        event.preventDefault();
-        console.log(addUser);
+    const [state, dispatch] = useReducer(
+        (state, action) => {
+            switch (action.type) {
+                case 'CHANGE_FIELD':
+                    return {...state, [action.field]: action.value}
+                default:
+                    return state;
+            }
+        },
+        initialState
+    );
+
+    const {
+        isAddDelBtn,
+        addDelBtnFlag,
+    } = state;
+
+    function addDelButtonClick(value) {
+        dispatch({type: 'CHANGE_FIELD', field: 'isAddDelBtn', value: true});
+        dispatch({type: 'CHANGE_FIELD', field: 'addDelBtnFlag', value: value})
+    };
+
+    function closeAddDelComponent() {
+        dispatch({type: 'CHANGE_FIELD', field: 'isAddDelBtn', value: false});
     };
 
     return (
         <div className="group-view-container__group-memebers-conteiner">
-            <div className="group-members-component">Здесь будут участники!</div>
-            <div className="payment-component__payment-form margin-top__groups">
-                <input
-                    placeholder="Ваш email"
-                    className="payment-component__payment-form__summ"
-                    type="email"
-                    onChange={(e) => addField('userEmail', String(e.target.value))}/>
-                <select
-                    className="payment-component__payment-form__list"
-                    onChange={(e) => addField('role', Number(e.target.value))}>
-                    <option value="1">Участник</option>
-                    <option value="2">Администратор</option>
-                    <option value="3">Создатель</option>
-                </select>
+            <div>
+                <button
+                    className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-add"
+                    onClick={() => addDelButtonClick('add')}/>
+                <button
+                    className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-del"
+                    onClick={() => addDelButtonClick('del')}/>
             </div>
-            <button onClick={(e) => clickHandle(e)} className="group-view-container__group-memebers-conteiner__add-button">Добавить участника</button>
+            {isAddDelBtn && (
+                <AddDeleteGroupMembersComponent flag={addDelBtnFlag} close={closeAddDelComponent}/>
+            )}
         </div>
     );
 }

@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {useReducer, useEffect} from 'react';
 import GroupMembersComponent from '../../components/GroupMembersComponent/GroupMembersComponent';
 import GroupSettingsComponent from '../../components/GroupSettingsComponent/GroupSettingsComponent';
 import './GroupView.css';
 import GroupPostsComponent from '../../components/GroupPostsComponent/GroupPostsComponent';
+import { useLocation } from 'react-router-dom';
+import fetchModule from '../../utils/API/FetchModule';
+import { BACKEND_ADDRESS } from '../../utils/Config/Config';
 
 
 /**
@@ -10,21 +13,75 @@ import GroupPostsComponent from '../../components/GroupPostsComponent/GroupPosts
  * @return {jsx}
  */
 function GroupView() {
-    const [groupInfo] = useState({
-        title: 'Название группы',
-        count: 10,
-    });
-
-    const [componentActive, setComponentActive] = useState({
-        posts: true,
-        members: false,
-        settings: false,
-    });
+    const location = useLocation();
 
     const ending = (count) => {
         return (/[0, 5-9]/.test(count)) ?
             'ов' : /[2-4]/.test(count) ?
                 'а' : '';
+    };
+
+    const changeComponentActiveState = (isPosts, isMembers, isSettings) => {
+        dispatch({type: 'CHANGE_ALL_FIELDS', isPosts, isMembers, isSettings});
+    };
+
+    const initialState = {
+        componentActive: {
+            posts: true,
+            members: false,
+            settings: false,
+        },
+        groupInfo: {
+            title: 'Название группы',
+            count: 10,
+        },
+        id: location.pathname.split('/')[2],
+    };
+
+    const [state, dispatch] = useReducer(
+        (state, action) => {
+            switch (action.type) {
+                case 'CHANGE_ALL_FIELDS':
+                    return {...state, componentActive: {
+                        posts: action.isPosts,
+                        members: action.isMembers,
+                        settings: action.isSettings,
+                    }};
+                default:
+                    return state;
+            }
+        },
+        initialState
+    );
+
+    const {
+        componentActive,
+        groupInfo,
+        id,
+    } = state;
+
+    useEffect(
+        () => {
+            // Подправить на id из location
+            // getGroupInfo();
+        }, []);
+
+    const getGroupInfo = () => {
+        fetchModule.get({
+            url: BACKEND_ADDRESS + `/group/group/39`,
+            body: null,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((responseBody) => {
+                console.log(responseBody);
+            });
     };
 
     // useEffect(
@@ -48,14 +105,6 @@ function GroupView() {
     //     }
     // };
 
-    const changeComponentActiveState = (isPosts, isMembers, isSettings) => {
-        setComponentActive({
-            posts: isPosts,
-            members: isMembers,
-            settings: isSettings,
-        });
-    };
-
     return (
         <div className="container">
             <div className="group-view-banner">
@@ -65,6 +114,7 @@ function GroupView() {
                         <div className="group-view-banner__items__info">
                             <div className="group-view-banner__items__info__title">{groupInfo.title}</div>
                             <div>{`${groupInfo.count} участник${ending(groupInfo.count % 10)}`}</div>
+                            <div>{id}</div>
                         </div>
                         <div className="group-view-banner__items__links">
                             <div

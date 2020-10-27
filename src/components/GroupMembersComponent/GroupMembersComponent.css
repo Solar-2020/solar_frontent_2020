@@ -31,3 +31,27 @@
 .margin-top__groups {
     margin-top: 20px;
 }
+
+.group-view-container__group-memebers-conteiner__buttons {
+    background-size: contain;
+    height: 37px;
+    width: 37px;
+    border: none;
+    outline: none;
+    background-color: var(--cards-background);
+    cursor: pointer;
+    background-repeat: no-repeat;
+    margin-left: 10px;
+}
+
+.group-view-container__group-memebers-conteiner__buttons:first-child {
+    margin-left: 0px;
+}
+
+.group-view-container__group-memebers-conteiner__buttons-add {
+    background-image: url('../../images/adduser.png');
+}
+
+.group-view-container__group-memebers-conteiner__buttons-del {
+    background-image: url('../../images/deluser.png');
+}
