@@ -13,7 +13,7 @@ import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
  * Create post component
  * @return {jsx}
  */
-function CreatePost({pushFrontNewPost, addNewPosts}) {
+function CreatePost({changeReload}) {
     const [interviewError, setInterviewError] = useState(false);
 
     const [interviewElems, setInterviewElems] = useState([]);
@@ -212,7 +212,8 @@ function CreatePost({pushFrontNewPost, addNewPosts}) {
                     //     alert('Искать ошибку в запросе для отправки поста');
                     // }
                     if (responseBody.id) {
-                        pushFrontNewPost([{...form, id: responseBody.id, publishDate: responseBody.publishDate}]);
+                        // pushFrontNewPost([{...form, id: responseBody.id, publishDate: responseBody.publishDate}]);
+                        changeReload();
                     }
                     clearPostForm();
                 });

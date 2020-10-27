@@ -14,6 +14,7 @@ function GroupPostsComponent() {
     const initialState = {
         posts: [],
         lastID: '',
+        reloadPosts: false,
     };
 
     const [state, dispatch] = useReducer(
@@ -23,8 +24,12 @@ function GroupPostsComponent() {
                     return {...state, posts: action.value.concat(state.posts)};
                 case 'SET_NEW_POSTS':
                     return {...state, posts: state.posts.concat(action.value)};
+                case 'CHANGE_ALL_POSTS':
+                    return {...state, posts: action.value};
                 case 'SET_LAST_ID':
                     return {...state, lastID: fixTime(action.value)};
+                case 'CHANGE_RELOAD':
+                    return {...state, reloadPosts: action.value};
                 default:
                     return state
             }
@@ -35,10 +40,15 @@ function GroupPostsComponent() {
     const {
         posts,
         lastID,
+        reloadPosts,
     } = state;
 
     function addNewPosts(value) {
         dispatch({type: 'SET_NEW_POSTS', value});
+    }
+
+    function changeAllPosts(value) {
+        dispatch({type: 'CHANGE_ALL_POSTS', value});
     }
 
     function pushFrontNewPost(value) {
@@ -49,14 +59,18 @@ function GroupPostsComponent() {
         dispatch({type: 'SET_LAST_ID', value});
     }
 
+    function changeReload() {
+        dispatch({type: 'CHANGE_RELOAD', value: !reloadPosts});
+    }
+
     useEffect(
         () => {
-            getData(getNowTime());
-        }, []);
+            getData(getNowTime(), 'all');
+        }, [reloadPosts]);
 
     // 2020-10-14T15%3A43%3A17.541428%2B03%3A00
     // 2020-10-14T15:43:17.541428+03:00
-    function getData(time) {
+    function getData(time, key) {
         fetchModule.get({
             url: BACKEND_ADDRESS + `/api/posts/posts?groupID=1&limit=10&startFrom=${time}`,
             body: null,
@@ -72,7 +86,11 @@ function GroupPostsComponent() {
             .then((responseBody) => {
                 console.log(responseBody);
                 if (Array.isArray(responseBody)) {
-                    addNewPosts(responseBody);
+                    if (key === 'add') {
+                        addNewPosts(responseBody);
+                    } else {
+                        changeAllPosts(responseBody);
+                    }
 
                     if (responseBody.length > 0) {
                         addLastId(responseBody[responseBody.length - 1].publishDate)
@@ -85,7 +103,7 @@ function GroupPostsComponent() {
         <div>
             {/* {lastID}
             <button onClick={() => getData(lastID)}>получить данные</button> */}
-            <CreatePost pushFrontNewPost={pushFrontNewPost} addNewPosts={addNewPosts}/>
+            <CreatePost changeReload={changeReload}/>
             {posts.map((elem) => (
                 <div key={elem.id}>
                     <ShowPostComponent data={elem}/>
