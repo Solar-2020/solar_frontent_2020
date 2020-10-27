@@ -190,28 +190,29 @@ function SearchAddGroupComponent({changeAllGroups}) {
                             <div className="search-add-group-component-container__create-group-form__card__main-error">{mainError}</div>
                         )}
 
+                        <div className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container">
+                            {avatarURL !== '' ? (
+                                <img
+                                    className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container__avatar"
+                                    alt="" src={avatarURL}/>
+                            ) : (
+                                <img alt="" className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container__avatar"/>
+                            )}
+                            <button
+                                id="addAvatarGroup"
+                                value="photo"
+                                className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container__button"
+                                onClick={() => document.getElementById('addAvatarGroupInput').click()}/>
+                            <input
+                                id="addAvatarGroupInput"
+                                style={{display: 'none'}}
+                                type="file" name="addAvatarPhoto" accept="image/png, image/jpeg, image/gif"
+                                onChange={addImageToPostFetch}/>
+                        </div>
+
                         <form
                             onSubmit={submitHandler}
                             className="search-add-group-component-container__create-group-form__card__form">
-                            <div className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container">
-                                {avatarURL !== '' ? (
-                                    <img
-                                        className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container__avatar"
-                                        alt="" src={avatarURL}/>
-                                ) : (
-                                    <img alt="" className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container__avatar"/>
-                                )}
-                                <button
-                                    id="addAvatarGroup"
-                                    value="photo"
-                                    className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container__button"
-                                    onClick={() => document.getElementById('addAvatarGroupInput').click()}/>
-                                <input
-                                    id="addAvatarGroupInput"
-                                    style={{display: 'none'}}
-                                    type="file" name="addAvatarPhoto" accept="image/png, image/jpeg, image/gif"
-                                    onChange={addImageToPostFetch}/>
-                            </div>
                             <div className="search-add-group-component-container__create-group-form__card__form__text">Название</div>
                             <input
                                 type="text" name="title" placeholder="Введите название"

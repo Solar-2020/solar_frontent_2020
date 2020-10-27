@@ -161,65 +161,66 @@ function GroupSettingsComponent({group}) {
                 <div className="search-add-group-component-container__create-group-form__card__main-error">{mainError}</div>
             )}
             {group.id && (
-                <form
-                onSubmit={submitHandler}
-                className="search-add-group-component-container__create-group-form__card__form">
-                <div className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container">
-                    {groupInfo.avatarURL !== '' ? (
-                        <img
-                            className=" group-settings-component__photo_height search-add-group-component-container__create-group-form__card__form__avatar-photo-container__avatar"
-                            alt="" src={groupInfo.avatarURL}/>
-                    ) : (
-                        <img alt="" className="group-settings-component__photo_height search-add-group-component-container__create-group-form__card__form__avatar-photo-container__avatar"/>
-                    )}
-                    <button
-                        id="addAvatarGroup"
-                        value="photo"
-                        className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container__button"
-                        onClick={() => document.getElementById('addAvatarGroupInput').click()}/>
+                <div>
+                    <div className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container">
+                        {groupInfo.avatarURL !== '' ? (
+                            <img
+                                className=" group-settings-component__photo_height search-add-group-component-container__create-group-form__card__form__avatar-photo-container__avatar"
+                                alt="" src={groupInfo.avatarURL}/>
+                        ) : (
+                            <img alt="" className="group-settings-component__photo_height search-add-group-component-container__create-group-form__card__form__avatar-photo-container__avatar"/>
+                        )}
+                        <button
+                            id="addAvatarGroup"
+                            value="photo"
+                            className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container__button"
+                            onClick={() => document.getElementById('changeAvatarGroupInput').click()}/>
+                        <input
+                            id="changeAvatarGroupInput"
+                            style={{display: 'none'}}
+                            type="file" name="addAvatarPhoto" accept="image/png, image/jpeg, image/gif"
+                            onChange={addImageToPostFetch}/>
+                    </div>
+                    <form
+                    className="search-add-group-component-container__create-group-form__card__form">
+                    <div className="search-add-group-component-container__create-group-form__card__form__text">Название</div>
                     <input
-                        id="addAvatarGroupInput"
-                        style={{display: 'none'}}
-                        type="file" name="addAvatarPhoto" accept="image/png, image/jpeg, image/gif"
-                        onChange={addImageToPostFetch}/>
-                </div>
-                <div className="search-add-group-component-container__create-group-form__card__form__text">Название</div>
-                <input
-                    type="text" name="title" placeholder="Введите название"
-                    pattern="[а-яA-Яa-zA-Z]+[а-яA-Яa-zA-Z _]+[а-яA-Яa-zA-Z]+"
-                    onChange={event => changeGroupField('title', event.target.value)}
-                    value={groupInfo.title}
-                    className="search-add-group-component-container__create-group-form__card__form__input"/>
-                {titleError && (
-                    <div className="search-add-group-component-container__create-group-form__card__form__input__error-text"
-                    >{errorMap['titleError']}</div>
-                )}
+                        type="text" name="title" placeholder="Введите название"
+                        pattern="[а-яA-Яa-zA-Z]+[а-яA-Яa-zA-Z _]+[а-яA-Яa-zA-Z]+"
+                        onChange={event => changeGroupField('title', event.target.value)}
+                        value={groupInfo.title}
+                        className="search-add-group-component-container__create-group-form__card__form__input"/>
+                    {titleError && (
+                        <div className="search-add-group-component-container__create-group-form__card__form__input__error-text"
+                        >{errorMap['titleError']}</div>
+                    )}
 
-                <div className="search-add-group-component-container__create-group-form__card__form__text">Адрес</div>
-                <input
-                    type="text" name="url" placeholder="Введите url группы"
-                    pattern="[a-z]{3,}"
-                    onChange={event => changeGroupField('URL', event.target.value)}
-                    value={groupInfo.URL}
-                    className="search-add-group-component-container__create-group-form__card__form__input"/>
-                {urlError && (
-                    <div className="search-add-group-component-container__create-group-form__card__form__input__error-text">
-                        {errorMap['urlError']}</div>
-                )}
+                    <div className="search-add-group-component-container__create-group-form__card__form__text">Адрес</div>
+                    <input
+                        type="text" name="url" placeholder="Введите url группы"
+                        pattern="[a-z]{3,}"
+                        onChange={event => changeGroupField('URL', event.target.value)}
+                        value={groupInfo.URL}
+                        className="search-add-group-component-container__create-group-form__card__form__input"/>
+                    {urlError && (
+                        <div className="search-add-group-component-container__create-group-form__card__form__input__error-text">
+                            {errorMap['urlError']}</div>
+                    )}
 
-                <div className="search-add-group-component-container__create-group-form__card__form__text">Описание</div>
-                <textarea
-                    type="text" name="description" placeholder="Введите описание"
-                    pattern=".+"
-                    onInput={validationArea}
-                    onChange={event => changeGroupField('description', event.target.value)}
-                    value={groupInfo.description}
-                    className="search-add-group-component-container__create-group-form__card__form__textarea"/>
+                    <div className="search-add-group-component-container__create-group-form__card__form__text">Описание</div>
+                    <textarea
+                        type="text" name="description" placeholder="Введите описание"
+                        pattern=".+"
+                        onInput={validationArea}
+                        onChange={event => changeGroupField('description', event.target.value)}
+                        value={groupInfo.description}
+                        className="search-add-group-component-container__create-group-form__card__form__textarea"/>
 
-                <button
-                    type="submit"
-                    className="search-add-group-component-container__create-group-form__card__form__button">Изменить данные</button>
-            </form>
+                    <button
+                        onClick={(e) => submitHandler(e)}
+                        className="search-add-group-component-container__create-group-form__card__form__button">Изменить данные</button>
+                </form>
+            </div>
             )}
         </div>
     );
