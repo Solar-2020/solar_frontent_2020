@@ -8,7 +8,7 @@ import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
  * Group settings component
  * @return {jsx}
  */
-function GroupSettingsComponent({group}) {
+function GroupSettingsComponent({group, setGroup}) {
     const initialState = {
         groupInfo: group,
         mainError: '',
@@ -143,6 +143,7 @@ function GroupSettingsComponent({group}) {
                     if (responseBody.id) {
                         alert('Группа изменена!');
                         fixErrors();
+                        setGroup(responseBody);
                     }
                 });
         }

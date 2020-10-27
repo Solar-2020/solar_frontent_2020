@@ -11,12 +11,15 @@
     background: var(--cards-background);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
     border-radius: var(--cards-radius);
+    overflow: hidden;
 }
 
 .group-view-banner__items__image {
     height: 200px;
     background-color: var(--background-light-green);
     border-radius: 0 0 3px 3px;
+    object-fit: cover;
+    border: none;
 }
 
 .group-view-banner__items__links {

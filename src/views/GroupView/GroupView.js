@@ -120,12 +120,20 @@ function GroupView() {
         <div className="container">
             <div className="group-view-banner">
                 <div className="group-view-banner__items">
-                    <div className="group-view-banner__items__image"></div>
+
+                    {group.avatarURL !== '' ? (
+                        <img
+                            className="group-view-banner__items__image"
+                            alt="" src={group.avatarURL}/>
+                    ) : (
+                        <img alt="" className="group-view-banner__items__image"/>
+                    )}
+
                     <div className="group-view-banner__items__info-container">
                         <div className="group-view-banner__items__info">
-                            <div className="group-view-banner__items__info__title">{groupInfo.title}</div>
+                            <div className="group-view-banner__items__info__title">{group.title}</div>
                             <div>{`${groupInfo.count} участник${ending(groupInfo.count % 10)}`}</div>
-                            <div>{id}</div>
+                            {/* <div>{id}</div> */}
                         </div>
                         <div className="group-view-banner__items__links">
                             <div
@@ -151,7 +159,7 @@ function GroupView() {
                         <GroupMembersComponent/>
                     )}
                     {componentActive.settings && (
-                        <GroupSettingsComponent group={group}/>
+                        <GroupSettingsComponent group={group} setGroup={setGroup}/>
                     )}
                 </div>
             </div>
