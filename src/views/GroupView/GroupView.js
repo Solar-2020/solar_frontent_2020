@@ -25,6 +25,10 @@ function GroupView() {
         dispatch({type: 'CHANGE_ALL_FIELDS', isPosts, isMembers, isSettings});
     };
 
+    const setGroup = (value) => {
+        dispatch({type: 'SET_GROUP', value});
+    };
+
     const initialState = {
         componentActive: {
             posts: true,
@@ -36,6 +40,7 @@ function GroupView() {
             count: 10,
         },
         id: location.pathname.split('/')[2],
+        group: {},
     };
 
     const [state, dispatch] = useReducer(
@@ -47,6 +52,8 @@ function GroupView() {
                         members: action.isMembers,
                         settings: action.isSettings,
                     }};
+                case 'SET_GROUP':
+                    return {...state, group: action.value};
                 default:
                     return state;
             }
@@ -58,12 +65,13 @@ function GroupView() {
         componentActive,
         groupInfo,
         id,
+        group,
     } = state;
 
     useEffect(
         () => {
             // Подправить на id из location
-            // getGroupInfo();
+            getGroupInfo();
         }, []);
 
     const getGroupInfo = () => {
@@ -81,6 +89,9 @@ function GroupView() {
             })
             .then((responseBody) => {
                 console.log(responseBody);
+                if (responseBody.id) {
+                    setGroup(responseBody);
+                }
             });
     };
 
@@ -140,7 +151,7 @@ function GroupView() {
                         <GroupMembersComponent/>
                     )}
                     {componentActive.settings && (
-                        <GroupSettingsComponent/>
+                        <GroupSettingsComponent group={group}/>
                     )}
                 </div>
             </div>
