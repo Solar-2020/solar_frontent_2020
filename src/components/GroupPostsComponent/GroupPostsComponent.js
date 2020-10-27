@@ -19,6 +19,8 @@ function GroupPostsComponent() {
     const [state, dispatch] = useReducer(
         (state, action) => {
             switch (action.type) {
+                case 'PUSH_FRONT':
+                    return {...state, posts: action.value.concat(state.posts)};
                 case 'SET_NEW_POSTS':
                     return {...state, posts: state.posts.concat(action.value)};
                 case 'SET_LAST_ID':
@@ -37,6 +39,10 @@ function GroupPostsComponent() {
 
     function addNewPosts(value) {
         dispatch({type: 'SET_NEW_POSTS', value});
+    }
+
+    function pushFrontNewPost(value) {
+        dispatch({type: 'PUSH_FRONT', value});
     }
 
     function addLastId(value) {
@@ -79,7 +85,7 @@ function GroupPostsComponent() {
         <div>
             {/* {lastID}
             <button onClick={() => getData(lastID)}>получить данные</button> */}
-            <CreatePost/>
+            <CreatePost pushFrontNewPost={pushFrontNewPost} addNewPosts={addNewPosts}/>
             {posts.map((elem) => (
                 <div key={elem.id}>
                     <ShowPostComponent data={elem}/>

@@ -13,7 +13,7 @@ import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
  * Create post component
  * @return {jsx}
  */
-function CreatePost() {
+function CreatePost({pushFrontNewPost, addNewPosts}) {
     const [interviewError, setInterviewError] = useState(false);
 
     const [interviewElems, setInterviewElems] = useState([]);
@@ -204,13 +204,16 @@ function CreatePost() {
             })
                 .then((response) => {
                     // console.log(response);
-                    if (response.status === 200) alert('Успешно отправлен пост! Обновите страничку');
+                    if (response.status === 200) alert('Успешно отправлен пост!');
                     return response.json();
                 })
                 .then((responseBody) => {
                     // if (!responseBody.id || !responseBody.url) {
                     //     alert('Искать ошибку в запросе для отправки поста');
                     // }
+                    if (responseBody.id) {
+                        pushFrontNewPost([{...form, id: responseBody.id, publishDate: responseBody.publishDate}]);
+                    }
                     clearPostForm();
                 });
         };
