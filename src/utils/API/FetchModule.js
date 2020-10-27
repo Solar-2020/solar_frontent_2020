@@ -50,7 +50,7 @@ class FetchModule {
         headers = {},
     } = {}
     ) {
-        return this._fetch({method: 'POST', url, body, credentials, headers});
+        return this._fetch({method: 'PUT', url, body, credentials, headers});
     }
 
     /**
