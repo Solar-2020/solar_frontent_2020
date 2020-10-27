@@ -5,6 +5,7 @@ import Header from './components/HeaderComponent/Header';
 import AllGroupsView from './views/AllGroupsView/AllGroupsView';
 import IndexView from './views/IndexView/IndexView';
 import LoginView from './views/LoginView/LoginView';
+import RegistrationView from './views/RegistrationView/RegistrationView';
 
 /**
  * Application root
@@ -29,6 +30,7 @@ function App() {
                 <Switch>
                     <Route path={'/'} exact component={IndexView}/>
                     <Route path={'/login'} exact component={LoginView}/>
+                    <Route path={'/registration'} exact component={RegistrationView}/>
                     <Route path={'/allgroups'} exact component={AllGroupsView}/>
                     <Route path={'/group/:groupUrl'} component={GroupView}/>
                     <Route render={() => <h1>404: Страница не найдена</h1>} />

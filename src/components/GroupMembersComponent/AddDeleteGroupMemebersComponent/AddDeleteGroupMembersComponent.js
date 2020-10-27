@@ -62,7 +62,7 @@ function AddDeleteGroupMembersComponent({flag, close}) {
 
     return (
         <div>
-            {flag == 'add' && (
+            {flag === 'add' && (
                 <div>
                     <div className="add-del-group-members-component-title-container">
                         <div className="add-del-group-members-component-title-container__title">Добавление пользователя</div>
@@ -93,7 +93,7 @@ function AddDeleteGroupMembersComponent({flag, close}) {
                         onClick={(e) => addUserAction(e)}>Добавить</button>
                 </div>
             )}
-            {flag == 'del' && (
+            {flag === 'del' && (
                 <div>
                     <div className="add-del-group-members-component-title-container">
                         <div className="add-del-group-members-component-title-container__title">Удаление пользователя</div>

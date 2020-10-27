@@ -1,0 +1,9 @@
+.reginstration-view__input_margin {
+    margin-top: 5px;
+}
+
+.reginstration-view__input_error {
+    color: red;
+    font-size: 12px;
+    margin-bottom: 5px;
+}

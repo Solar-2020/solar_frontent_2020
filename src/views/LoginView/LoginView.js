@@ -73,7 +73,7 @@ function LoginView() {
                 <button
                     onClick={e => handleSubmit(e)}
                     className="login-view-container__card__button">Авторизоваться</button>
-                <Link to="/registration" className="login-view-container__card__link">Уже есть аккаунт? Войдите!</Link>
+                <Link to="/registration" className="login-view-container__card__link">Ещё нет аккаунта? Создайте!</Link>
 
             </div>
         </div>

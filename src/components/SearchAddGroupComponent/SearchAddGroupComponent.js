@@ -107,21 +107,23 @@ function SearchAddGroupComponent({changeAllGroups}) {
     };
 
     function checkValidationForm() {
+        let flag = true;
+
         if (!/^[а-яA-Яa-zA-Z]+[а-яA-Яa-zA-Z _]+[а-яA-Яa-zA-Z]+$/.test(title.trim())) {
             changeField('titleError', true);
-            return false;
+            flag = false;
         } else {
             changeField('titleError', false);
         }
 
         if (!/^[a-z]{3,}$/.test(URL.trim())) {
             changeField('urlError', true);
-            return false;
+            flag = false;
         } else {
             changeField('urlError', false);
         }
 
-        return true;
+        return flag;
     };
 
     const closeForm = () => {
