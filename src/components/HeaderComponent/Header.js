@@ -21,7 +21,7 @@ function Header({checkAuth, isAuth, cookies}) {
                     <div className="header-component-container__content_padding">
                         <Link to="/allgroups" className="header-component__links">Мои группы</Link>
                         <Link to="/" className="header-component__links">Главная</Link>
-                        <Link to="/group/39" className="header-component__links">Группа 39</Link>
+                        {/* <Link to="/group/39" className="header-component__links">Группа 39</Link> */}
                     </div>
                 ) : (
                     <div className="header-component-container__content_padding">
