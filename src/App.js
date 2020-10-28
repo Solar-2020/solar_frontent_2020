@@ -6,6 +6,8 @@ import AllGroupsView from './views/AllGroupsView/AllGroupsView';
 import IndexView from './views/IndexView/IndexView';
 import LoginView from './views/LoginView/LoginView';
 import RegistrationView from './views/RegistrationView/RegistrationView';
+import fetchModule from './utils/API/FetchModule.js';
+import {BACKEND_ADDRESS} from './utils/Config/Config.js';
 
 /**
  * Application root
@@ -49,9 +51,10 @@ function App() {
 
         if (location.pathname !== '/login' && location.pathname !== '/registration') {
             if (!isAuth) {
-                checkProfile();
+                checkProfile(location, history);
             }
         } else {
+            // надо доработать, чтобудет, если зайдут сразу с login
             if (isAuth) {
                 // return <Redirect to="/"/>
                 history.push('/');
@@ -59,10 +62,24 @@ function App() {
         }
     };
 
-    function checkProfile() {
-        changeField('isAuth', true);
-        changeField('userData', {id: 10, name: 'Ben'});
-
+    function checkProfile(location, history) {
+        fetchModule.get({
+            url: BACKEND_ADDRESS + `/group/list`,
+            body: null,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    changeField('isAuth', true);
+                } else if (location.pathname !== '/') {
+                    changeField('isAuth', false);
+                    history.push('/login');
+                } else {
+                    changeField('isAuth', false);
+                };
+            });    
          // при неудаче редирект на логин, если это не location ='/'
     }
 
