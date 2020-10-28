@@ -14,9 +14,13 @@ import { withCookies } from 'react-cookie'
  * Application root
  * @return {jsx}
  */
-function App() {
+function App({cookies}) {
     // const history  = useHistory();
     // const location = useLocation();
+
+    useEffect(() => {
+        cookies.set('name', 'Ross', { path: '/' });
+    }, []);
 
     function changeField(field, value) {
         dispatch({ type: 'CHANGE_FIELD', field, value });
@@ -69,6 +73,7 @@ function App() {
             body: null,
             headers: {
                 'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
             },
         })
             .then((response) => {
