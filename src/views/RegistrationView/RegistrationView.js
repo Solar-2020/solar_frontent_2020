@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './RegistrationView.css';
 import '../LoginView/LoginView.css';
 import fetchModule from '../../utils/API/FetchModule.js';
@@ -9,6 +9,8 @@ import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
  * Login view
  */
 function RegistrationView() {
+    const history = useHistory();
+
     function changeField(field, value) {
         dispatch({type: 'CHANGE_FIELD', field, value});
     };
@@ -130,8 +132,9 @@ function RegistrationView() {
                     if (responseBody.error) {
                         setMainError(responseBody.error);
                     }
-                    if (responseBody.id) {
+                    if (responseBody.login) {
                         alert('успешная регистрация!');
+                        history.push('/');
                     }
                 });
         }
