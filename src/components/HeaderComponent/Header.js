@@ -6,12 +6,12 @@ import { Link, useLocation, useHistory } from 'react-router-dom';
  * Header component
  * @return {jsx}
  */
-function Header({checkAuth, isAuth}) {
+function Header({checkAuth, isAuth, cookies}) {
     const location = useLocation();
     const history = useHistory();
 
     useEffect(() => {
-        checkAuth(location, history);
+        checkAuth(location, history, cookies);
     }, [location]);
 
     return (

@@ -48,7 +48,7 @@ function App({cookies}) {
         userData,
     } = state;
 
-    function checkAuth(location, history) {
+    function checkAuth(location, history, cookies) {
         // console.log('----');
         // console.log(location);
         // console.log(isAuth);
@@ -56,7 +56,7 @@ function App({cookies}) {
 
         if (location.pathname !== '/login' && location.pathname !== '/registration') {
             if (!isAuth) {
-                checkProfile(location, history);
+                checkProfile(location, history, cookies);
             }
         } else {
             // надо доработать, чтобудет, если зайдут сразу с login
@@ -67,7 +67,7 @@ function App({cookies}) {
         }
     };
 
-    function checkProfile(location, history) {
+    function checkProfile(location, history, cookies) {
         fetchModule.get({
             url: BACKEND_ADDRESS + `/group/list`,
             body: null,
@@ -91,7 +91,7 @@ function App({cookies}) {
 
     return (
         <BrowserRouter>
-            <Header checkAuth={checkAuth} isAuth={isAuth}/>
+            <Header checkAuth={checkAuth} isAuth={isAuth} cookies={cookies}/>
             <div className="container">
                 <Switch>
                     <Route path={'/'} exact render={() => (<IndexView cookies={cookies}/>)}/>
