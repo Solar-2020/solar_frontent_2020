@@ -18,9 +18,9 @@ function App({cookies}) {
     // const history  = useHistory();
     // const location = useLocation();
 
-    useEffect(() => {
-        cookies.set('name', 'Ross', { path: '/' });
-    }, []);
+    // useEffect(() => {
+    //     cookies.set('name', 'Ross', { path: '/' });
+    // }, []);
 
     function changeField(field, value) {
         dispatch({ type: 'CHANGE_FIELD', field, value });
