@@ -1,6 +1,8 @@
 import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import './LoginView.css';
+import fetchModule from '../../utils/API/FetchModule.js';
+import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
 
 /**
  * Login view
@@ -46,9 +48,31 @@ function LoginView() {
         event.preventDefault();
 
         const form = {
-            email,
-            password,
+            'login': email,
+            'password': password,
+            'uid': 2913,
         };
+
+        // fetchModule.post({
+        //         url: BACKEND_ADDRESS + `/auth/login`,
+        //         body: JSON.stringify(form),
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     })
+        //         .then((response) => {
+        //             return response.json();
+        //         })
+        //         .then((responseBody) => {
+        //             console.log(responseBody);
+
+        //             if (responseBody.error) {
+        //                 setMainError(responseBody.error);
+        //             }
+        //             if (responseBody.id) {
+        //                 alert('успешная авторизация!');
+        //             }
+        //         });
     };
 
     return (

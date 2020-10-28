@@ -2,6 +2,8 @@ import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import './RegistrationView.css';
 import '../LoginView/LoginView.css';
+import fetchModule from '../../utils/API/FetchModule.js';
+import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
 
 /**
  * Login view
@@ -102,14 +104,36 @@ function RegistrationView() {
         event.preventDefault();
 
         const form = {
-            name,
-            surname,
-            email,
-            password,
+            'login': email,
+            'password': password,
+            'avatar': '',
+            'name': name,
+            'surname': surname,
         };
 
         if (checkValidationForm()) {
             console.log(form);
+
+            fetchModule.put({
+                url: BACKEND_ADDRESS + `/auth/signup`,
+                body: JSON.stringify(form),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((responseBody) => {
+                    console.log(responseBody);
+
+                    if (responseBody.error) {
+                        setMainError(responseBody.error);
+                    }
+                    if (responseBody.id) {
+                        alert('успешная регистрация!');
+                    }
+                });
         }
     };
 

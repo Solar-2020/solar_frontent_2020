@@ -1,5 +1,5 @@
-import React from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import React, { useReducer, useEffect } from 'react';
+import {BrowserRouter, Route, Switch, useLocation, Redirect, useHistory} from 'react-router-dom';
 import GroupView from './views/GroupView/GroupView';
 import Header from './components/HeaderComponent/Header';
 import AllGroupsView from './views/AllGroupsView/AllGroupsView';
@@ -15,17 +15,60 @@ function App() {
     // const history  = useHistory();
     // const location = useLocation();
 
-    // useEffect(() => {
-    //     if(location.pathname !== 'login') {
-    //         if (!authorized) {
-    //             history.push('/login');
-    //         }
-    //     }
-    // }, [location]);
+    function changeField(field, value) {
+        dispatch({ type: 'CHANGE_FIELD', field, value });
+    };
+
+    const initialState = {
+        isAuth: false,
+        userData: {},
+    };
+
+    const [state, dispatch] = useReducer(
+        (state, action) => {
+            switch (action.type) {
+                case 'CHANGE_FIELD':
+                    return {...state, [action.field]: action.value};
+                default:
+                    return state;
+            }
+        },
+        initialState
+    );
+
+    const {
+        isAuth,
+        userData,
+    } = state;
+
+    function checkAuth(location, history) {
+        // console.log('----');
+        // console.log(location);
+        // console.log(isAuth);
+        // console.log(userData);
+
+        if (location.pathname !== '/login' && location.pathname !== '/registration') {
+            if (!isAuth) {
+                checkProfile();
+            }
+        } else {
+            if (isAuth) {
+                // return <Redirect to="/"/>
+                history.push('/');
+            }
+        }
+    };
+
+    function checkProfile() {
+        changeField('isAuth', true);
+        changeField('userData', {id: 10, name: 'Ben'});
+
+         // при неудаче редирект на логин, если это не location ='/'
+    }
 
     return (
         <BrowserRouter>
-            <Header />
+            <Header checkAuth={checkAuth} isAuth={isAuth}/>
             <div className="container">
                 <Switch>
                     <Route path={'/'} exact component={IndexView}/>
