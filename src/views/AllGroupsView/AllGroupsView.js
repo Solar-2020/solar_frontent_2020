@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import './AllGroupsView.css';
 import SearchAddGroupComponent from '../../components/SearchAddGroupComponent/SearchAddGroupComponent';
+import { Link } from 'react-router-dom';
+import fetchModule from '../../utils/API/FetchModule.js';
+import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
 
 /**
  * all groups view
@@ -8,6 +11,8 @@ import SearchAddGroupComponent from '../../components/SearchAddGroupComponent/Se
  */
 function AllGroupsView({cookies}) {
     const [allGroups, setAllGroup] = useState({isGroup: false, value: 0});
+
+    const [groups, setGroups] = useState([]);
 
     const changeAllGroups = (value) => {
         setAllGroup({isGroup: true, value: value});
@@ -17,26 +22,26 @@ function AllGroupsView({cookies}) {
     //     groups: []
     // }
 
-    // useEffect(() => {
-    //     fetchModule.get({
-    //         url: BACKEND_ADDRESS + `/group/list`,
-    //         body: null,
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Cookie': cookies.get('SessionToken'),
-    //         },
-    //     })
-    //         .then((response) => {
-    //             if (response.ok) {
-    //                 changeField('isAuth', true);
-    //             } else if (location.pathname !== '/') {
-    //                 changeField('isAuth', false);
-    //                 history.push('/login');
-    //             } else {
-    //                 changeField('isAuth', false);
-    //             };
-    //         });  
-    // }, []);
+    useEffect(() => {
+        fetchModule.get({
+            url: BACKEND_ADDRESS + `/group/list`,
+            body: null,
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((responseBody) => {
+                if(Array.isArray(responseBody)) {
+                    setGroups(responseBody);
+                }
+            })
+    }, []);
 
     return (
         <div className="all-groups-view-container">
@@ -48,6 +53,11 @@ function AllGroupsView({cookies}) {
                     {allGroups.isGroup && (
                         <div className="all-groups-view-container__search-style__value">{allGroups.value}</div>
                     )}
+                    <div className="groups">
+                        {groups.map((elem) => (
+                            <Link to={`/group/${elem.id}`}>{elem.title}</Link>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

@@ -25,3 +25,8 @@
 .all-groups-view-container__search-style__value {
     margin-top: 20px;
 }
+
+.groups {
+    display: flex;
+    flex-direction: column;
+}
