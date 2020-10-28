@@ -22,3 +22,7 @@
     margin-left: 20px;
     text-decoration: none;
 }
+
+.header-component__links:first-child {
+    margin-left: 0;
+}
