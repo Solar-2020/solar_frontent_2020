@@ -8,6 +8,7 @@ import LoginView from './views/LoginView/LoginView';
 import RegistrationView from './views/RegistrationView/RegistrationView';
 import fetchModule from './utils/API/FetchModule.js';
 import {BACKEND_ADDRESS} from './utils/Config/Config.js';
+import { withCookies } from 'react-cookie'
 
 /**
  * Application root
@@ -100,4 +101,4 @@ function App() {
     );
 }
 
-export default App;
+export default withCookies(App);
