@@ -70,7 +70,7 @@ function LoginView() {
                     if (responseBody.error) {
                         setMainError(responseBody.error);
                     }
-                    if (responseBody.id) {
+                    if (responseBody.login) {
                         alert('успешная авторизация!');
                         history.push('/');
                     }
