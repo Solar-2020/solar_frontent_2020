@@ -12,7 +12,7 @@ import { BACKEND_ADDRESS } from '../../utils/Config/Config';
  * Group view
  * @return {jsx}
  */
-function GroupView() {
+function GroupView({cookies}) {
     const location = useLocation();
 
     const ending = (count) => {
@@ -76,10 +76,11 @@ function GroupView() {
 
     const getGroupInfo = () => {
         fetchModule.get({
-            url: BACKEND_ADDRESS + `/group/group/39`,
+            url: BACKEND_ADDRESS + `/group/group/${id}`,
             body: null,
             headers: {
                 'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
             },
         })
             .then((response) => {
@@ -132,7 +133,7 @@ function GroupView() {
                     <div className="group-view-banner__items__info-container">
                         <div className="group-view-banner__items__info">
                             <div className="group-view-banner__items__info__title">{group.title}</div>
-                            <div>{`${groupInfo.count} участник${ending(groupInfo.count % 10)}`}</div>
+                            <div>{`${group.count} участник${ending(group.count % 10)}`}</div>
                             {/* <div>{id}</div> */}
                         </div>
                         <div className="group-view-banner__items__links">
