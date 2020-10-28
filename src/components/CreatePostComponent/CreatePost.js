@@ -202,6 +202,10 @@ function CreatePost({changeReload, cookies, id}) {
             form = {...form, interviews: []};
         }
 
+        if (!form.payments[0].requisite.trim()) {
+            form = {...form, payments: []};
+        }
+
         console.log(form);
 
         if (checkBeforFetch()) {
