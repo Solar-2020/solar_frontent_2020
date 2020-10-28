@@ -198,6 +198,10 @@ function CreatePost({changeReload, cookies, id}) {
             payments: [paymentValue],
         };
 
+        if (!form.interviews[0].text.trim()) {
+            form = {...form, interviews: []};
+        }
+
         console.log(form);
 
         if (checkBeforFetch()) {
