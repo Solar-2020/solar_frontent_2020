@@ -13,7 +13,7 @@ import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
  * Create post component
  * @return {jsx}
  */
-function CreatePost({changeReload}) {
+function CreatePost({changeReload, cookies, id}) {
     const [interviewError, setInterviewError] = useState(false);
 
     const [interviewElems, setInterviewElems] = useState([]);
@@ -118,6 +118,9 @@ function CreatePost({changeReload}) {
         fetchModule.post({
             url: BACKEND_ADDRESS + '/api/upload/photo',
             body: formData,
+            headers: {
+                'Cookie': cookies.get('SessionToken'),
+            },
         })
             .then((response) => {
                 return response.json();
@@ -138,6 +141,9 @@ function CreatePost({changeReload}) {
         fetchModule.post({
             url: BACKEND_ADDRESS + '/api/upload/file',
             body: formData,
+            headers: {
+                'Cookie': cookies.get('SessionToken'),
+            }
         })
             .then((response) => {
                 return response.json();
@@ -169,7 +175,7 @@ function CreatePost({changeReload}) {
 
     const submitInfo = () => {
         const form = {
-            groupID: 1,
+            groupID: id,
             text: document.getElementById('createPostComponentText').value,
             interviews: [
                 {
@@ -200,6 +206,7 @@ function CreatePost({changeReload}) {
                 body: JSON.stringify(form),
                 headers: {
                     'Content-Type': 'application/json',
+                    'Cookie': cookies.get('SessionToken'),
                 },
             })
                 .then((response) => {

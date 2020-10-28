@@ -104,7 +104,7 @@ function GroupPostsComponent({cookies, id}) {
         <div>
             {/* {lastID}
             <button onClick={() => getData(lastID)}>получить данные</button> */}
-            <CreatePost changeReload={changeReload}/>
+            <CreatePost changeReload={changeReload} cookies={cookies} id={id}/>
             {posts.map((elem) => (
                 <div key={elem.id}>
                     <ShowPostComponent data={elem} cookies={cookies}/>
