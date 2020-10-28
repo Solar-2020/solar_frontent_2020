@@ -9,7 +9,7 @@ import {BACKEND_ADDRESS} from '../../../utils/Config/Config.js';
  * @param {object} param0 - answers
  * @return {jsx}
  */
-function ShowInterviewComponent({changeStatus, interview, postId}) {
+function ShowInterviewComponent({changeStatus, interview, postId, cookies}) {
     const [selectedItem, setSelectedItem] = useState([]);
     const [showAnswersRes] = useState({});
 
@@ -46,6 +46,7 @@ function ShowInterviewComponent({changeStatus, interview, postId}) {
             body: JSON.stringify(form),
             headers: {
                 'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
             },
         })
             .then((response) => {

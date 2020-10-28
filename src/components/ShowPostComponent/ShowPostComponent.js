@@ -10,7 +10,7 @@ import ShowPaymentComponent from './ShowPaymentComponent/ShowPaymentComponent';
  * Show post component
  * @return {jsx}
  */
-function ShowPostComponent({data}) {
+function ShowPostComponent({data, cookies}) {
     const initialState = {
         dataComp: data,
     };
@@ -50,7 +50,7 @@ function ShowPostComponent({data}) {
                 <div className="show-post-component__white-part__post-text">{dataComp.text}</div>
             )}
             {dataComp.interviews.length > 0 && dataComp.interviews[0].answers.length > 0 && (
-                <ShowInterviewComponent changeStatus={changeStatus} interview={dataComp.interviews[0]} postId={dataComp.id}/>
+                <ShowInterviewComponent changeStatus={changeStatus} interview={dataComp.interviews[0]} postId={dataComp.id} cookies={cookies}/>
             )}
             {dataComp.payments[0].cost > 0 && (
                 <ShowPaymentComponent payment={dataComp.payments[0]}/>

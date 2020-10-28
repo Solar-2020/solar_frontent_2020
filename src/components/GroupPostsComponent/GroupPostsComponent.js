@@ -107,7 +107,7 @@ function GroupPostsComponent({cookies, id}) {
             <CreatePost changeReload={changeReload}/>
             {posts.map((elem) => (
                 <div key={elem.id}>
-                    <ShowPostComponent data={elem}/>
+                    <ShowPostComponent data={elem} cookies={cookies}/>
                 </div>
             ))}
             <ShowPostComponent data={data}/>
