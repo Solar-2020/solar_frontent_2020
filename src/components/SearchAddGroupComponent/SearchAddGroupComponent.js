@@ -145,6 +145,9 @@ function SearchAddGroupComponent({changeAllGroups, cookies}) {
         fetchModule.post({
             url: BACKEND_ADDRESS + '/api/upload/photo',
             body: formData,
+            headers: {
+                'Cookie': cookies.get('SessionToken'),
+            },
         })
             .then((response) => {
                 return response.json();
