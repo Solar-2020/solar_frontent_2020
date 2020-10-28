@@ -154,7 +154,7 @@ function GroupView({cookies}) {
             <div id="groupViewPostsContainer" className="group-view-posts-container">
                 <div className="group-view-posts-container__create-post">
                     {componentActive.posts && (
-                        <GroupPostsComponent/>
+                        <GroupPostsComponent cookies={cookies} id={id}/>
                     )}
                     {componentActive.members && (
                         <GroupMembersComponent/>

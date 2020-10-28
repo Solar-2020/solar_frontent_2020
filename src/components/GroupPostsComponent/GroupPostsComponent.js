@@ -10,7 +10,7 @@ import CreatePost from '../../components/CreatePostComponent/CreatePost';
  * Group settings component
  * @return {jsx}
  */
-function GroupPostsComponent() {
+function GroupPostsComponent({cookies, id}) {
     const initialState = {
         posts: [],
         lastID: '',
@@ -72,10 +72,11 @@ function GroupPostsComponent() {
     // 2020-10-14T15:43:17.541428+03:00
     function getData(time, key) {
         fetchModule.get({
-            url: BACKEND_ADDRESS + `/api/posts/posts?groupID=1&limit=10&startFrom=${time}`,
+            url: BACKEND_ADDRESS + `/api/posts/posts?groupID=${id}&limit=10&startFrom=${time}`,
             body: null,
             headers: {
                 'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
             },
         })
             .then((response) => {
