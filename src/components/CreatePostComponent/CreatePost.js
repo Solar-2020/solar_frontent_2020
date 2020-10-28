@@ -175,7 +175,7 @@ function CreatePost({changeReload, cookies, id}) {
 
     const submitInfo = () => {
         const form = {
-            groupID: id,
+            groupID: Number(id),
             text: document.getElementById('createPostComponentText').value,
             interviews: [
                 {
