@@ -8,7 +8,7 @@ import fetchModule from '../../utils/API/FetchModule.js';
  * Header component
  * @return {jsx}
  */
-function SearchAddGroupComponent({changeAllGroups}) {
+function SearchAddGroupComponent({changeAllGroups, cookies}) {
     const initialState = {
         isOpenAddGroupModal: false,
         title: '',
@@ -86,6 +86,7 @@ function SearchAddGroupComponent({changeAllGroups}) {
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
+                    'Cookie': cookies.get('SessionToken'),
                 },
             })
                 .then((response) => {

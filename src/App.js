@@ -94,11 +94,11 @@ function App({cookies}) {
             <Header checkAuth={checkAuth} isAuth={isAuth}/>
             <div className="container">
                 <Switch>
-                    <Route path={'/'} exact component={IndexView}/>
-                    <Route path={'/login'} exact component={LoginView}/>
-                    <Route path={'/registration'} exact component={RegistrationView}/>
-                    <Route path={'/allgroups'} exact component={AllGroupsView}/>
-                    <Route path={'/group/:groupUrl'} component={GroupView}/>
+                    <Route path={'/'} exact render={() => (<IndexView cookies={cookies}/>)}/>
+                    <Route path={'/login'} exact render={() => (<LoginView cookies={cookies}/>)}/>
+                    <Route path={'/registration'} exact render={() => (<RegistrationView cookies={cookies}/>)}/>
+                    <Route path={'/allgroups'} exact render={() => (<AllGroupsView cookies={cookies}/>)}/>
+                    <Route path={'/group/:groupUrl'} render={() => (<GroupView cookies={cookies}/>)}/>
                     <Route render={() => <h1>404: Страница не найдена</h1>} />
                 </Switch>
             </div>
