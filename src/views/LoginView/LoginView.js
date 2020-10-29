@@ -94,6 +94,7 @@ function LoginView() {
                 <div className="login-view-container__card__input-block__title">Пароль</div>
                 <input
                     onChange={e => changeField('password', e.target.value)}
+                    type="password"
                     className="login-view-container__card__input-block__input"placeholder="Введите пароль"/>
                 
                 <button
