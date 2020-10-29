@@ -52,6 +52,7 @@ function ShowPostComponent({data, cookies}) {
             {dataComp.interviews.length > 0 && dataComp.interviews[0].answers.length > 0 && (
                 <ShowInterviewComponent changeStatus={changeStatus} interview={dataComp.interviews[0]} postId={dataComp.id} cookies={cookies}/>
             )}
+            {/* Исправила cost на length */}
             {dataComp.payments.length > 0 && (
                 <ShowPaymentComponent payment={dataComp.payments[0]}/>
             )}
