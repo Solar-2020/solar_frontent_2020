@@ -52,7 +52,7 @@ function ShowPostComponent({data, cookies}) {
             {dataComp.interviews.length > 0 && dataComp.interviews[0].answers.length > 0 && (
                 <ShowInterviewComponent changeStatus={changeStatus} interview={dataComp.interviews[0]} postId={dataComp.id} cookies={cookies}/>
             )}
-            {dataComp.payments[0].cost > 0 && (
+            {dataComp.payments.length > 0 && (
                 <ShowPaymentComponent payment={dataComp.payments[0]}/>
             )}
             {dataComp.photos.length > 0 && (

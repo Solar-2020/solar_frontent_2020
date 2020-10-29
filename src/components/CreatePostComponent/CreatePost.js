@@ -198,13 +198,13 @@ function CreatePost({changeReload, cookies, id}) {
             payments: [paymentValue],
         };
 
-        // if (!form.interviews[0].text.trim()) {
-        //     form = {...form, interviews: []};
-        // }
+        if (!form.interviews[0].text.trim()) {
+            form = {...form, interviews: []};
+        }
 
-        // if (!form.payments[0].requisite.trim()) {
-        //     form = {...form, payments: []};
-        // }
+        if (!form.payments[0].requisite.trim()) {
+            form = {...form, payments: []};
+        }
 
         console.log(form);
 
