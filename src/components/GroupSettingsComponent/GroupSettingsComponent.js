@@ -125,7 +125,7 @@ function GroupSettingsComponent({group, setGroup}) {
             };
 
             fetchModule.put({
-                url: BACKEND_ADDRESS + `/group/group/${groupInfo.id}`,
+                url: BACKEND_ADDRESS + `/api/group/group/${groupInfo.id}`,
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',

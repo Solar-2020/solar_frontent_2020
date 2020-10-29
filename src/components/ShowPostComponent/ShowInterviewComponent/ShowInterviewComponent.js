@@ -42,7 +42,7 @@ function ShowInterviewComponent({changeStatus, interview, postId, cookies}) {
         // changeStatus([{...interviewOne, status: 1}]);
 
         fetchModule.post({
-            url: BACKEND_ADDRESS + `/interview/result/${interviewId}`,
+            url: BACKEND_ADDRESS + `/api/interview/result/${interviewId}`,
             body: JSON.stringify(form),
             headers: {
                 'Content-Type': 'application/json',

@@ -82,7 +82,7 @@ function SearchAddGroupComponent({changeAllGroups, cookies}) {
             }
 
             fetchModule.post({
-                url: BACKEND_ADDRESS + '/group/group',
+                url: BACKEND_ADDRESS + '/api/group/group',
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',

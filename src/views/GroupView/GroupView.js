@@ -76,7 +76,7 @@ function GroupView({cookies}) {
 
     const getGroupInfo = () => {
         fetchModule.get({
-            url: BACKEND_ADDRESS + `/group/group/${id}`,
+            url: BACKEND_ADDRESS + `/api/group/group/${id}`,
             body: null,
             headers: {
                 'Content-Type': 'application/json',

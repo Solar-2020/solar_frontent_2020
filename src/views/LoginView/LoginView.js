@@ -55,7 +55,7 @@ function LoginView() {
         };
 
         fetchModule.post({
-                url: BACKEND_ADDRESS + `/auth/login`,
+                url: BACKEND_ADDRESS + `/api/auth/login`,
                 body: JSON.stringify(form),
                 headers: {
                     'Content-Type': 'application/json',

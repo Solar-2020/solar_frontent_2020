@@ -69,7 +69,7 @@ function App({cookies}) {
 
     function checkProfile(location, history, cookies) {
         fetchModule.get({
-            url: BACKEND_ADDRESS + `/group/list`,
+            url: BACKEND_ADDRESS + `/api/group/list`,
             body: null,
             headers: {
                 'Content-Type': 'application/json',

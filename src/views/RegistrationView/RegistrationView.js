@@ -117,7 +117,7 @@ function RegistrationView() {
             console.log(form);
 
             fetchModule.put({
-                url: BACKEND_ADDRESS + `/auth/signup`,
+                url: BACKEND_ADDRESS + `/api/auth/signup`,
                 body: JSON.stringify(form),
                 headers: {
                     'Content-Type': 'application/json',
