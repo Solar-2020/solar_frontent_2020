@@ -160,7 +160,7 @@ function GroupView({cookies}) {
                         <GroupMembersComponent/>
                     )}
                     {componentActive.settings && (
-                        <GroupSettingsComponent group={group} setGroup={setGroup}/>
+                        <GroupSettingsComponent group={group} setGroup={setGroup} cookies={cookies}/>
                     )}
                 </div>
             </div>

@@ -8,7 +8,7 @@ import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
  * Group settings component
  * @return {jsx}
  */
-function GroupSettingsComponent({group, setGroup}) {
+function GroupSettingsComponent({group, setGroup, cookies}) {
     const initialState = {
         groupInfo: group,
         mainError: '',
@@ -90,6 +90,9 @@ function GroupSettingsComponent({group, setGroup}) {
         fetchModule.post({
             url: BACKEND_ADDRESS + '/api/upload/photo',
             body: formData,
+            headers: {
+                'Cookie': cookies.get('SessionToken'),
+            },
         })
             .then((response) => {
                 return response.json();
@@ -129,6 +132,7 @@ function GroupSettingsComponent({group, setGroup}) {
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
+                    'Cookie': cookies.get('SessionToken'),
                 },
             })
                 .then((response) => {
