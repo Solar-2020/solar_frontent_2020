@@ -157,7 +157,7 @@ function GroupView({cookies}) {
                         <GroupPostsComponent cookies={cookies} id={id}/>
                     )}
                     {componentActive.members && (
-                        <GroupMembersComponent/>
+                        <GroupMembersComponent cookies={cookies} id={id}/>
                     )}
                     {componentActive.settings && (
                         <GroupSettingsComponent group={group} setGroup={setGroup} cookies={cookies}/>

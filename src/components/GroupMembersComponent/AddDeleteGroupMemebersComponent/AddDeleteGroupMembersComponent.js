@@ -1,11 +1,13 @@
 import React, { useReducer } from 'react';
 import './AddDeleteGroupMembersComponent.css';
+import fetchModule from '../../../utils/API/FetchModule.js';
+import {BACKEND_ADDRESS} from '../../../utils/Config/Config.js';
 
 /**
  * Group members component
  * @return {jsx}
  */
-function AddDeleteGroupMembersComponent({flag, close}) {
+function AddDeleteGroupMembersComponent({flag, close, cookies, id}) {
     function changeAddUserField(field, value) {
         dispatch({type: 'CHANGE_ADD_USER_FIELD', field, value});
     };
@@ -52,6 +54,29 @@ function AddDeleteGroupMembersComponent({flag, close}) {
         e.preventDefault();
 
         console.log(addUser);
+
+        const form = {
+            userEmail: [addUser.userEmail],
+            role: addUser.role,
+            userId: [],
+        };
+
+        fetchModule.put({
+            url: BACKEND_ADDRESS + `/api/group/membership/${id}`,
+            body: JSON.stringify(form),
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((responseBody) => {
+                console.log(responseBody);
+            });
     };
 
     function delUserAction(e) {

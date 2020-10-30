@@ -8,7 +8,7 @@ import AddDeleteGroupMembersComponent from './AddDeleteGroupMemebersComponent/Ad
  * Group members component
  * @return {jsx}
  */
-function GroupMembersComponent() {
+function GroupMembersComponent({cookies, id}) {
 
     const initialState = {
         isAddDelBtn: false,
@@ -52,7 +52,7 @@ function GroupMembersComponent() {
                     onClick={() => addDelButtonClick('del')}/>
             </div>
             {isAddDelBtn && (
-                <AddDeleteGroupMembersComponent flag={addDelBtnFlag} close={closeAddDelComponent}/>
+                <AddDeleteGroupMembersComponent flag={addDelBtnFlag} close={closeAddDelComponent} cookies={cookies} id={id}/>
             )}
         </div>
     );
