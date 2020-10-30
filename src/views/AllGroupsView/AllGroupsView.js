@@ -51,6 +51,12 @@ function AllGroupsView({cookies}) {
             })
     };
 
+    const ending = (count) => {
+        return (/[0, 5-9]/.test(count)) ?
+            'ов' : /[2-4]/.test(count) ?
+                'а' : '';
+    };
+
     return (
         <div className="all-groups-view-container">
             <div className="all-groups-view-container_width">
@@ -58,12 +64,15 @@ function AllGroupsView({cookies}) {
                     <div className="all-groups-view-container__search-style__title">Мои группы</div>
                     <SearchAddGroupComponent changeAllGroups={changeAllGroups} cookies={cookies}/>
 
-                    {allGroups.isGroup && (
+                    {/* {allGroups.isGroup && (
                         <div className="all-groups-view-container__search-style__value">{allGroups.value}</div>
-                    )}
-                    <div className="groups">
+                    )} */}
+                    <div className="all-groups-view-container__groups">
                         {groups.map((elem) => (
-                            <Link to={`/group/${elem.id}`}>{elem.title}</Link>
+                            <div key={elem.id} className="all-groups-view-container__groups__block">
+                                <Link to={`/group/${elem.id}`} className="all-groups-view-container__groups__block__link">{elem.title}</Link>
+                                <div className="all-groups-view-container__groups__block__count">{`${elem.count} участник${ending(elem.count % 10)}`}</div>
+                            </div>
                         ))}
                     </div>
                 </div>
