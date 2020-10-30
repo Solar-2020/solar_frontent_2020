@@ -27,6 +27,7 @@
     opacity: 1;
     border-radius: 3px;
     transition: opacity .3s;
+    object-fit: cover;
 }
 
 .create-post-component__white-part__photo-container__img_margin:hover .create-post-component__white-part__photo-container__img {
