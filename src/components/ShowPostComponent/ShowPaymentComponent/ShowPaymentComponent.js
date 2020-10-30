@@ -26,7 +26,7 @@ function ShowPaymentComponent({payment}) {
             <div className="show-post-component__white-part__show-payment-container__title">К оплате</div>
             <div className="show-post-component__white-part__show-payment-container__requisite">{`Перевести на: ${payment.requisite}`}</div>
             <div className="show-post-component__white-part__show-payment-container__cost">{`${payment.cost} ${symbol(payment.currency)}`}</div>
-            <button onClick={() => copyData()} className="show-post-component__white-part__show-payment-container__button">Копировать</button>
+            <button onClick={() => copyData()} className="show-post-component__white-part__show-payment-container__button">Копировать реквизиты</button>
         </div>
     );
 }
