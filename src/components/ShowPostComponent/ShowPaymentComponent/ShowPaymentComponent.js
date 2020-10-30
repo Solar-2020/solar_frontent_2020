@@ -12,12 +12,21 @@ function ShowPaymentComponent({payment}) {
         return '$';
     };
 
+    function copyData() {
+        const dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = payment.requisite;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+    };
+
     return (
         <div className="show-post-component__white-part__show-payment-container">
             <div className="show-post-component__white-part__show-payment-container__title">К оплате</div>
             <div className="show-post-component__white-part__show-payment-container__requisite">{`Перевести на: ${payment.requisite}`}</div>
             <div className="show-post-component__white-part__show-payment-container__cost">{`${payment.cost} ${symbol(payment.currency)}`}</div>
-            <button className="show-post-component__white-part__show-payment-container__button">Оплатить</button>
+            <button onClick={() => copyData()} className="show-post-component__white-part__show-payment-container__button">Копировать реквизиты</button>
         </div>
     );
 }
