@@ -23,6 +23,14 @@ function AllGroupsView({cookies}) {
     // }
 
     useEffect(() => {
+        getGroupList();
+    }, []);
+
+    useEffect(() => {
+        getGroupList();
+    }, [allGroups.value]);
+
+    function getGroupList() {
         fetchModule.get({
             url: BACKEND_ADDRESS + `/api/group/list`,
             body: null,
@@ -41,7 +49,7 @@ function AllGroupsView({cookies}) {
                     setGroups(responseBody);
                 }
             })
-    }, []);
+    };
 
     return (
         <div className="all-groups-view-container">
