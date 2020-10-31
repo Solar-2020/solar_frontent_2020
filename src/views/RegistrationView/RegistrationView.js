@@ -133,7 +133,7 @@ function RegistrationView() {
                         setMainError(responseBody.error);
                     }
                     if (responseBody.login) {
-                        alert('успешная регистрация!');
+                        // alert('успешная регистрация!');
                         history.push('/');
                     }
                 });

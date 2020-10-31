@@ -71,7 +71,7 @@ function LoginView() {
                         setMainError(responseBody.error);
                     }
                     if (responseBody.login) {
-                        alert('успешная авторизация!');
+                        // alert('успешная авторизация!');
                         history.push('/');
                     }
                 });

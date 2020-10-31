@@ -99,7 +99,7 @@ function SearchAddGroupComponent({changeAllGroups, cookies}) {
                         setMainError(responseBody.error);
                     }
                     if (responseBody.creatAt) {
-                        alert('Группа создана успешно!');
+                        // alert('Группа создана успешно!');
                         changeAllGroups(responseBody.id);
                         closeForm();
                     }

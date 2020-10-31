@@ -145,7 +145,7 @@ function GroupSettingsComponent({group, setGroup, cookies}) {
                         setMainError(responseBody.error);
                     }
                     if (responseBody.id) {
-                        alert('Группа изменена!');
+                        // alert('Группа изменена!');
                         fixErrors();
                         setGroup(responseBody);
                     }
