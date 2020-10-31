@@ -76,7 +76,7 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id}) {
             })
             .then((responseBody) => {
                 console.log(responseBody);
-                if (responseBody.userEmail) {
+                if (responseBody.userId) {
                     // alert('Пользователь успешно добавлен!');
                     dispatch({type: 'CLEAN_FORM'});
                 }

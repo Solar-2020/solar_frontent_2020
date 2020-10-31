@@ -219,7 +219,7 @@ function CreatePost({changeReload, cookies, id}) {
             })
                 .then((response) => {
                     // console.log(response);
-                    if (response.status === 200) alert('Успешно отправлен пост!');
+                    // if (response.status === 200) alert('Успешно отправлен пост!');
                     return response.json();
                 })
                 .then((responseBody) => {
