@@ -17,8 +17,18 @@ function GroupSettingsComponent({group, setGroup, cookies}) {
     };
 
     const errorMap = {
-        titleError: 'Допустимы символы: a-z, A-Z, а-яб А-Я, _',
-        urlError: 'Допустимы символы: a-z'
+        titleError: 'Минимальная длина 2 символа',
+        urlError: 'Минимальная длина 3 символа. Допустимы символы: a-z'
+    };
+
+    const errStyle = {
+        'true': 'search-add-group-component-container__create-group-form__card__form__input__error-input',
+        'false': 'search-add-group-component-container__create-group-form__card__form__input',
+    };
+
+    const regExpr = {
+        'title': /^[^\s]+.*[^\s]+$/,
+        'URL': /^[a-z]{3,}$/,
     };
 
     function changeField(field, value) {
@@ -60,21 +70,46 @@ function GroupSettingsComponent({group, setGroup, cookies}) {
 
 
     function checkValidationForm() {
-        if (!/^[а-яA-Яa-zA-Z]+[а-яA-Яa-zA-Z _]+[а-яA-Яa-zA-Z]+$/.test(groupInfo.title.trim())) {
+        let flag = true;
+
+        if (!regExpr.title.test(groupInfo.title)) {
             changeField('titleError', true);
-            return false;
+            flag = false;
         } else {
             changeField('titleError', false);
         }
 
-        if (!/^[a-z]{3,}$/.test(groupInfo.URL.trim())) {
+        if (!regExpr.URL.test(groupInfo.URL)) {
             changeField('urlError', true);
-            return false;
+            flag = false;
         } else {
             changeField('urlError', false);
         }
 
-        return true;
+        return flag
+    };
+
+    function validationField(key, value) {
+        changeGroupField(key, value);
+
+        switch(key) {
+            case 'title':
+                if (!regExpr.title.test(value)) {
+                    changeField('titleError', true);
+                } else {
+                    changeField('titleError', false);
+                }
+                break;
+            case 'URL':
+                if (!regExpr.URL.test(value)) {
+                    changeField('urlError', true);
+                } else {
+                    changeField('urlError', false);
+                }
+                break;
+            default:
+                break;
+        };
     };
 
     const addImageToPostFetch = (event) => {
@@ -159,6 +194,10 @@ function GroupSettingsComponent({group, setGroup, cookies}) {
         changeField('urlError', false);
     }
 
+    function fixURL(event) {
+        event.target.value = event.target.value.toLowerCase();
+    };
+
     return (
         <div className="group-settings-component">
             <div className="group-settings-component__title">Настройки группы</div>
@@ -191,10 +230,9 @@ function GroupSettingsComponent({group, setGroup, cookies}) {
                     <div className="search-add-group-component-container__create-group-form__card__form__text">Название</div>
                     <input
                         type="text" name="title" placeholder="Введите название"
-                        pattern="[а-яA-Яa-zA-Z]+[а-яA-Яa-zA-Z _]+[а-яA-Яa-zA-Z]+"
-                        onChange={event => changeGroupField('title', event.target.value)}
+                        onChange={event => validationField('title', event.target.value)}
                         value={groupInfo.title}
-                        className="search-add-group-component-container__create-group-form__card__form__input"/>
+                        className={errStyle[titleError]}/>
                     {titleError && (
                         <div className="search-add-group-component-container__create-group-form__card__form__input__error-text"
                         >{errorMap['titleError']}</div>
@@ -203,10 +241,10 @@ function GroupSettingsComponent({group, setGroup, cookies}) {
                     <div className="search-add-group-component-container__create-group-form__card__form__text">Адрес</div>
                     <input
                         type="text" name="url" placeholder="Введите url группы"
-                        pattern="[a-z]{3,}"
-                        onChange={event => changeGroupField('URL', event.target.value)}
+                        onChange={event => validationField('URL', event.target.value)}
+                        onInput={fixURL}
                         value={groupInfo.URL}
-                        className="search-add-group-component-container__create-group-form__card__form__input"/>
+                        className={errStyle[urlError]}/>
                     {urlError && (
                         <div className="search-add-group-component-container__create-group-form__card__form__input__error-text">
                             {errorMap['urlError']}</div>
