@@ -26,3 +26,17 @@ export function fixTime(str) {
     str = str.replaceAll('+', '%2B');
     return str;
 }
+
+/**
+ * Create date
+ * @param {string} date
+ * @param {string} time
+ * @return {string}
+ */
+export function createNormDate(date, time) {
+    const monthes = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+
+    const dateArr = date.split('-');
+
+    return `${dateArr[2]} ${monthes[dateArr[1] - 1]} ${dateArr[0]} ${time}`;
+}

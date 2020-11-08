@@ -5,6 +5,7 @@ import ShowPhotosComponent from './ShowPhotosComponent/ShowPotosComponent';
 import ShowInterviewComponent from './ShowInterviewComponent/ShowInterviewComponent';
 import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
 import ShowPaymentComponent from './ShowPaymentComponent/ShowPaymentComponent';
+import {createNormDate} from '../../utils/time';
 
 /**
  * Show post component
@@ -42,7 +43,7 @@ function ShowPostComponent({data, cookies}) {
                 <div className="show-post-component__white-part__avatar-text__avatar"></div>
                 <div className="show-post-component__white-part__avatar-text__text">
                     <div className="show-post-component__white-part__avatar-text__text__name">Автор поста</div>
-                    <div className="show-post-component__white-part__avatar-text__text__data">{dataComp.publishDate.split('T')[0]}</div>
+                    <div className="show-post-component__white-part__avatar-text__text__data">{createNormDate(dataComp.publishDate.split('T')[0], dataComp.publishDate.split('T')[1].split('.')[0])}</div>
                 </div>
                 <button className="show-post-component__white-part__avatar-text__star-button"/>
             </div>
