@@ -208,3 +208,19 @@
     background-repeat: no-repeat;
     background-image: url('../../images/photo-camera.png');
 }
+
+.search-add-group-component-container__create-group-form__card__form__text__url-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.search-add-group-component-container__create-group-form__card__form__text__url-block__text {
+    color: var(--main-text-color);
+}
+
+.search-add-group-component-container__input_margin {
+    margin-left: 3px;
+    width: 100%;
+}
+

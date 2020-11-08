@@ -267,11 +267,14 @@ function SearchAddGroupComponent({changeAllGroups, cookies}) {
                             )}
 
                             <div className="search-add-group-component-container__create-group-form__card__form__text">Адрес</div>
-                            <input
-                                type="text" name="url" placeholder="Введите url группы"
-                                onChange={event => validationField('URL', event.target.value)}
-                                onInput={validationUrl}
-                                className={errStyle[urlError]}/>
+                            <div className="search-add-group-component-container__create-group-form__card__form__text__url-block">
+                                <div className="search-add-group-component-container__create-group-form__card__form__text__url-block__text">http://develop.nlmail.ru/group/</div>
+                                <input
+                                    type="text" name="url" placeholder="Введите url группы"
+                                    onChange={event => validationField('URL', event.target.value)}
+                                    onInput={validationUrl}
+                                    className={`${errStyle[urlError]} search-add-group-component-container__input_margin`}/>
+                            </div>
                             {urlError && (
                                 <div className="search-add-group-component-container__create-group-form__card__form__input__error-text">
                                     {errorMap['urlError']}</div>
