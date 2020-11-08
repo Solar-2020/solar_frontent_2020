@@ -21,8 +21,18 @@ function SearchAddGroupComponent({changeAllGroups, cookies}) {
     };
     
     const errorMap = {
-        titleError: 'Допустимы символы: a-z, A-Z, а-яб А-Я, _',
-        urlError: 'Допустимы символы: a-z'
+        titleError: 'Минимальная длина 2 символа',
+        urlError: 'Минимальная длина 3 символа. Допустимы символы: a-z'
+    };
+
+    const errStyle = {
+        'true': 'search-add-group-component-container__create-group-form__card__form__input__error-input',
+        'false': 'search-add-group-component-container__create-group-form__card__form__input',
+    };
+
+    const regExpr = {
+        'title': /^[^\s]+.*[^\s]+$/,
+        'URL': /^[a-z]{3,}$/,
     };
 
     function changeField(field, value) {
@@ -110,14 +120,14 @@ function SearchAddGroupComponent({changeAllGroups, cookies}) {
     function checkValidationForm() {
         let flag = true;
 
-        if (!/^[а-яA-Яa-zA-Z]+[а-яA-Яa-zA-Z _]+[а-яA-Яa-zA-Z]+$/.test(title.trim())) {
+        if (!regExpr.title.test(title)) {
             changeField('titleError', true);
             flag = false;
         } else {
             changeField('titleError', false);
         }
 
-        if (!/^[a-z]{3,}$/.test(URL.trim())) {
+        if (!regExpr.URL.test(URL)) {
             changeField('urlError', true);
             flag = false;
         } else {
@@ -125,6 +135,29 @@ function SearchAddGroupComponent({changeAllGroups, cookies}) {
         }
 
         return flag;
+    };
+
+    function validationField(key, value) {
+        changeField(key, value);
+
+        switch(key) {
+            case 'title':
+                if (!regExpr.title.test(value)) {
+                    changeField('titleError', true);
+                } else {
+                    changeField('titleError', false);
+                }
+                break;
+            case 'URL':
+                if (!regExpr.URL.test(value)) {
+                    changeField('urlError', true);
+                } else {
+                    changeField('urlError', false);
+                }
+                break;
+            default:
+                break;
+        };
     };
 
     const closeForm = () => {
@@ -165,6 +198,10 @@ function SearchAddGroupComponent({changeAllGroups, cookies}) {
         if (event.target.value[0] === ' ') {
             event.target.value = event.target.value.slice(1);
         };
+    };
+
+    function validationUrl(event) {
+        event.target.value = event.target.value.toLowerCase();
     };
 
     return (
@@ -222,9 +259,8 @@ function SearchAddGroupComponent({changeAllGroups, cookies}) {
                             <div className="search-add-group-component-container__create-group-form__card__form__text">Название</div>
                             <input
                                 type="text" name="title" placeholder="Введите название"
-                                pattern="[а-яA-Яa-zA-Z]+[а-яA-Яa-zA-Z _]+[а-яA-Яa-zA-Z]+"
-                                onChange={event => changeField('title', event.target.value)}
-                                className="search-add-group-component-container__create-group-form__card__form__input"/>
+                                onChange={event => validationField('title', event.target.value)}
+                                className={errStyle[titleError]}/>
                             {titleError && (
                                 <div className="search-add-group-component-container__create-group-form__card__form__input__error-text"
                                 >{errorMap['titleError']}</div>
@@ -233,9 +269,9 @@ function SearchAddGroupComponent({changeAllGroups, cookies}) {
                             <div className="search-add-group-component-container__create-group-form__card__form__text">Адрес</div>
                             <input
                                 type="text" name="url" placeholder="Введите url группы"
-                                pattern="[a-z]{3,}"
-                                onInput={event => changeField('URL', event.target.value)}
-                                className="search-add-group-component-container__create-group-form__card__form__input"/>
+                                onChange={event => validationField('URL', event.target.value)}
+                                onInput={validationUrl}
+                                className={errStyle[urlError]}/>
                             {urlError && (
                                 <div className="search-add-group-component-container__create-group-form__card__form__input__error-text">
                                     {errorMap['urlError']}</div>

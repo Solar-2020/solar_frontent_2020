@@ -88,6 +88,16 @@
     border-radius: 3px;
 }
 
+.search-add-group-component-container__create-group-form__card__form__input__error-input {
+    height: 30px;
+    border: 2px solid red;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 3px;
+    outline: none;
+}
+
 .search-add-group-component-container__create-group-form__card__form__input:invalid,
 .search-add-group-component-container__create-group-form__card__form__input:invalid:focus {
     border: 2px solid red;
