@@ -46,6 +46,16 @@
     border: 2px solid red;
 }
 
+.login-view-container__card__input-block__input__error-input {
+    height: 30px;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 3px;
+    border: 2px solid red;
+    outline: none;
+}
+
 .login-view-container__card__input-block__input__error-text {
     color: red;
     font-size: 12px;

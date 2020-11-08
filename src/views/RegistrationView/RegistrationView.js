@@ -20,10 +20,21 @@ function RegistrationView() {
     };
 
     const errorMap = {
-        userNameError: 'Допустимы символы: a-z, A-Z, а-я, А-Я',
+        userNameError: 'Заполните имя и фамилию. Допустимы символы: a-z, A-Z, а-я, А-Я, -',
         emailError: 'Валидный формат: email@mail.ru',
-        passwordError: 'Длина больше 3, допустимы символы: a-z, A-Z, а-я, А-Я, 0-9, _',
+        passwordError: 'Длина больше 6 символов, без пробелов',
         passwordScError: 'Пароли должны совпадать',
+    };
+
+    const errorStyle = {
+        'true': 'login-view-container__card__input-block__input__error-input',
+        'false': 'login-view-container__card__input-block__input',
+    };
+
+    const regExpr = {
+        'FIO': /^[a-zA-Zа-яА-Я]+([\s-]?[a-zA-Zа-яА-Я]+)*$/,
+        'email': /^[^\s]+@[^\s]+\.[^\s]+$/,
+        'password': /^[^\s]{6,}$/
     };
 
     const initialState ={
@@ -71,21 +82,21 @@ function RegistrationView() {
     function checkValidationForm() {
         let flag = true;
 
-        if (!/^[a-zA-Zа-яА-Я]+$/.test(name.trim()) || !/^[a-zA-Zа-яА-Я]+$/.test(surname.trim())) {
+        if (!regExpr.FIO.test(name) || !regExpr.FIO.test(surname)) {
             changeField('userNameError', true);
             flag = false;
         } else {
             changeField('userNameError', false);
         }
 
-        if (!/^[a-zA-Zа-яА-Я.]+@[a-zA-Zа-яА-Я]+\.[a-zA-Zа-яА-Я]+$/.test(email.trim())) {
+        if (!regExpr.email.test(email)) {
             changeField('emailError', true);
             flag = false;
         } else {
             changeField('emailError', false);
         }
 
-        if (!/^[a-zA-Zа-яА-Я0-9_]{3,}$/.test(password)) {
+        if (!regExpr.password.test(password)) {
             changeField('passwordError', true);
             flag = false;
         } else {
@@ -140,6 +151,50 @@ function RegistrationView() {
         }
     };
 
+    function validationField(key, value) {
+        changeField(key, value);
+
+        switch(key) {
+            case 'surname':
+                if (!regExpr.FIO.test(name) || !regExpr.FIO.test(value)) {
+                    changeField('userNameError', true);
+                } else {
+                    changeField('userNameError', false);
+                }
+                break;
+            case 'name':
+                if (!regExpr.FIO.test(value) || !regExpr.FIO.test(surname)) {
+                    changeField('userNameError', true);
+                } else {
+                    changeField('userNameError', false);
+                }
+                break;
+            case 'email':
+                if (!regExpr.email.test(value)) {
+                    changeField('emailError', true);
+                } else {
+                    changeField('emailError', false);
+                }
+                break;
+            case 'password':
+                if (!regExpr.password.test(value)) {
+                    changeField('passwordError', true);
+                } else {
+                    changeField('passwordError', false);
+                }
+                break;
+            case 'passwordSc':
+                if (password !== value) {
+                    changeField('passwordScError', true);
+                } else {
+                    changeField('passwordScError', false);
+                }
+                break;
+            default:
+                break;
+        };
+    }
+
     return (
         <div className="login-view-container">
             <div className="login-view-container__card">
@@ -154,14 +209,12 @@ function RegistrationView() {
                     <div className="reginstration-view__input_error">{errorMap.userNameError}</div>
                 )}
                 <input
-                    pattern="[a-zA-Zа-яА-Я]+"
-                    className="login-view-container__card__input-block__input"
-                    onChange={e => changeField('name', e.target.value)}
+                    className={errorStyle[userNameError]}
+                    onChange={e => validationField('name', e.target.value)}
                     placeholder="Имя"/>
                 <input
-                    pattern="[a-zA-Zа-яА-Я]+"
-                    className="login-view-container__card__input-block__input reginstration-view__input_margin"
-                    onChange={e => changeField('surname', e.target.value)}
+                    className={`${errorStyle[userNameError]} reginstration-view__input_margin`}
+                    onChange={e => validationField('surname', e.target.value)}
                     placeholder="Фамилия"/>
                 
                 <div className="login-view-container__card__input-block__title">Электронная почта</div>
@@ -169,9 +222,8 @@ function RegistrationView() {
                     <div className="reginstration-view__input_error">{errorMap.emailError}</div>
                 )}
                 <input
-                    pattern="[a-zA-Zа-яА-Я.]+@[a-zA-Zа-яА-Я]+\.[a-zA-Zа-яА-Я]+"
-                    className="login-view-container__card__input-block__input"
-                    onChange={e => changeField('email', e.target.value)}
+                    className={errorStyle[emailError]}
+                    onChange={e => validationField('email', e.target.value)}
                     placeholder="Электронная почта"/>
 
                 
@@ -183,15 +235,15 @@ function RegistrationView() {
                     <div className="reginstration-view__input_error">{errorMap.passwordScError}</div>
                 )}
                 <input
-                    pattern="[a-zA-Zа-яА-Я0-9_]{3,}"
                     type="password"
-                    onChange={e => changeField('password', e.target.value)}
-                    className="login-view-container__card__input-block__input"placeholder="Введите пароль"/>
+                    onChange={e => validationField('password', e.target.value)}
+                    className={(!passwordScError) ? errorStyle[passwordError] : errorStyle[passwordScError]}
+                    placeholder="Введите пароль"/>
                 <input
-                    pattern="[a-zA-Zа-яА-Я0-9_]{3,}"
                     type="password"
-                    onChange={e => changeField('passwordSc', e.target.value)}
-                    className="login-view-container__card__input-block__input reginstration-view__input_margin"placeholder="Повторите пароль"/>
+                    onChange={e => validationField('passwordSc', e.target.value)}
+                    className={`${errorStyle[passwordScError]} reginstration-view__input_margin`}
+                    placeholder="Повторите пароль"/>
                 
                 <button
                     onClick={e => handleSubmit(e)}
