@@ -90,8 +90,8 @@ function ShowInterviewComponent({changeStatus, interview, postId, cookies}) {
                         <div>
                             {interview.answers.map((answer) => (
                             <div key={answer.id} className="show-post-component__white-part__show-interview-container__answer">
-                                <input type="radio" value={answer.id} name="answer"/>
-                                <div>{answer.text} </div>
+                                <input id={`answer-${answer.id}`} type="radio" value={answer.id} name="answer"/>
+                                <div onClick={() => document.getElementById(`answer-${answer.id}`).click()}>{answer.text} </div>
                             </div>
                         ))}
                         </div>
@@ -99,8 +99,8 @@ function ShowInterviewComponent({changeStatus, interview, postId, cookies}) {
                         <div>
                             {interview.answers.map((answer) => (
                                 <div key={answer.id} className="show-post-component__white-part__show-interview-container__answer">
-                                    <input type="checkbox" value={answer.id} name="answer"/>
-                                    <div>{answer.text} </div>
+                                    <input id={`answer-${answer.id}`} type="checkbox" value={answer.id} name="answer"/>
+                                    <div onClick={() => document.getElementById(`answer-${answer.id}`).click()}>{answer.text} </div>
                                 </div>
                             ))}
                         </div>
