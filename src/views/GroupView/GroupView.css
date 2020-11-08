@@ -94,3 +94,11 @@
 .group-view-banner__items__info-container {
     padding: 0 35px;
 }
+
+.group-view-banner__items__info__count {
+    font-size: 13px;
+}
+
+.group-view-banner__items__info_description {
+    margin-top: 15px;
+}

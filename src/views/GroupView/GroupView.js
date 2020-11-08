@@ -141,7 +141,10 @@ function GroupView({cookies}) {
                     <div className="group-view-banner__items__info-container">
                         <div className="group-view-banner__items__info">
                             <div className="group-view-banner__items__info__title">{group.title}</div>
-                            <div>{`${group.count} участник${ending(group.count % 10)}`}</div>
+                            <div className="group-view-banner__items__info__count">{`${group.count} участник${ending(group.count % 10)}`}</div>
+                            {group.description && (
+                                <div className="group-view-banner__items__info_description">{group.description}</div>
+                            )}
                             {/* <div>{id}</div> */}
                         </div>
                         <div className="group-view-banner__items__links">
