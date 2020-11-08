@@ -297,6 +297,7 @@ function CreatePost({changeReload, cookies, id}) {
             </div>
             <div className="create-post-component__green-part">
                 <button
+                    title="Фото"
                     id="createPostComponentGreenPartPhoto"
                     value="photo"
                     className="create-post-component__green-part__buttons create-post-component__green-part__buttons_photo"
@@ -307,10 +308,17 @@ function CreatePost({changeReload, cookies, id}) {
                     type="file" name="addPostPhoto" accept="image/png, image/jpeg, image/gif"
                     onChange={addImageToPostFetch}/>
 
-                <button className="create-post-component__green-part__buttons create-post-component__green-part__buttons_survey" onClick={() => changeComponentsView('interview')}/>
-                <button className="create-post-component__green-part__buttons create-post-component__green-part__buttons_payment" onClick={() => changeComponentsView('payment')}/>
+                <button
+                    title="Опрос"
+                    className="create-post-component__green-part__buttons create-post-component__green-part__buttons_survey"
+                    onClick={() => changeComponentsView('interview')}/>
+                <button
+                    title="Оплата"
+                    className="create-post-component__green-part__buttons create-post-component__green-part__buttons_payment"
+                    onClick={() => changeComponentsView('payment')}/>
 
                 <button
+                    title="Документ"
                     id="createPostComponentGreenPartDocAdd"
                     value="doc"
                     onClick={() => document.getElementById('createPostComponentGreenPartDoc').click()}
@@ -318,7 +326,7 @@ function CreatePost({changeReload, cookies, id}) {
                 <input
                     id="createPostComponentGreenPartDoc"
                     style={{display: 'none'}}
-                    type="file" name="addPostDoc" accept=".doc, .docx, .txt"
+                    type="file" name="addPostDoc"
                     onChange={addDocToPostFetch}/>
 
                 <button className="create-post-component__green-part__buttons_create-post" onClick={() => submitInfo()}>Опубликовать</button>

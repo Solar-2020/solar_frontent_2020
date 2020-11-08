@@ -33,7 +33,7 @@
     resize: none;
     width: 565px;
     border-color: var(--border-color);
-    color: var(--main-grey-text-color);
+    color: var(--main-text-color);
     padding: 5px;
     border-radius: 3px;
     display: flex;
@@ -72,6 +72,10 @@
     cursor: pointer;
     background-repeat: no-repeat;
 }
+
+/* .create-post-component__green-part__buttons:hover::after {
+    content: attr(data-title);
+} */
 
 .create-post-component__green-part__buttons_photo {
     background-image: url('../../images/photo-camera.png');
