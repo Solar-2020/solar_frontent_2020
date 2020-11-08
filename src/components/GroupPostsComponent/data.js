@@ -16,7 +16,7 @@ export const data = {
     ],
     photos: [
         {id: 1, url: 'storage/photos/00/001046ec8942195abcefc5b3f1de041e.jpg'},
-        {id: 2, url: 'storage/photos/00/001046ec8942195abcefc5b3f1de041e.jpg'},
+        {id: 2, url: 'storage/photos/c7/c757ff3b8519b10e501d0b7ce49d266f.jpg'},
     ],
     files: [
         {id: 1, name: 'doc1.docx', url: 'storage/files/te/f534e47333774172007944db06b0627a.docx'},

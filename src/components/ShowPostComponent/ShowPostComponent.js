@@ -14,10 +14,26 @@ import {createNormDate} from '../../utils/time';
 function ShowPostComponent({data, cookies}) {
     const initialState = {
         dataComp: data,
+        isLightbox: false,
+        lightboxImg: '',
     };
 
     function changeStatus(value) {
         dispatch({type: 'CHANGE_INTERIEW', value});
+    };
+
+    function changeField(field, value) {
+        dispatch({type: 'CHANGE_FIELD', field, value});
+    };
+
+    function openImg(src) {
+        changeField('isLightbox', true);
+        changeField('lightboxImg', src);
+    };
+
+    function closeImg() {
+        changeField('isLightbox', false);
+        changeField('lightboxImg', '');
     };
 
     const [state, dispatch] = useReducer(
@@ -26,6 +42,8 @@ function ShowPostComponent({data, cookies}) {
                 case 'CHANGE_INTERIEW':
                     //action.value - массив
                     return {...state, dataComp: {... state.dataComp, interviews: action.value}};
+                case 'CHANGE_FIELD':
+                    return {...state, [action.field]: action.value};
                 default:
                     return state;
             }
@@ -35,10 +53,22 @@ function ShowPostComponent({data, cookies}) {
 
     const {
         dataComp,
+        isLightbox,
+        lightboxImg,
     } = state;
 
     return (
         <div className="show-post-component">
+            {isLightbox && (
+                <div
+                    onClick={() => closeImg()}
+                    className="show-post__lightbox">
+                        <img
+                        src={lightboxImg} alt={''}
+                        className="show-post__lightbox__img"></img>
+                </div>
+            )}
+
             <div className="show-post-component__white-part__avatar-text">
                 <div className="show-post-component__white-part__avatar-text__avatar"></div>
                 <div className="show-post-component__white-part__avatar-text__text">
@@ -58,7 +88,7 @@ function ShowPostComponent({data, cookies}) {
                 <ShowPaymentComponent payment={dataComp.payments[0]}/>
             )}
             {dataComp.photos.length > 0 && (
-                <ShowPhotosComponent photos={dataComp.photos} backendAddress={BACKEND_ADDRESS}/>
+                <ShowPhotosComponent photos={dataComp.photos} backendAddress={BACKEND_ADDRESS} openImg={openImg}/>
             )}
             {dataComp.files.length > 0 && (
                 <ShowDocsComponent docs={dataComp.files} backendAddress={BACKEND_ADDRESS}/>
