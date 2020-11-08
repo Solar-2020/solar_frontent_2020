@@ -29,6 +29,10 @@ function GroupView({cookies}) {
         dispatch({type: 'SET_GROUP', value});
     };
 
+    const changeReload = () => {
+        dispatch({type: 'RELOAD_GROUP', value: !reloadGroup});
+    }
+
     const initialState = {
         componentActive: {
             posts: true,
@@ -41,6 +45,7 @@ function GroupView({cookies}) {
         },
         id: location.pathname.split('/')[2],
         group: {},
+        reloadGroup: false,
     };
 
     const [state, dispatch] = useReducer(
@@ -54,6 +59,8 @@ function GroupView({cookies}) {
                     }};
                 case 'SET_GROUP':
                     return {...state, group: action.value};
+                case 'RELOAD_GROUP':
+                    return {...state, reloadGroup: action.value};
                 default:
                     return state;
             }
@@ -66,13 +73,14 @@ function GroupView({cookies}) {
         groupInfo,
         id,
         group,
+        reloadGroup
     } = state;
 
     useEffect(
         () => {
             // Подправить на id из location
             getGroupInfo();
-        }, []);
+        }, [reloadGroup]);
 
     const getGroupInfo = () => {
         fetchModule.get({
@@ -160,7 +168,7 @@ function GroupView({cookies}) {
                         <GroupMembersComponent cookies={cookies} id={id}/>
                     )}
                     {componentActive.settings && (
-                        <GroupSettingsComponent group={group} setGroup={setGroup} cookies={cookies}/>
+                        <GroupSettingsComponent changeReload={changeReload} group={group} cookies={cookies}/>
                     )}
                 </div>
             </div>
