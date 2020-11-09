@@ -89,18 +89,24 @@ function ShowInterviewComponent({changeStatus, interview, postId, cookies}) {
                     {interview.type === 1 ? (
                         <div>
                             {interview.answers.map((answer) => (
-                            <div key={answer.id} className="show-post-component__white-part__show-interview-container__answer">
-                                <input id={`answer-${answer.id}`} type="radio" value={answer.id} name="answer"/>
-                                <div onClick={() => document.getElementById(`answer-${answer.id}`).click()}>{answer.text} </div>
+                            <div
+                                key={answer.id}
+                                className="show-post-component__white-part__show-interview-container__answer"
+                                onClick={() => document.getElementById(`answer-${answer.id}`).click()}>
+                                    <input id={`answer-${answer.id}`} type="radio" value={answer.id} name="answer"/>
+                                    <div>{answer.text} </div>
                             </div>
                         ))}
                         </div>
                     ) : (
                         <div>
                             {interview.answers.map((answer) => (
-                                <div key={answer.id} className="show-post-component__white-part__show-interview-container__answer">
-                                    <input id={`answer-${answer.id}`} type="checkbox" value={answer.id} name="answer"/>
-                                    <div onClick={() => document.getElementById(`answer-${answer.id}`).click()}>{answer.text} </div>
+                                <div
+                                    key={answer.id}
+                                    className="show-post-component__white-part__show-interview-container__answer"
+                                    onClick={() => document.getElementById(`answer-${answer.id}`).click()}>
+                                        <input id={`answer-${answer.id}`} type="checkbox" value={answer.id} name="answer"/>
+                                        <div>{answer.text} </div>
                                 </div>
                             ))}
                         </div>
