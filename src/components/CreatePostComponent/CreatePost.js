@@ -248,6 +248,11 @@ function CreatePost({changeReload, cookies, id}) {
         document.getElementById('createPostComponentText').value = '';
     };
 
+    const delPaymentComp = () => {
+        setPaymentComp(false);
+        setPaymentValue({requisite: '', cost: 0, currency: 1});
+    };
+
     return (
         <div className="create-post-component">
             <div className="create-post-component__white-part">
@@ -285,7 +290,7 @@ function CreatePost({changeReload, cookies, id}) {
                         </div>
                 )}
                 {paymentComp && (
-                    <PaymentComponent delPaymentComp={() => setPaymentComp(false)} changePaymentHandler={changePaymentHandler}/>
+                    <PaymentComponent delPaymentComp={delPaymentComp} changePaymentHandler={changePaymentHandler} payVal={paymentValue.requisite}/>
                 )}
                 {photoComp.length > 0 && (
                     <PhotoComponent photos={photoComp} delPhotoHandler={delPhotoHandler}/>
