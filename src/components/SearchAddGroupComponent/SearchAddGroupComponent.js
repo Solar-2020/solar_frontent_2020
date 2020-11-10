@@ -1,14 +1,14 @@
 import React, {useReducer} from 'react';
 import './SearchAddGroupComponent.css';
 import searchImg from '../../images/search-glass.svg';
-import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
+import {BACKEND_ADDRESS, errToastConfig} from '../../utils/Config/Config.js';
 import fetchModule from '../../utils/API/FetchModule.js';
 
 /**
  * Header component
  * @return {jsx}
  */
-function SearchAddGroupComponent({changeAllGroups, cookies}) {
+function SearchAddGroupComponent({changeAllGroups, cookies, okToast, errToast}) {
     const initialState = {
         isOpenAddGroupModal: false,
         title: '',
@@ -112,6 +112,7 @@ function SearchAddGroupComponent({changeAllGroups, cookies}) {
                         // alert('Группа создана успешно!');
                         changeAllGroups(responseBody.id);
                         closeForm();
+                        okToast('Группа создана успешно')
                     }
                 });
         }
@@ -187,7 +188,7 @@ function SearchAddGroupComponent({changeAllGroups, cookies}) {
             })
             .then((responseBody) => {
                 if (!responseBody.id || !responseBody.url) {
-                    alert('Искать ошибку в запросе для создания фото');
+                    errToast('Фотография не была загружена');
                 }
 
                 changeField('avatarURL', `${BACKEND_ADDRESS}${responseBody.url}`);

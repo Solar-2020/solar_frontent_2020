@@ -10,7 +10,7 @@ import CreatePost from '../../components/CreatePostComponent/CreatePost';
  * Group settings component
  * @return {jsx}
  */
-function GroupPostsComponent({cookies, id}) {
+function GroupPostsComponent({cookies, id, okToast, errToast}) {
     const initialState = {
         posts: [],
         lastID: '',
@@ -82,6 +82,8 @@ function GroupPostsComponent({cookies, id}) {
             .then((response) => {
                 if (response.ok) {
                     return response.json();
+                } else {
+                    errToast('Ошибка при получении данных');
                 }
             })
             .then((responseBody) => {
@@ -104,7 +106,7 @@ function GroupPostsComponent({cookies, id}) {
         <div>
             {/* {lastID}
             <button onClick={() => getData(lastID)}>получить данные</button> */}
-            <CreatePost changeReload={changeReload} cookies={cookies} id={id}/>
+            <CreatePost changeReload={changeReload} cookies={cookies} id={id} okToast={okToast} errToast={errToast}/>
             {posts.map((elem) => (
                 <div key={elem.id}>
                     <ShowPostComponent data={elem} cookies={cookies}/>

@@ -5,8 +5,9 @@ import './GroupView.css';
 import GroupPostsComponent from '../../components/GroupPostsComponent/GroupPostsComponent';
 import { useLocation } from 'react-router-dom';
 import fetchModule from '../../utils/API/FetchModule';
-import { BACKEND_ADDRESS } from '../../utils/Config/Config';
-
+import { BACKEND_ADDRESS, okToastConfig, errToastConfig } from '../../utils/Config/Config';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 /**
  * Group view
@@ -125,11 +126,21 @@ function GroupView({cookies}) {
     //     }
     // };
 
+    const createOkToast= (text) => {
+        toast(text, okToastConfig);            
+    };
+
+    const createErrorToast= (text) => {
+        toast(text, errToastConfig);            
+    };
+
     return (
         <div className="container">
             <div className="group-view-banner">
                 <div className="group-view-banner__items">
-
+                    <ToastContainer/>
+                    {/* <button onClick={() => createOkToast('успешно')}>Успешный тост</button>
+                    <button onClick={() => createErrorToast('Не успешно')}>Неуспешный тост</button> */}
                     {group.avatarURL !== '' ? (
                         <img
                             className="group-view-banner__items__image"
@@ -165,7 +176,7 @@ function GroupView({cookies}) {
             <div id="groupViewPostsContainer" className="group-view-posts-container">
                 <div className="group-view-posts-container__create-post">
                     {componentActive.posts && (
-                        <GroupPostsComponent cookies={cookies} id={id}/>
+                        <GroupPostsComponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast}/>
                     )}
                     {componentActive.members && (
                         <GroupMembersComponent cookies={cookies} id={id}/>

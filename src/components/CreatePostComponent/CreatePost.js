@@ -13,7 +13,7 @@ import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
  * Create post component
  * @return {jsx}
  */
-function CreatePost({changeReload, cookies, id}) {
+function CreatePost({changeReload, cookies, id, okToast, errToast}) {
     const [interviewError, setInterviewError] = useState(false);
 
     const [interviewElems, setInterviewElems] = useState([]);
@@ -127,7 +127,8 @@ function CreatePost({changeReload, cookies, id}) {
             })
             .then((responseBody) => {
                 if (!responseBody.id || !responseBody.url) {
-                    alert('Искать ошибку в запросе для создания фото');
+                    // alert('Искать ошибку в запросе для создания фото');
+                    errToast('Ошибка при добавлении фото');
                 }
                 changeComponentsView('photo', responseBody);
             });
@@ -150,7 +151,7 @@ function CreatePost({changeReload, cookies, id}) {
             })
             .then((responseBody) => {
                 if (!responseBody.id || !responseBody.url) {
-                    alert('Искать ошибку в запросе для создания документа');
+                    errToast('Ошибка при добавлении документа');
                 }
                 changeComponentsView('docs', responseBody);
             });
@@ -229,8 +230,11 @@ function CreatePost({changeReload, cookies, id}) {
                     if (responseBody.id) {
                         // pushFrontNewPost([{...form, id: responseBody.id, publishDate: responseBody.publishDate}]);
                         changeReload();
+                        clearPostForm();
+                        okToast('Пост создан успешно');
+                    } else {
+                        errToast('Пост не был создан');
                     }
-                    clearPostForm();
                 });
         };
     };

@@ -48,3 +48,18 @@ input, textarea, button {
 .not-a {
   text-decoration: none;
 }
+
+.ok-toast {
+  background-color: #63CF82ed !important;
+  color: var(--main-text-color) !important;
+  padding-left: 15px !important;
+  border-radius: var(--cards-radius) !important;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15) !important;
+}
+
+.error-toast {
+  background-color: #ff9092ed !important;
+  color: var(--main-text-color) !important;
+  padding-left: 15px !important;
+  border-radius: var(--cards-radius) !important;
+}

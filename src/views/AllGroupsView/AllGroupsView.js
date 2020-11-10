@@ -3,7 +3,9 @@ import './AllGroupsView.css';
 import SearchAddGroupComponent from '../../components/SearchAddGroupComponent/SearchAddGroupComponent';
 import { Link } from 'react-router-dom';
 import fetchModule from '../../utils/API/FetchModule.js';
-import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
+import {BACKEND_ADDRESS, okToastConfig, errToastConfig} from '../../utils/Config/Config.js';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 /**
  * all groups view
@@ -57,12 +59,21 @@ function AllGroupsView({cookies}) {
                 'а' : '';
     };
 
+    const createOkToast= (text) => {
+        toast(text, okToastConfig);            
+    };
+
+    const createErrorToast= (text) => {
+        toast(text, errToastConfig);            
+    };
+
     return (
         <div className="all-groups-view-container">
             <div className="all-groups-view-container_width">
                 <div className="all-groups-view-container__search-style">
+                    <ToastContainer/>
                     <div className="all-groups-view-container__search-style__title">Мои группы</div>
-                    <SearchAddGroupComponent changeAllGroups={changeAllGroups} cookies={cookies}/>
+                    <SearchAddGroupComponent changeAllGroups={changeAllGroups} cookies={cookies} okToast={createOkToast} errToast={createErrorToast}/>
 
                     {/* {allGroups.isGroup && (
                         <div className="all-groups-view-container__search-style__value">{allGroups.value}</div>
