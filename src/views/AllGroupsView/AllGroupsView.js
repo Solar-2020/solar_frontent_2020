@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useReducer} from 'react';
 import './AllGroupsView.css';
 import SearchAddGroupComponent from '../../components/SearchAddGroupComponent/SearchAddGroupComponent';
 import { Link } from 'react-router-dom';
@@ -12,12 +12,34 @@ import 'react-toastify/dist/ReactToastify.css';
  * @return {jsx}
  */
 function AllGroupsView({cookies}) {
-    const [allGroups, setAllGroup] = useState({isGroup: false, value: 0});
+    const initialState = {
+        allGroups: {isGroup: false, value: 0},
+        groups: [],
+    };
 
-    const [groups, setGroups] = useState([]);
+    const [state, dispatch] = useReducer(
+        (state, action) => {
+            switch (action.type) {
+                case 'CHANGE_FIELD':
+                    return {...state, [action.field]: action.value};
+                default:
+                    return state;
+            }
+        },
+        initialState
+    );
+
+    const {
+        allGroups,
+        groups,
+    } = state;
+
+    function changeField(field, value) {
+        dispatch({type: 'CHANGE_FIELD', field, value});
+    };
 
     const changeAllGroups = (value) => {
-        setAllGroup({isGroup: true, value: value});
+        changeField('allGroups', {isGroup: true, value: value});
     };
 
     // const initialState = {
@@ -48,9 +70,9 @@ function AllGroupsView({cookies}) {
             })
             .then((responseBody) => {
                 if(Array.isArray(responseBody)) {
-                    setGroups(responseBody);
+                    changeField('groups', responseBody);
                 }
-            })
+            });
     };
 
     const ending = (count) => {

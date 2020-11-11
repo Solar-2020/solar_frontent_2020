@@ -12,7 +12,6 @@ import searchImg from '../../images/search-glass.svg';
  * @return {jsx}
  */
 function GroupMembersComponent({cookies, id, changeReload, okToast, errToast}) {
-
     const initialState = {
         isAddDelBtn: false,
         addDelBtnFlag: '',
