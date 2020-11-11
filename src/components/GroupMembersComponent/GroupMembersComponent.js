@@ -3,6 +3,9 @@ import './GroupMembersComponent.css';
 import fetchModule from '../../utils/API/FetchModule.js';
 import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
 import AddDeleteGroupMembersComponent from './AddDeleteGroupMemebersComponent/AddDeleteGroupMembersComponent';
+import {searchMember} from '../../utils/search';
+import '../SearchAddGroupComponent/SearchAddGroupComponent.css';
+import searchImg from '../../images/search-glass.svg';
 
 /**
  * Group members component
@@ -14,7 +17,9 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast}) {
         isAddDelBtn: false,
         addDelBtnFlag: '',
         membersList: [],
+        searchList: [],
         updateList: false,
+        ifSearch: false,
     };
 
     const [state, dispatch] = useReducer(
@@ -34,6 +39,8 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast}) {
         addDelBtnFlag,
         membersList,
         updateList,
+        searchList,
+        ifSearch,
     } = state;
 
     function addDelButtonClick(value) {
@@ -58,28 +65,6 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast}) {
     }, [updateList]);
 
     function getMembersList() {
-        // console.log('get data');
-        // changeField('membersList', [
-        //     {
-        //       "userID": 5,
-        //       "groupID": 35,
-        //       "roleID": 1,
-        //       "roleName": "Создатель",
-        //       "email": "aaa@edwef.wfe",
-        //       "name": "AAA",
-        //       "surname": "",
-        //       "avatarURL": ""
-        //     },
-        //     {
-        //       "userID": 8,
-        //       "groupID": 35,
-        //       "roleID": 3,
-        //       "roleName": "Участник",
-        //       "email": "aaiwdweзeijja@mail.uuu",
-        //       "name": "AAA",
-        //       "surname": "Bbb",
-        //       "avatarURL": ""
-        //     }]);
         fetchModule.get({
             url: BACKEND_ADDRESS + `/api/group/membership/${id}`,
             body: null,
@@ -96,25 +81,43 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast}) {
             .then((responseBody) => {
                 if(Array.isArray(responseBody)) {
                     changeField('membersList', responseBody);
+                    changeField('searchList', responseBody);
+                    changeField('ifSearch', true);
                 }
             });
     };
 
+    function changeSearch(value) {
+        changeField('searchList', searchMember(value.trim(), membersList));
+    };
+
     return (
         <div className="group-view-container__group-memebers-conteiner">
-            <div>
-                <button
-                    className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-add"
-                    onClick={() => addDelButtonClick('add')}/>
-                <button
-                    className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-del"
-                    onClick={() => addDelButtonClick('del')}/>
+            <div className="group-view-container__group-memebers-conteiner__search-container">
+                <div className="search-add-group-component-container__form">
+                    <img
+                        alt=""
+                        className="search-add-group-component-container__form__glass"
+                        src={searchImg}/>
+                    <input
+                        className="search-add-group-component-container__form__input"
+                        placeholder="Поиск"
+                        onChange={(e) => changeSearch(e.target.value)}/>
+                </div>
+                <div>
+                    <button
+                        className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-add"
+                        onClick={() => addDelButtonClick('add')}/>
+                    <button
+                        className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-del"
+                        onClick={() => addDelButtonClick('del')}/>
+                </div>
             </div>
             {isAddDelBtn && (
                 <AddDeleteGroupMembersComponent flag={addDelBtnFlag} close={closeAddDelComponent} cookies={cookies} id={id} changeReload={changeReload}
                 okToast={okToast} errToast={errToast} changeMembersList={changeMembersList}/>
             )}
-            {membersList.map((elem) => (
+            {searchList.map((elem) => (
                 <div key={elem.userID} className="group-view-container__group-memebers-conteiner__members-list_person">
                     <div className="show-post-component__white-part__avatar-text__avatar"></div>
                     <div className="show-post-component__white-part__avatar-text__text">
@@ -123,6 +126,14 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast}) {
                     </div>
                 </div>
             ))}
+            {!searchList.length && ifSearch && (
+                <div className="group-view-container__group-memebers-conteiner__search-empty-container">
+                    <div className="group-view-container__group-memebers-conteiner__search-empty-container__circle">
+                        <img alt="" src={searchImg} className="group-view-container__group-memebers-conteiner__search-empty-container__circle_img"/>
+                    </div>
+                    <div className="group-view-container__group-memebers-conteiner__search-empty-container__text">К сожалению, поиск не дал<br/>результатов</div>
+                </div>
+            )}
         </div>
     );
 }
