@@ -20,6 +20,7 @@ function AllGroupsView({cookies}) {
         groups: [],
         searchGroups: [],
         ifSearch: false,
+        noLength: false,
     };
 
     const [state, dispatch] = useReducer(
@@ -39,6 +40,7 @@ function AllGroupsView({cookies}) {
         groups,
         searchGroups,
         ifSearch,
+        noLength,
     } = state;
 
     const changeField = (field, value) => {
@@ -64,6 +66,9 @@ function AllGroupsView({cookies}) {
         // {"id":1335,"title":"Задания от яндекса","description":"Группа с заданиями от яндекса","URL":"yandextasks","avatarURL":"http://develop.nl-mail.ru/storage/photos/d1/d1f018a41401c5ae1d4179412694f0fd.png","userID":279,"userRole":{"userID":279,"groupID":0,"roleID":1,"roleName":"Создатель"},"status":1,"count":3}];
         // changeField('groups', []);
         // changeField('searchGroups', []);
+        // if (![].length) {
+        //     changeField('noLength', true);
+        // }
 
         fetchModule.get({
             url: BACKEND_ADDRESS + `/api/group/list`,
@@ -82,6 +87,7 @@ function AllGroupsView({cookies}) {
                 if(Array.isArray(responseBody)) {
                     changeField('groups', responseBody);
                     changeField('searchGroups', responseBody);
+                    if (!responseBody.length) changeField('noLength', true);
                 }
             });
     };
@@ -128,7 +134,7 @@ function AllGroupsView({cookies}) {
                             <div className="group-view-container__group-memebers-conteiner__search-empty-container__text">К сожалению, поиск не дал<br/>результатов</div>
                         </div>
                     )}
-                    {!searchGroups.length && !ifSearch && (
+                    {noLength && !ifSearch && (
                         <div className="group-view-container__group-memebers-conteiner__search-empty-container">
                             <div className="group-view-container__group-memebers-conteiner__search-empty-container__circle">
                                 <img alt="" src={groupImg} className="group-view-container__group-memebers-conteiner__search-empty-container__circle_img"/>
