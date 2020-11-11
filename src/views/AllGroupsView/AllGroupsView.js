@@ -62,27 +62,28 @@ function AllGroupsView({cookies}) {
     function getGroupList() {
         // const data = [{"id":1336,"title":"Задания от яндекса","description":"Группа с заданиями от яндекса","URL":"yandextasks","avatarURL":"http://develop.nl-mail.ru/storage/photos/d1/d1f018a41401c5ae1d4179412694f0fd.png","userID":279,"userRole":{"userID":279,"groupID":0,"roleID":1,"roleName":"Создатель"},"status":1,"count":3},
         // {"id":1335,"title":"Задания от яндекса","description":"Группа с заданиями от яндекса","URL":"yandextasks","avatarURL":"http://develop.nl-mail.ru/storage/photos/d1/d1f018a41401c5ae1d4179412694f0fd.png","userID":279,"userRole":{"userID":279,"groupID":0,"roleID":1,"roleName":"Создатель"},"status":1,"count":3}];
-        changeField('groups', []);
-        changeField('searchGroups', []);
+        // changeField('groups', []);
+        // changeField('searchGroups', []);
 
-        // fetchModule.get({
-        //     url: BACKEND_ADDRESS + `/api/group/list`,
-        //     body: null,
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Cookie': cookies.get('SessionToken'),
-        //     },
-        // })
-        //     .then((response) => {
-        //         if (response.ok) {
-        //             return response.json();
-        //         }
-        //     })
-        //     .then((responseBody) => {
-        //         if(Array.isArray(responseBody)) {
-        //             changeField('groups', responseBody);
-        //         }
-        //     });
+        fetchModule.get({
+            url: BACKEND_ADDRESS + `/api/group/list`,
+            body: null,
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((responseBody) => {
+                if(Array.isArray(responseBody)) {
+                    changeField('groups', responseBody);
+                    changeField('searchGroups', responseBody);
+                }
+            });
     };
 
     const ending = (count) => {
