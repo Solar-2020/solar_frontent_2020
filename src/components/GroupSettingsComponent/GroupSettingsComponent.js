@@ -8,7 +8,7 @@ import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
  * Group settings component
  * @return {jsx}
  */
-function GroupSettingsComponent({changeReload, group, cookies}) {
+function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast}) {
     const initialState = {
         groupInfo: group,
         mainError: '',
@@ -134,7 +134,7 @@ function GroupSettingsComponent({changeReload, group, cookies}) {
             })
             .then((responseBody) => {
                 if (!responseBody.id || !responseBody.url) {
-                    alert('Искать ошибку в запросе для создания фото');
+                    errToast('Ошибка в загрузке фото');
                 }
 
                 changeGroupField('avatarURL', `${BACKEND_ADDRESS}${responseBody.url}`);
@@ -181,6 +181,7 @@ function GroupSettingsComponent({changeReload, group, cookies}) {
                     }
                     if (responseBody.id) {
                         // alert('Группа изменена!');
+                        okToast('Сохранены изменения в группе');
                         fixErrors();
                         changeReload();
                     }
@@ -265,7 +266,7 @@ function GroupSettingsComponent({changeReload, group, cookies}) {
 
                     <button
                         onClick={(e) => submitHandler(e)}
-                        className="search-add-group-component-container__create-group-form__card__form__button">Изменить данные</button>
+                        className="search-add-group-component-container__create-group-form__card__form__button">Сохранить изменения</button>
                 </form>
             </div>
             )}
