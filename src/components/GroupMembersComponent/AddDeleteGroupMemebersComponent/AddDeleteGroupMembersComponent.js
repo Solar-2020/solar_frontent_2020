@@ -116,7 +116,7 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload,
                             onClick={() => closeForm()}/>
                     </div>
                     {addMainError && (
-                        <div>{addMainError}</div>
+                        <div className="group-view-container__group-memebers-conteiner__add-user__error">{addMainError}</div>
                     )}
                     <div className="add-del-group-members-component__fields">
                         <input
