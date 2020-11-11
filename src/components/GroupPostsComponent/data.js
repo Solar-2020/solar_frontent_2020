@@ -29,4 +29,5 @@ export const data = {
             currency: 1,
         },
     ],
+    author: {id: 279, email: "AnnaShishova@mail.ru", name: "Anna", surname: "Shishova", avatarURL: ""},
 };

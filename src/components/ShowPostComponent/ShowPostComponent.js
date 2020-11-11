@@ -72,7 +72,7 @@ function ShowPostComponent({data, cookies}) {
             <div className="show-post-component__white-part__avatar-text">
                 <div className="show-post-component__white-part__avatar-text__avatar"></div>
                 <div className="show-post-component__white-part__avatar-text__text">
-                    <div className="show-post-component__white-part__avatar-text__text__name">Автор поста</div>
+                    <div className="show-post-component__white-part__avatar-text__text__name">{`${dataComp.author.name} ${dataComp.author.surname}`}</div>
                     <div className="show-post-component__white-part__avatar-text__text__data">{createNormDate(dataComp.publishDate.split('T')[0], dataComp.publishDate.split('T')[1].split('.')[0])}</div>
                 </div>
                 <button className="show-post-component__white-part__avatar-text__star-button"/>
