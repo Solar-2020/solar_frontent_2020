@@ -16,12 +16,17 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload,
         dispatch({type: 'CHANGE_DEL_USER_FIELD', value});
     }
 
+    function changeField(field, value) {
+        dispatch({type: 'CHANGE_FIELD', field, value});
+    }
+
     const initialState = {
         addUser: {
             userEmail: '',
             role: 1,
         },
         delUserEmail: '',
+        addMainError: '',
     };
 
     const [state, dispatch] = useReducer(
@@ -31,6 +36,8 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload,
                     return {...state, addUser: {...state.addUser, [action.field]: action.value}};
                 case 'CHANGE_DEL_USER_FIELD':
                     return {...state, delUserEmail: action.value};
+                case 'CHANGE_FIELD':
+                    return {...state, [action.field]: action.value};
                 case 'CLEAN_FORM':
                     return {...initialState};
                 default:
@@ -43,6 +50,7 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload,
     const {
         addUser,
         delUserEmail,
+        addMainError,
     } = state;
 
     function closeForm() {
@@ -70,12 +78,17 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload,
             },
         })
             .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
+                // if (response.ok) {
+                //     return response.json();
+                // }
+                return response.json();
             })
             .then((responseBody) => {
                 console.log(responseBody);
+                if (responseBody.error) {
+                    changeField('addMainError', responseBody.error);
+                };
+
                 if (responseBody.userId) {
                     // alert('Пользователь успешно добавлен!');
                     dispatch({type: 'CLEAN_FORM'});
@@ -102,6 +115,9 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload,
                             className="add-del-group-members-component-title-container__close-button"
                             onClick={() => closeForm()}/>
                     </div>
+                    {addMainError && (
+                        <div>{addMainError}</div>
+                    )}
                     <div className="add-del-group-members-component__fields">
                         <input
                             placeholder="Введите email"
