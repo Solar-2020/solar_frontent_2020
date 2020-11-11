@@ -8,7 +8,7 @@ import fetchModule from '../../utils/API/FetchModule.js';
  * Header component
  * @return {jsx}
  */
-function SearchAddGroupComponent({changeAllGroups, cookies, okToast, errToast}) {
+function SearchAddGroupComponent({changeAllGroups, cookies, okToast, errToast, changeSearch}) {
     const initialState = {
         isOpenAddGroupModal: false,
         title: '',
@@ -207,15 +207,16 @@ function SearchAddGroupComponent({changeAllGroups, cookies, okToast, errToast}) 
 
     return (
         <div className="search-add-group-component-container">
-            <form className="search-add-group-component-container__form">
+            <div className="search-add-group-component-container__form">
                 <img
                     alt=""
                     className="search-add-group-component-container__form__glass"
                     src={searchImg}/>
                 <input
                     className="search-add-group-component-container__form__input"
-                    placeholder="Поиск"/>
-            </form>
+                    placeholder="Поиск"
+                    onChange={(e) => changeSearch(e.target.value)}/>
+            </div>
             <button
                 onClick={() => toggleAddGroupModal()}
                 className="search-add-group-component-container__button"/>

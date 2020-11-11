@@ -87,7 +87,7 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast}) {
     };
 
     function changeSearch(value) {
-        changeField('searchList', searchMember(value.trim(), membersList));
+        changeField('searchList', searchMember(value.trim().toLowerCase(), membersList));
     };
 
     return (
