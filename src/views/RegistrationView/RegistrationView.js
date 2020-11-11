@@ -127,7 +127,7 @@ function RegistrationView() {
         if (checkValidationForm()) {
             console.log(form);
 
-            fetchModule.put({
+            fetchModule.post({
                 url: BACKEND_ADDRESS + `/api/auth/signup`,
                 body: JSON.stringify(form),
                 headers: {

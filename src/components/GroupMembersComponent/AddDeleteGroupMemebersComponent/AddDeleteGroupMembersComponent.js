@@ -7,7 +7,7 @@ import {BACKEND_ADDRESS} from '../../../utils/Config/Config.js';
  * Group members component
  * @return {jsx}
  */
-function AddDeleteGroupMembersComponent({flag, close, cookies, id}) {
+function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload, okToast, errToast, changeMembersList}) {
     function changeAddUserField(field, value) {
         dispatch({type: 'CHANGE_ADD_USER_FIELD', field, value});
     };
@@ -79,6 +79,9 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id}) {
                 if (responseBody.userId) {
                     // alert('Пользователь успешно добавлен!');
                     dispatch({type: 'CLEAN_FORM'});
+                    okToast('Пользователь успешно добавлен');
+                    changeReload();
+                    changeMembersList();
                 }
             });
     };

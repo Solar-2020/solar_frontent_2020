@@ -179,7 +179,7 @@ function GroupView({cookies}) {
                         <GroupPostsComponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast}/>
                     )}
                     {componentActive.members && (
-                        <GroupMembersComponent cookies={cookies} id={id}/>
+                        <GroupMembersComponent cookies={cookies} id={id} changeReload={changeReload} okToast={createOkToast} errToast={createErrorToast}/>
                     )}
                     {componentActive.settings && (
                         <GroupSettingsComponent changeReload={changeReload} group={group} cookies={cookies}/>
