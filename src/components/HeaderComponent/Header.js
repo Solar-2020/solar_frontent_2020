@@ -13,7 +13,6 @@ function Header({checkAuth, isAuth, cookies}) {
 
     useEffect(() => {
         checkAuth(location, history, cookies);
-        cookies.set('hello');
     }, [location]);
 
     function exit() {

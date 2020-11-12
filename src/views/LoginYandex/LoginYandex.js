@@ -28,15 +28,7 @@ function LoginYandex() {
                 },
             })
                 .then((response) => {
-                    return response.json();
-                })
-                .then((responseBody) => {
-                    console.log(responseBody);
-
-                    if (responseBody.error) {
-                        // Сказать об ошибке
-                    }
-                    if (responseBody.login) {
+                    if (response.ok) {
                         history.push('/');
                     }
                 });
