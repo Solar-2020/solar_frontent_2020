@@ -22,8 +22,8 @@ function Header({checkAuth, isAuth, cookies}) {
 
         const cookie = new Cookies();
 
-        cookie.remove('SessionToken');
-        cookies.remove('SessionToken');
+        cookie.remove('SessionToken', {path: '/', domain: '.develop.pay-together.ru'});
+        cookies.remove('SessionToken', {path: '/', domain: '.develop.pay-together.ru'});
         // history.push('/login');
     };
 
