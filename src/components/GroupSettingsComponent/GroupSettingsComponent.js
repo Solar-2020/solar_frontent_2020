@@ -193,6 +193,8 @@ function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast
     };
 
     function submitDeleteHeader(event) {
+        event.preventDefault();
+
         fetchModule.delete({
             url: BACKEND_ADDRESS + `/api/group/group/${groupInfo.id}`,
             headers: {
@@ -226,7 +228,7 @@ function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast
             {mainError && (
                 <div className="search-add-group-component-container__create-group-form__card__main-error">{mainError}</div>
             )}
-            {group.id && (
+            {groupInfo.id && (
                 <div>
                     <div className="search-add-group-component-container__create-group-form__card__form__avatar-photo-container">
                         {groupInfo.avatarURL !== '' ? (
@@ -285,7 +287,7 @@ function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast
                         value={groupInfo.description}
                         className="search-add-group-component-container__create-group-form__card__form__textarea"/>
 
-                    <button onCLick={(e) => submitDeleteHeader(e)}>Удалить группу</button>
+                    <button onClick={(e) => submitDeleteHeader(e)}>Удалить группу</button>
                     <button
                         onClick={(e) => submitHandler(e)}
                         className="search-add-group-component-container__create-group-form__card__form__button">Сохранить изменения</button>
