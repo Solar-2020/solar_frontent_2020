@@ -1,7 +1,9 @@
 import React, { useReducer, useEffect } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import fetchModule from '../../utils/API/FetchModule.js';
-import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
+import {BACKEND_ADDRESS, okToastConfig, errToastConfig} from '../../utils/Config/Config.js';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 /**
  * Login view
@@ -12,8 +14,6 @@ function LoginYandex() {
 
     useEffect(
         () => {
-            console.log(location);
-
             if (location.hash.includes('access_token')) {
                 console.log(getAccess(location.hash));
                 handleSubmit(getAccess(location.hash));
@@ -30,6 +30,8 @@ function LoginYandex() {
                 .then((response) => {
                     if (response.ok) {
                         history.push('/');
+                    } else {
+                        createErrorToast('Что-то пошло не поплану, вернитесь на авторизацию!');
                     }
                 });
     };
@@ -38,8 +40,12 @@ function LoginYandex() {
         return hash.match(/access_token=([^&]*)&/i)[1];
     }
 
+    const createErrorToast= (text) => {
+        toast(text, errToastConfig);            
+    };
+
     return (
-        <div>Yandex oauth</div>
+        <ToastContainer/>
     )
 }
 

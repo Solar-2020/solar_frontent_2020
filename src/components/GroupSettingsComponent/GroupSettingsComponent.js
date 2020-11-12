@@ -205,7 +205,7 @@ function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast
             .then((response) => {
                 if (response.ok) {
                     okToast('Группа удалена');
-                    history.push('/allgroups');
+                    setTimeout(() => {history.push('/allgroups')}, 2500);
                 } else {
                     errToast('Что-то пошло не по плану');
                 }
