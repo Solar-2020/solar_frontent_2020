@@ -188,10 +188,10 @@ function GroupView({cookies}) {
             <div id="groupViewPostsContainer" className="group-view-posts-container">
                 <div className="group-view-posts-container__create-post">
                     {componentActive.posts && (
-                        <GroupPostsComponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast}/>
+                        <GroupPostsComponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast} roleID={roleID}/>
                     )}
                     {componentActive.members && (
-                        <GroupMembersComponent cookies={cookies} id={id} changeReload={changeReload} okToast={createOkToast} errToast={createErrorToast}/>
+                        <GroupMembersComponent cookies={cookies} id={id} changeReload={changeReload} okToast={createOkToast} errToast={createErrorToast} roleID={roleID}/>
                     )}
                     {componentActive.settings && (
                         <GroupSettingsComponent changeReload={changeReload} group={group} cookies={cookies} okToast={createOkToast} errToast={createErrorToast}/>

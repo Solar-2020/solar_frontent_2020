@@ -10,7 +10,7 @@ import CreatePost from '../../components/CreatePostComponent/CreatePost';
  * Group settings component
  * @return {jsx}
  */
-function GroupPostsComponent({cookies, id, okToast, errToast}) {
+function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
     const initialState = {
         posts: [],
         lastID: '',
@@ -106,7 +106,9 @@ function GroupPostsComponent({cookies, id, okToast, errToast}) {
         <div>
             {/* {lastID}
             <button onClick={() => getData(lastID)}>получить данные</button> */}
-            <CreatePost changeReload={changeReload} cookies={cookies} id={id} okToast={okToast} errToast={errToast}/>
+            {roleID !== 3 && (
+                <CreatePost changeReload={changeReload} cookies={cookies} id={id} okToast={okToast} errToast={errToast}/>
+            )}
             {posts.map((elem) => (
                 <div key={elem.id}>
                     <ShowPostComponent data={elem} cookies={cookies}/>
