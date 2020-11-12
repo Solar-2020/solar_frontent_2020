@@ -39,6 +39,21 @@ class FetchModule {
     }
 
     /**
+     * Fetch delete methos.
+     * @param {*} - list with url, body, credentials.
+     * @return {promise}
+     */
+    delete({
+        url = '/',
+        body = null,
+        credentials = 'include',
+        headers = {},
+    } = {}
+    ) {
+        return this._fetch({method: 'DELETE', url, body, credentials, headers});
+    }
+
+    /**
      * Fetch put methos.
      * @param {*} - list with url, body, credentials.
      * @return {promise}

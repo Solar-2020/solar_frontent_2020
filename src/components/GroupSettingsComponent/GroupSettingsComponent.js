@@ -3,12 +3,15 @@ import './GroupSettingsComponent.css';
 import '../SearchAddGroupComponent/SearchAddGroupComponent.css';
 import fetchModule from '../../utils/API/FetchModule.js';
 import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
+import { useHistory } from 'react-router-dom';
 
 /**
  * Group settings component
  * @return {jsx}
  */
 function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast}) {
+    const history = useHistory();
+
     const initialState = {
         groupInfo: group,
         mainError: '',
@@ -189,6 +192,24 @@ function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast
         }
     };
 
+    function submitDeleteHeader(event) {
+        fetchModule.delete({
+            url: BACKEND_ADDRESS + `/api/group/group/${groupInfo.id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    okToast('Группа удалена');
+                    history.push('/allgroups');
+                } else {
+                    errToast('Что-то пошло не по плану');
+                }
+            });
+    };
+
     function fixErrors() {
         setMainError('');
         changeField('titleError', false);
@@ -264,6 +285,7 @@ function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast
                         value={groupInfo.description}
                         className="search-add-group-component-container__create-group-form__card__form__textarea"/>
 
+                    <button onCLick={(e) => submitDeleteHeader(e)}>Удалить группу</button>
                     <button
                         onClick={(e) => submitHandler(e)}
                         className="search-add-group-component-container__create-group-form__card__form__button">Сохранить изменения</button>
