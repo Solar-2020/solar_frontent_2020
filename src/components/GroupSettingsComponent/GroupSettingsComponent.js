@@ -287,10 +287,14 @@ function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast
                         value={groupInfo.description}
                         className="search-add-group-component-container__create-group-form__card__form__textarea"/>
 
-                    <button onClick={(e) => submitDeleteHeader(e)}>Удалить группу</button>
-                    <button
-                        onClick={(e) => submitHandler(e)}
-                        className="search-add-group-component-container__create-group-form__card__form__button">Сохранить изменения</button>
+                    <div className="group-settings-container__buttons">
+                        <button
+                            className="group-settings-container__buttons__del-button"
+                            onClick={(e) => submitDeleteHeader(e)}>Удалить группу</button>
+                        <button
+                            onClick={(e) => submitHandler(e)}
+                            className="search-add-group-component-container__create-group-form__card__form__button group-settings-container__buttons__ok-button">Сохранить изменения</button>
+                    </div>
                 </form>
             </div>
             )}
