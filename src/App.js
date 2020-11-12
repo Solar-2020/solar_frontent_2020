@@ -91,9 +91,13 @@ function App({cookies}) {
          // при неудаче редирект на логин, если это не location ='/'
     }
 
+    function delAuth() {
+        changeField('isAuth', false);
+    };
+
     return (
         <BrowserRouter>
-            <Header checkAuth={checkAuth} isAuth={isAuth} cookies={cookies}/>
+            <Header checkAuth={checkAuth} isAuth={isAuth} cookies={cookies} delAuth={delAuth}/>
             <div className="container">
                 <Switch>
                     <Route path={'/'} exact render={() => (<IndexView cookies={cookies}/>)}/>

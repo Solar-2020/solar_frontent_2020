@@ -6,7 +6,7 @@ import { Link, useLocation, useHistory } from 'react-router-dom';
  * Header component
  * @return {jsx}
  */
-function Header({checkAuth, isAuth, cookies}) {
+function Header({checkAuth, isAuth, cookies, delAuth}) {
     const location = useLocation();
     const history = useHistory();
 
@@ -16,6 +16,7 @@ function Header({checkAuth, isAuth, cookies}) {
 
     function exit() {
         cookies.remove('SessionToken', {path: '/', domain: '.develop.pay-together.ru'});
+        delAuth();
         history.push('/');
     };
 
