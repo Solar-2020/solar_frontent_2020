@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
-import {Cookies} from 'react-cookie';
 import './Header.css';
 import { Link, useLocation, useHistory } from 'react-router-dom';
-import {deleteCookie} from '../../utils/deleteCookies';
 
 /**
  * Header component
@@ -17,14 +15,8 @@ function Header({checkAuth, isAuth, cookies}) {
     }, [location]);
 
     function exit() {
-        deleteCookie();
-        cookies.remove('SessionToken');
-
-        const cookie = new Cookies();
-
-        // cookie.remove('SessionToken', {path: '/', domain: '.develop.pay-together.ru'});
         cookies.remove('SessionToken', {path: '/', domain: '.develop.pay-together.ru'});
-        // history.push('/login');
+        history.push('/');
     };
 
     return (
