@@ -34,6 +34,10 @@ function GroupView({cookies}) {
         dispatch({type: 'RELOAD_GROUP', value: !reloadGroup});
     }
 
+    const changeField = (field, value) => {
+        dispatch({type: 'CHANGE_FIELD', field, value});
+    }
+
     const initialState = {
         componentActive: {
             posts: true,
@@ -47,6 +51,7 @@ function GroupView({cookies}) {
         id: location.pathname.split('/')[2],
         group: {},
         reloadGroup: false,
+        roleID: 3,
     };
 
     const [state, dispatch] = useReducer(
@@ -60,6 +65,8 @@ function GroupView({cookies}) {
                     }};
                 case 'SET_GROUP':
                     return {...state, group: action.value};
+                case 'CHANGE_FIELD':
+                    return {...state, [action.field]: action.value};
                 case 'RELOAD_GROUP':
                     return {...state, reloadGroup: action.value};
                 default:
@@ -74,7 +81,8 @@ function GroupView({cookies}) {
         groupInfo,
         id,
         group,
-        reloadGroup
+        reloadGroup,
+        roleID,
     } = state;
 
     useEffect(
@@ -101,6 +109,7 @@ function GroupView({cookies}) {
                 console.log(responseBody);
                 if (responseBody.id) {
                     setGroup(responseBody);
+                    changeField('roleID', responseBody.userRole.roleID);
                 }
             });
     };
@@ -166,7 +175,7 @@ function GroupView({cookies}) {
                                 className={`group-view-banner__items__links__${(componentActive.members) ? 'active' : 'normal'}-link`}
                                 onClick={() => changeComponentActiveState(false, true, false)}>Участники</div>
                             
-                            {group.userRole.roleID !== 3 && (
+                            {roleID !== 3 && (
                                 <div
                                 className={`group-view-banner__items__links__${(componentActive.settings) ? 'active' : 'normal'}-link`}
                                 onClick={() => changeComponentActiveState(false, false, true)}>Настройки</div>
