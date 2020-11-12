@@ -14,6 +14,11 @@ function Header({checkAuth, isAuth, cookies}) {
         checkAuth(location, history, cookies);
     }, [location]);
 
+    function exit() {
+        cookies.remove('SessionToken');
+        history.push('/login');
+    };
+
     return (
         <div className="header-component-container">
             <div className="header-component-container__content">
@@ -22,6 +27,7 @@ function Header({checkAuth, isAuth, cookies}) {
                         <Link to="/" className="header-component__links">Главная</Link>
                         <Link to="/allgroups" className="header-component__links">Мои группы</Link>
                         {/* <Link to="/group/39" className="header-component__links">Группа 39</Link> */}
+                        <div onClick={() => exit()} className="header-component__links">Выйти</div>
                     </div>
                 ) : (
                     <div className="header-component-container__content_padding">
