@@ -87,7 +87,7 @@ function AllGroupsView({cookies}) {
                 if(Array.isArray(responseBody)) {
                     changeField('groups', responseBody);
                     changeField('searchGroups', responseBody);
-                    if (!responseBody.length) changeField('noLength', true);
+                    (!responseBody.length) ? changeField('noLength', true) : changeField('noLength', false);
                 }
             });
     };
