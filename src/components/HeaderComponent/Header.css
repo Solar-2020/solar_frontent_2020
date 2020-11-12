@@ -1,4 +1,28 @@
-.header-component {
-    height: 30px;
+.header-component-container__content{
     background-color: var(--main-green-color);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: var(--width-app);
+    border-radius: 0 0 var(--cards-radius) var(--cards-radius);
+}
+
+.header-component-container__content_padding {
+    padding: 10px 35px;
+}
+
+.header-component-container {
+    display: flex;
+    justify-content: center;
+}
+
+.header-component__links {
+    color: white;
+    font-weight: bolder;
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+.header-component__links:first-child {
+    margin-left: 0;
 }

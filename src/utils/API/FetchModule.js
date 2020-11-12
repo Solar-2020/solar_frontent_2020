@@ -17,9 +17,10 @@ class FetchModule {
         url = '/',
         body = null,
         credentials = 'include',
+        headers = {},
     } = {}
     ) {
-        return this._fetch({method: 'GET', url, body, credentials});
+        return this._fetch({method: 'GET', url, body, credentials, headers});
     }
 
     /**
@@ -35,6 +36,36 @@ class FetchModule {
     } = {}
     ) {
         return this._fetch({method: 'POST', url, body, credentials, headers});
+    }
+
+    /**
+     * Fetch delete methos.
+     * @param {*} - list with url, body, credentials.
+     * @return {promise}
+     */
+    delete({
+        url = '/',
+        body = null,
+        credentials = 'include',
+        headers = {},
+    } = {}
+    ) {
+        return this._fetch({method: 'DELETE', url, body, credentials, headers});
+    }
+
+    /**
+     * Fetch put methos.
+     * @param {*} - list with url, body, credentials.
+     * @return {promise}
+     */
+    put({
+        url = '/',
+        body = null,
+        credentials = 'include',
+        headers = {},
+    } = {}
+    ) {
+        return this._fetch({method: 'PUT', url, body, credentials, headers});
     }
 
     /**

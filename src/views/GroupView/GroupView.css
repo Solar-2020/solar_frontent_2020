@@ -1,20 +1,25 @@
 .group-view-banner {
     display: flex;
-    background: var(--cards-background);
     justify-content: center;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.10);
 }
 
 .group-view-banner__items {
     display: flex;
     flex-direction: column;
-    width: 700px;
+    width: var(--width-app);
+    margin-top: 20px;
+    background: var(--cards-background);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    border-radius: var(--cards-radius);
+    overflow: hidden;
 }
 
 .group-view-banner__items__image {
     height: 200px;
     background-color: var(--background-light-green);
     border-radius: 0 0 3px 3px;
+    object-fit: cover;
+    border: none;
 }
 
 .group-view-banner__items__links {
@@ -31,7 +36,7 @@
 }
 
 .group-view-posts-container__create-post {
-    width: 700px;
+    width: var(--width-app);
 }
 
 .group-view-banner__items__info {
@@ -57,6 +62,18 @@
     transition: background-size .3s;
 }
 
+.group-view-banner__items__links__active-link {
+    margin-left: 20px;
+    padding-bottom: 15px;
+    color: var(--main-text-color);
+    cursor: pointer;
+
+    background-image: linear-gradient(var(--main-light-green), var(--main-light-green));
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 3px;
+}
+
 .group-view-banner__items__links__normal-link:hover {
     background-size: 100% 3px;
     color: var(--main-text-color);
@@ -64,4 +81,24 @@
 
 .group-view-banner__items__links__normal-link:first-child {
     margin-left: 0px;
+}
+
+.group-view-banner__items__links__active-link:first-child {
+    margin-left: 0px;
+}
+
+.group-view-posts-container__create-post__button-view {
+    margin-bottom: 20px;
+}
+
+.group-view-banner__items__info-container {
+    padding: 0 35px;
+}
+
+.group-view-banner__items__info__count {
+    font-size: 13px;
+}
+
+.group-view-banner__items__info_description {
+    margin-top: 15px;
 }

@@ -20,11 +20,26 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Cache npm deps
+        uses: actions/cache@v2
+        id: cache-npm
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install Dependencies
+        if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm install
 
+      - name: Set backend env
+        run: (echo "${GITHUB_REF##*/}" | grep -Eq  '^(develop)|(predev)$' ) && (echo "SUBDOMAIN=${GITHUB_REF##*/}." >> $GITHUB_ENV ) || echo "Standart"
+
       - name: Build for production
-        run: CI= npm run build
+        run: REACT_APP_BACKEND=http://${SUBDOMAIN}nl-mail.ru CI= npm run build
       
       - name: Files list
         run: ls && ls build/
@@ -32,9 +47,9 @@ jobs:
       - name: Deploy to Staging server
         uses: easingthemes/ssh-deploy@v2.0.7
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           ARGS: "-rltgoDzvO --delete"
           SOURCE: "build/"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_HOST: ${{ secrets.HOST }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: "html/${GITHUB_REF##*/}"

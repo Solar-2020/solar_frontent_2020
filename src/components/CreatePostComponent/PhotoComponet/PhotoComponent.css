@@ -27,6 +27,7 @@
     opacity: 1;
     border-radius: 3px;
     transition: opacity .3s;
+    object-fit: cover;
 }
 
 .create-post-component__white-part__photo-container__img_margin:hover .create-post-component__white-part__photo-container__img {
@@ -44,6 +45,7 @@
     width: 115px;
     background: var(--background-light-green);
     border-radius: 3px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
 }
 
 .create-post-component__white-part__photo-container__img_margin:hover {

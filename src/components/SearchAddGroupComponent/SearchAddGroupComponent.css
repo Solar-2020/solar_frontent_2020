@@ -1,0 +1,226 @@
+.search-add-group-component-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 30px;
+    margin-top: 20px
+}
+
+.search-add-group-component-container__button {
+    margin-left: auto;
+    background-image: url('../../images/group.png');
+    background-size: contain;
+    border: none;
+    outline: none;
+    background-color: var(--cards-background);
+    cursor: pointer;
+    background-repeat: no-repeat;
+
+    height: 30px;
+    width: 30px;
+}
+
+.search-add-group-component-container__form {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    height: 30px;
+    border: 1px solid var(--border-color);
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 3px;
+    margin-right: 20px;
+}
+
+.search-add-group-component-container__form__input {
+    display: flex;
+    flex-grow: 1;
+    margin-left: 5px;
+    border: none;
+    outline: none;
+    color: var(--main-text-color);
+}
+
+.search-add-group-component-container__form__glass {
+    height: 20px;
+}
+
+.search-add-group-component-container__create-group-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    min-height: 100vh;
+    z-index: 95;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.search-add-group-component-container__create-group-form__card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 30%;
+    min-width: 250px;
+}
+
+.search-add-group-component-container__create-group-form__card__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-add-group-component-container__create-group-form__card__form__text {
+    color: var(--main-grey-text-color);
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.search-add-group-component-container__create-group-form__card__form__input {
+    height: 30px;
+    border: 1px solid var(--border-color);
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 3px;
+}
+
+.search-add-group-component-container__create-group-form__card__form__input__error-input {
+    height: 30px;
+    border: 2px solid red;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 3px;
+    outline: none;
+}
+
+.search-add-group-component-container__create-group-form__card__form__input:invalid,
+.search-add-group-component-container__create-group-form__card__form__input:invalid:focus {
+    border: 2px solid red;
+}
+
+.search-add-group-component-container__create-group-form__card__form__input__error-text {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.search-add-group-component-container__create-group-form__card__form__textarea {
+    height: 50px;
+    border: 1px solid var(--border-color);
+    resize: none;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.search-add-group-component-container__create-group-form__card__form__input:focus, 
+.search-add-group-component-container__create-group-form__card__form__textarea:focus {
+    outline: none;
+    border: 2px solid var(--main-light-green);
+    border-radius: 3px;
+}
+
+.search-add-group-component-container__create-group-form__card__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.search-add-group-component-container__create-group-form__card__header__title {
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+.search-add-group-component-container__create-group-form__card__header__close-button {
+    margin-left: auto;
+    background-image: url('../../images/close_1.png');
+    background-size: contain;
+    height: 12px;
+    width: 12px;
+    border: none;
+    outline: none;
+    background-color: var(--cards-background);
+    cursor: pointer;
+    background-repeat: no-repeat;
+}
+
+.search-add-group-component-container__create-group-form__card__form__button {
+    background: linear-gradient(to left, var(--main-light-green), var(--main-green-color), var(--main-light-green));
+    background-size: 200%;
+    transition: 0.5s;
+
+
+    border-radius: 3px;
+    border-style: none;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    color: var(--cards-background);
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 35px;
+    outline: none;
+    cursor: pointer;
+
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-add-group-component-container__create-group-form__card__form__button:hover {
+    background-position: right;
+}
+
+.search-add-group-component-container__create-group-form__card__main-error {
+    margin-top: 20px;
+    color: red;
+}
+
+.search-add-group-component-container__create-group-form__card__form__avatar-photo-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.search-add-group-component-container__create-group-form__card__form__avatar-photo-container__avatar {
+    height: 60px;
+    background: var(--background-light-green);
+    display: flex;
+    flex-grow: 1;
+    margin-right: 10px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.search-add-group-component-container__create-group-form__card__form__avatar-photo-container__button {
+    background-size: contain;
+    height: 37px;
+    width: 37px;
+    border: none;
+    outline: none;
+    background-color: var(--cards-background);
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-image: url('../../images/photo-camera.png');
+}
+
+.search-add-group-component-container__create-group-form__card__form__text__url-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.search-add-group-component-container__create-group-form__card__form__text__url-block__text {
+    color: var(--main-text-color);
+}
+
+.search-add-group-component-container__input_margin {
+    margin-left: 3px;
+    width: 100%;
+}
+

@@ -21,6 +21,15 @@ code {
   --main-background-color: #F2F2F2;
   --background-light-green: #CDF4CA;
   --cards-background: #FFFFFF;
+
+  --width-app: 900px;
+  --cards-radius: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+  :root {
+    --width-app: 100%;
+  }
 }
 
 body {
@@ -32,5 +41,25 @@ body {
 }
 
 input, textarea, button {
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
+}
+
+.not-a {
+  text-decoration: none;
+}
+
+.ok-toast {
+  background-color: #63CF82ed !important;
+  color: var(--main-text-color) !important;
+  padding-left: 15px !important;
+  border-radius: var(--cards-radius) !important;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15) !important;
+}
+
+.error-toast {
+  background-color: #ff9092ed !important;
+  color: var(--main-text-color) !important;
+  padding-left: 15px !important;
+  border-radius: var(--cards-radius) !important;
 }

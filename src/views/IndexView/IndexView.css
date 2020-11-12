@@ -1,0 +1,79 @@
+.index-view-container {
+    display: flex;
+    justify-content: center;
+}
+
+.index-view-container_width {
+    display: flex;
+    flex-direction: column;
+    width: var(--width-app);
+}
+
+.index-view-container__banner {
+    margin-top: 20px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    border-radius: var(--cards-radius);
+    font-weight: bolder;
+    font-size: 30px;
+    padding: 35px;
+    color: white;
+    background: url(https://cdn.pixabay.com/photo/2016/11/29/13/13/frond-1869757_1280.jpg);
+}
+
+.index-view-container__about {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.index-view-container__about_right-col {
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    border-radius: var(--cards-radius);
+    background-color: var(--cards-background);
+    padding: 35px;
+    margin-left: 20px;
+    line-height: 1.5;
+}
+.index-view-container__about_right-col:first-child {
+    margin-left: 0px;
+}
+
+.index-view-container__about_right-col__title {
+    color: var(--main-green-color);
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
+
+.index-view-container__about_right-col__text {
+    color: var(--main-text-color);
+}
+
+.index-view-container__info {
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    border-radius: var(--cards-radius);
+    background-color: var(--cards-background);
+    padding: 35px;
+    margin-top: 20px;
+    color: var(--main-text-color);
+    margin-bottom: 20px;
+}
+
+.index-view-container__info a {
+    color: var(--main-green-color);
+}
+
+.index-view-container__info__way {
+    font-weight: bolder;
+    margin: 10px 0;
+}

@@ -13,14 +13,25 @@ import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
  * Create post component
  * @return {jsx}
  */
-function CreatePost() {
+function CreatePost({changeReload, cookies, id, okToast, errToast}) {
+    const [interviewError, setInterviewError] = useState(false);
+
     const [interviewElems, setInterviewElems] = useState([]);
+    const [interviewType, setInterviewType] = useState(1);
     const [interviewComp, setInterviewComp] = useState(false);
     const [interviewTitle, setInterviewTitle] = useState('');
 
     const [paymentComp, setPaymentComp] = useState(false);
+    const [paymentValue, setPaymentValue] = useState({requisite: '', cost: 0, currency: 1});
+
     const [docsComp, setDocsComp] = useState([]);
     const [photoComp, setPhotoComp] = useState([]);
+
+    const changePaymentHandler = (key, value) => {
+        const newPayment = Object.assign({}, paymentValue);
+        newPayment[key] = value;
+        setPaymentValue(newPayment);
+    };
 
     const addInterviewElemHandler = (value) => {
         const elems = interviewElems.slice();
@@ -107,13 +118,17 @@ function CreatePost() {
         fetchModule.post({
             url: BACKEND_ADDRESS + '/api/upload/photo',
             body: formData,
+            headers: {
+                'Cookie': cookies.get('SessionToken'),
+            },
         })
             .then((response) => {
                 return response.json();
             })
             .then((responseBody) => {
                 if (!responseBody.id || !responseBody.url) {
-                    alert('Искать ошибку в запросе для создания фото');
+                    // alert('Искать ошибку в запросе для создания фото');
+                    errToast('Ошибка при добавлении фото');
                 }
                 changeComponentsView('photo', responseBody);
             });
@@ -127,26 +142,46 @@ function CreatePost() {
         fetchModule.post({
             url: BACKEND_ADDRESS + '/api/upload/file',
             body: formData,
+            headers: {
+                'Cookie': cookies.get('SessionToken'),
+            }
         })
             .then((response) => {
                 return response.json();
             })
             .then((responseBody) => {
                 if (!responseBody.id || !responseBody.url) {
-                    alert('Искать ошибку в запросе для создания документа');
+                    errToast('Ошибка при добавлении документа');
                 }
                 changeComponentsView('docs', responseBody);
             });
     };
 
+    const checkInterview = () => {
+        if (!interviewTitle.trim() || interviewElems.filter(elem => elem.title.trim()).length < 2) {
+            setInterviewError(true);
+            return false;
+        };
+
+        setInterviewError(false);
+        return true;
+    };
+
+    const checkBeforFetch = () => {
+        if (interviewComp) {
+            return checkInterview();
+        }
+        return true;
+    };
+
     const submitInfo = () => {
-        const form = {
-            groupID: 1,
+        let form = {
+            groupID: Number(id),
             text: document.getElementById('createPostComponentText').value,
             interviews: [
                 {
                     text: interviewTitle,
-                    type: 1,
+                    type: interviewType,
                     answers: interviewElems.reduce((acc, elem) => {
                         acc.push({text: elem.title});
                         return acc;
@@ -161,41 +196,65 @@ function CreatePost() {
                 acc.push(elem.id);
                 return acc;
             }, []),
-            payments: [
-                {
-                    cost: 300,
-                    currency: 1,
-                },
-            ],
+            payments: [paymentValue],
         };
 
-        fetchModule.post({
-            url: BACKEND_ADDRESS + '/api/posts/post',
-            body: JSON.stringify(form),
-            header: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then((response) => {
-                return response.json();
+        if (!form.interviews[0].text.trim()) {
+            form = {...form, interviews: []};
+        }
+
+        if (!form.payments[0].requisite.trim()) {
+            form = {...form, payments: []};
+        }
+
+        console.log(form);
+
+        if (checkBeforFetch()) {
+            fetchModule.post({
+                url: BACKEND_ADDRESS + '/api/posts/post',
+                body: JSON.stringify(form),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Cookie': cookies.get('SessionToken'),
+                },
             })
-            .then((responseBody) => {
-                // if (!responseBody.id || !responseBody.url) {
-                //     alert('Искать ошибку в запросе для отправки поста');
-                // }
-                alert('Успешно отправлен пост!');
-                clearPostForm();
-            });
+                .then((response) => {
+                    // console.log(response);
+                    // if (response.status === 200) alert('Успешно отправлен пост!');
+                    return response.json();
+                })
+                .then((responseBody) => {
+                    // if (!responseBody.id || !responseBody.url) {
+                    //     alert('Искать ошибку в запросе для отправки поста');
+                    // }
+                    if (responseBody.id) {
+                        // pushFrontNewPost([{...form, id: responseBody.id, publishDate: responseBody.publishDate}]);
+                        changeReload();
+                        clearPostForm();
+                        okToast('Пост создан успешно');
+                    } else {
+                        errToast('Пост не был создан');
+                    }
+                });
+        };
     };
 
     const clearPostForm = () => {
+        setInterviewError(false);
         setInterviewElems([]);
+        setInterviewType(1);
         setInterviewComp(false);
         setInterviewTitle('');
         setPaymentComp(false);
         setDocsComp([]);
         setPhotoComp([]);
+        setPaymentValue({requisite: '', cost: 0, currency: 1});
         document.getElementById('createPostComponentText').value = '';
+    };
+
+    const delPaymentComp = () => {
+        setPaymentComp(false);
+        setPaymentValue({requisite: '', cost: 0, currency: 1});
     };
 
     return (
@@ -203,10 +262,13 @@ function CreatePost() {
             <div className="create-post-component__white-part">
                 <div className="create-post-component__white-part__avatar-text">
                     <div className="create-post-component__white-part__avatar-text__avatar"></div>
-                    <textarea id="createPostComponentText" className="create-post-component__white-part__avatar-text__text"></textarea>
+                    <textarea id="createPostComponentText" className="create-post-component__white-part__avatar-text__text" placeholder="Добавьте текст.."></textarea>
                 </div>
                 {interviewComp && (
                     <div className="create-post-component__white-part__interview-container">
+                        {interviewError && (
+                            <div className="create-post-component__white-part__interview-container__error">Тема должна быть заполнена. В опросе следует иметь больше одного ответа</div>
+                        )}
                         <div className="create-post-component__white-part__interview-container__title">Тема опроса</div>
                         <div className="create-post-component__white-part__interview-container__title__input-container">
                             <input
@@ -220,10 +282,19 @@ function CreatePost() {
                         </div>
                         <InterviewElements interviewElems={interviewElems} delHandler={delInterviewElemHandler}/>
                         <InterviewForm addHandler={addInterviewElemHandler}/>
-                    </div>
+
+                        <div className="create-post-component__white-part__interview-container__title 
+                        create-post-component__white-part__interview-container__answers-type_margin">Количество ответов</div>
+                            <select
+                                className="create-post-component__white-part__interview-container__answers-type"
+                                onChange={(e) => setInterviewType(Number(e.target.value))}>
+                                <option value="1">Один вариант ответа</option>
+                                <option value="2">Много вариантов ответа</option>
+                            </select>
+                        </div>
                 )}
                 {paymentComp && (
-                    <PaymentComponent delPaymentComp={() => setPaymentComp(false)}/>
+                    <PaymentComponent delPaymentComp={delPaymentComp} changePaymentHandler={changePaymentHandler} payVal={paymentValue.requisite}/>
                 )}
                 {photoComp.length > 0 && (
                     <PhotoComponent photos={photoComp} delPhotoHandler={delPhotoHandler}/>
@@ -235,6 +306,7 @@ function CreatePost() {
             </div>
             <div className="create-post-component__green-part">
                 <button
+                    title="Фото"
                     id="createPostComponentGreenPartPhoto"
                     value="photo"
                     className="create-post-component__green-part__buttons create-post-component__green-part__buttons_photo"
@@ -245,10 +317,17 @@ function CreatePost() {
                     type="file" name="addPostPhoto" accept="image/png, image/jpeg, image/gif"
                     onChange={addImageToPostFetch}/>
 
-                <button className="create-post-component__green-part__buttons create-post-component__green-part__buttons_survey" onClick={() => changeComponentsView('interview')}/>
-                <button className="create-post-component__green-part__buttons create-post-component__green-part__buttons_payment" onClick={() => changeComponentsView('payment')}/>
+                <button
+                    title="Опрос"
+                    className="create-post-component__green-part__buttons create-post-component__green-part__buttons_survey"
+                    onClick={() => changeComponentsView('interview')}/>
+                <button
+                    title="Оплата"
+                    className="create-post-component__green-part__buttons create-post-component__green-part__buttons_payment"
+                    onClick={() => changeComponentsView('payment')}/>
 
                 <button
+                    title="Документ"
                     id="createPostComponentGreenPartDocAdd"
                     value="doc"
                     onClick={() => document.getElementById('createPostComponentGreenPartDoc').click()}
@@ -256,7 +335,7 @@ function CreatePost() {
                 <input
                     id="createPostComponentGreenPartDoc"
                     style={{display: 'none'}}
-                    type="file" name="addPostDoc" accept=".xlsx,.xls,.doc, .docx,.ppt, .pptx,.txt,.pdf"
+                    type="file" name="addPostDoc"
                     onChange={addDocToPostFetch}/>
 
                 <button className="create-post-component__green-part__buttons_create-post" onClick={() => submitInfo()}>Опубликовать</button>
