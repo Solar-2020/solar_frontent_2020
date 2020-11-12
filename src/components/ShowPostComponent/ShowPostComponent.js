@@ -66,7 +66,7 @@ function ShowPostComponent({data, cookies, roleID, okToast, errToast}) {
 
     function setMarked() {
         fetchModule.get({
-            url: BACKEND_ADDRESS + `/api/posts/mark?groupId=${dataComp.groupID}&marked=${!dataComp.marked}&postId=${dataComp.id}`,
+            url: BACKEND_ADDRESS + `/api/posts/mark?groupId=${dataComp.groupID}&marked=${dataComp.marked}&postId=${dataComp.id}`,
             headers: {
                 'Content-Type': 'application/json',
                 'Cookie': cookies.get('SessionToken'),
