@@ -111,10 +111,10 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
             )}
             {posts.map((elem) => (
                 <div key={elem.id}>
-                    <ShowPostComponent data={elem} cookies={cookies}/>
+                    <ShowPostComponent data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast}/>
                 </div>
             ))}
-            <ShowPostComponent data={data}/>
+            <ShowPostComponent data={data} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast}/>
         </div>
     );
 }
