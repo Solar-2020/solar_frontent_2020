@@ -17,7 +17,7 @@ function Header({checkAuth, isAuth, cookies}) {
 
     function exit() {
         deleteCookie();
-        history.push('/login');
+        // history.push('/login');
     };
 
     return (
