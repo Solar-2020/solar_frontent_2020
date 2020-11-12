@@ -165,9 +165,12 @@ function GroupView({cookies}) {
                             <div
                                 className={`group-view-banner__items__links__${(componentActive.members) ? 'active' : 'normal'}-link`}
                                 onClick={() => changeComponentActiveState(false, true, false)}>Участники</div>
-                            <div
+                            
+                            {group.userRole.roleID !== 3 && (
+                                <div
                                 className={`group-view-banner__items__links__${(componentActive.settings) ? 'active' : 'normal'}-link`}
                                 onClick={() => changeComponentActiveState(false, false, true)}>Настройки</div>
+                            )}
                         </div>
                     </div>
                 </div>

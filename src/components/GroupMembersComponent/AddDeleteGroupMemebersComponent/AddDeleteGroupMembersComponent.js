@@ -131,9 +131,9 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload,
                             onChange={(e) => changeAddUserField('role', Number(e.target.value))}
                             value={addUser.role}
                             >
-                            <option value="1">Участник</option>
+                            <option value="3">Участник</option>
                             <option value="2">Администратор</option>
-                            <option value="3">Создатель</option>
+                            <option value="1">Создатель</option>
                         </select>
                     </div>
                     <button
