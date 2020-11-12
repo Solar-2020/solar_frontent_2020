@@ -65,7 +65,7 @@ function ShowPostComponent({data, cookies, roleID, okToast, errToast}) {
     } = state;
 
     function setMarked() {
-        fetchModule.put({
+        fetchModule.post({
             url: BACKEND_ADDRESS + `/api/posts/mark?groupId=${dataComp.groupID}&marked=${!dataComp.marked}&postId=${dataComp.id}`,
             headers: {
                 'Content-Type': 'application/json',
