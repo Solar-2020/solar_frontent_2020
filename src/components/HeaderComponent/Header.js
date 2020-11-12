@@ -14,7 +14,6 @@ function Header({checkAuth, isAuth, cookies}) {
 
     useEffect(() => {
         checkAuth(location, history, cookies);
-        cookies.set('hello');
     }, [location]);
 
     function exit() {
@@ -23,8 +22,8 @@ function Header({checkAuth, isAuth, cookies}) {
 
         const cookie = new Cookies();
 
-        cookie.remove('hello');
-        cookies.remove('hello');
+        cookie.remove('SessionToken');
+        cookies.remove('SessionToken');
         // history.push('/login');
     };
 
