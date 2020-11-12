@@ -1,5 +1,8 @@
 import React from 'react';
 import './ShowPaymentComponent.css';
+import {okToastConfig} from '../../../utils/Config/Config.js';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 /**
  * Component with payment
@@ -19,10 +22,12 @@ function ShowPaymentComponent({payment}) {
         dummy.select();
         document.execCommand("copy");
         document.body.removeChild(dummy);
+        toast('Реквизиты скопированы', okToastConfig);  
     };
 
     return (
         <div className="show-post-component__white-part__show-payment-container">
+            <ToastContainer/>
             <div className="show-post-component__white-part__show-payment-container__title">К оплате</div>
             <div className="show-post-component__white-part__show-payment-container__requisite">{`Перевести на: ${payment.requisite}`}</div>
             <div className="show-post-component__white-part__show-payment-container__cost">{`${payment.cost} ${symbol(payment.currency)}`}</div>
