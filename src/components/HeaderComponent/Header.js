@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './Header.css';
 import { Link, useLocation, useHistory } from 'react-router-dom';
+import {deleteCookie} from '../../utils/deleteCookies';
 
 /**
  * Header component
@@ -12,10 +13,11 @@ function Header({checkAuth, isAuth, cookies}) {
 
     useEffect(() => {
         checkAuth(location, history, cookies);
+        cookies.set('hello');
     }, [location]);
 
     function exit() {
-        cookies.remove('SessionToken');
+        deleteCookie();
         history.push('/login');
     };
 
@@ -27,7 +29,7 @@ function Header({checkAuth, isAuth, cookies}) {
                         <Link to="/" className="header-component__links">Главная</Link>
                         <Link to="/allgroups" className="header-component__links">Мои группы</Link>
                         {/* <Link to="/group/39" className="header-component__links">Группа 39</Link> */}
-                        <div onClick={() => exit()} className="header-component__links">Выйти</div>
+                        <div onClick={() => exit()} className="header-component__links header-component__links_margin ">Выйти</div>
                     </div>
                 ) : (
                     <div className="header-component-container__content_padding">

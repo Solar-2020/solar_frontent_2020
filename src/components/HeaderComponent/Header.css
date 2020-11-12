@@ -9,6 +9,8 @@
 
 .header-component-container__content_padding {
     padding: 10px 35px;
+    display: flex;
+    width: 100%;
 }
 
 .header-component-container {
@@ -21,8 +23,13 @@
     font-weight: bolder;
     margin-left: 20px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .header-component__links:first-child {
     margin-left: 0;
+}
+
+.header-component__links_margin {
+    margin-left: auto;
 }
