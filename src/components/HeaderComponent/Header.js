@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import {Cookies} from 'react-cookie';
 import './Header.css';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import {deleteCookie} from '../../utils/deleteCookies';
@@ -13,10 +14,17 @@ function Header({checkAuth, isAuth, cookies}) {
 
     useEffect(() => {
         checkAuth(location, history, cookies);
+        cookies.set('hello');
     }, [location]);
 
     function exit() {
         deleteCookie();
+        cookies.remove('SessionToken');
+
+        const cookie = new Cookies();
+
+        cookie.remove('hello');
+        cookies.remove('hello');
         // history.push('/login');
     };
 
