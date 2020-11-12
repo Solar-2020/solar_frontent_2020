@@ -23,7 +23,7 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload,
     const initialState = {
         addUser: {
             userEmail: '',
-            role: 1,
+            role: 3,
         },
         delUserEmail: '',
         addMainError: '',
