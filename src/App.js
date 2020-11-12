@@ -54,6 +54,7 @@ function App({cookies}) {
         // console.log(location);
         // console.log(isAuth);
         // console.log(userData);
+        if (location.pathname.includes('/yandexoauth')) return;
 
         if (location.pathname !== '/login' && location.pathname !== '/registration') {
             if (!isAuth) {
