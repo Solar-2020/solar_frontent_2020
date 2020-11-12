@@ -97,3 +97,20 @@
     margin-top: 5px;
     color: var(--main-light-green);
 }
+
+.login-view-container__card__button_margin {
+    margin-top: 10px;
+}
+
+.login-view-container__card__yandex {
+    width: 100%;
+    background-image: url('../../images/yandex-2.svg');
+    margin-top: 20px;
+    height: 35px;
+    cursor: pointer;
+    background-size: 15%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #ffdb4d;
+    border-radius: 3px;
+}
