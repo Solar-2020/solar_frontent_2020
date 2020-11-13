@@ -62,7 +62,6 @@
     border: none;
     outline: none;
     background-color: var(--cards-background);
-    cursor: pointer;
     background-repeat: no-repeat;
 }
 
@@ -92,7 +91,6 @@
     border: none;
     outline: none;
     background-color: var(--cards-background);
-    cursor: pointer;
     background-repeat: no-repeat;
 }
 
