@@ -75,7 +75,7 @@ function ShowPostComponent({data, cookies, roleID, okToast, errToast}) {
             .then((response) => {
                 if (response.ok) {
                     changeMarked(!dataComp.marked);
-                    okToast('Пост добавлен в важные');
+                    okToast('Статус поста изменён');
                 } else {
                     errToast('Что-то пошло не по плану ...');
                 }
