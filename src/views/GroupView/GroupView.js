@@ -22,8 +22,8 @@ function GroupView({cookies}) {
                 'а' : '';
     };
 
-    const changeComponentActiveState = (isPosts, isMembers, isSettings) => {
-        dispatch({type: 'CHANGE_ALL_FIELDS', isPosts, isMembers, isSettings});
+    const changeComponentActiveState = (isPosts, isImportant, isMembers, isSettings) => {
+        dispatch({type: 'CHANGE_ALL_FIELDS', isPosts, isImportant, isMembers, isSettings});
     };
 
     const setGroup = (value) => {
@@ -41,6 +41,7 @@ function GroupView({cookies}) {
     const initialState = {
         componentActive: {
             posts: true,
+            important: false,
             members: false,
             settings: false,
         },
@@ -51,7 +52,7 @@ function GroupView({cookies}) {
         id: location.pathname.split('/')[2],
         group: {},
         reloadGroup: false,
-        roleID: 3,
+        roleID: 1,
     };
 
     const [state, dispatch] = useReducer(
@@ -60,6 +61,7 @@ function GroupView({cookies}) {
                 case 'CHANGE_ALL_FIELDS':
                     return {...state, componentActive: {
                         posts: action.isPosts,
+                        important: action.isImportant,
                         members: action.isMembers,
                         settings: action.isSettings,
                     }};
@@ -170,15 +172,18 @@ function GroupView({cookies}) {
                         <div className="group-view-banner__items__links">
                             <div
                                 className={`group-view-banner__items__links__${(componentActive.posts) ? 'active' : 'normal'}-link`}
-                                onClick={() => changeComponentActiveState(true, false, false)}>Посты</div>
+                                onClick={() => changeComponentActiveState(true, false, false, false)}>Посты</div>
+                            <div
+                                className={`group-view-banner__items__links__${(componentActive.important) ? 'active' : 'normal'}-link`}
+                                onClick={() => changeComponentActiveState(false, true, false, false)}>Участники</div>
                             <div
                                 className={`group-view-banner__items__links__${(componentActive.members) ? 'active' : 'normal'}-link`}
-                                onClick={() => changeComponentActiveState(false, true, false)}>Участники</div>
+                                onClick={() => changeComponentActiveState(false, false, true, false)}>Участники</div>
                             
                             {roleID !== 3 && (
                                 <div
                                 className={`group-view-banner__items__links__${(componentActive.settings) ? 'active' : 'normal'}-link`}
-                                onClick={() => changeComponentActiveState(false, false, true)}>Настройки</div>
+                                onClick={() => changeComponentActiveState(false, false, false, true)}>Настройки</div>
                             )}
                         </div>
                     </div>
