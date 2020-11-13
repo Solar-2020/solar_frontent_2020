@@ -95,9 +95,9 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
                         changeAllPosts(responseBody);
                     }
 
-                    if (responseBody.length > 0) {
-                        addLastId(responseBody[responseBody.length - 1].publishDate)
-                    }
+                    // if (responseBody.length > 0) {
+                    //     addLastId(responseBody[responseBody.length - 1].publishDate)
+                    // }
                 }
             });
     };
