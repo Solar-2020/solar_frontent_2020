@@ -110,6 +110,9 @@ function GroupImportantCOmponent({cookies, id, okToast, errToast, roleID}) {
                     <ShowPostComponent data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast}/>
                 </div>
             ))}
+            {!posts.length && (
+                <div className="empty-field">Здесь пока пусто...</div>
+            )}
         </div>
     );
 }
