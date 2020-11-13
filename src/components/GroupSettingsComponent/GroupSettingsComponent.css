@@ -39,6 +39,7 @@
     margin-right: 10px;
     cursor: pointer;
     transition: 0.5s;
+    outline: none;
 }
 
 .group-settings-container__buttons__del-button:hover {

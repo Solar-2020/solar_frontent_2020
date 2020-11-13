@@ -1,6 +1,5 @@
 import React, {useEffect, useReducer} from 'react';
 import ShowPostComponent from '../../components/ShowPostComponent/ShowPostComponent';
-import {data} from './data.js';
 import fetchModule from '../../utils/API/FetchModule.js';
 import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
 import {getNowTime, fixTime} from '../../utils/time.js';
@@ -10,7 +9,7 @@ import CreatePost from '../../components/CreatePostComponent/CreatePost';
  * Group settings component
  * @return {jsx}
  */
-function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
+function GroupImportantCOmponent({cookies, id, okToast, errToast, roleID}) {
     const initialState = {
         posts: [],
         lastID: '',
@@ -72,7 +71,7 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
     // 2020-10-14T15:43:17.541428+03:00
     function getData(time, key) {
         fetchModule.get({
-            url: BACKEND_ADDRESS + `/api/posts/posts?groupID=${id}&limit=10&startFrom=${time}`,
+            url: BACKEND_ADDRESS + `/api/posts/posts?groupID=${id}&limit=10&startFrom=${time}&mark=true`,
             body: null,
             headers: {
                 'Content-Type': 'application/json',
@@ -106,9 +105,6 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
         <div>
             {/* {lastID}
             <button onClick={() => getData(lastID)}>получить данные</button> */}
-            {roleID !== 3 && (
-                <CreatePost changeReload={changeReload} cookies={cookies} id={id} okToast={okToast} errToast={errToast}/>
-            )}
             {posts.map((elem) => (
                 <div key={elem.id}>
                     <ShowPostComponent data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast}/>
@@ -117,9 +113,8 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
             {!posts.length && (
                 <div className="empty-field">Здесь пока пусто...</div>
             )}
-            {/* <ShowPostComponent data={data} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast}/> */}
         </div>
     );
 }
 
-export default GroupPostsComponent;
+export default GroupImportantCOmponent;

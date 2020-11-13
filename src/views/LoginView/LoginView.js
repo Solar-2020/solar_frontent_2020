@@ -102,11 +102,12 @@ function LoginView() {
                     type="password"
                     className="login-view-container__card__input-block__input"placeholder="Введите пароль"/>
                 
+                <a className="login-view-container__card__yandex" href={`${oauth.url}${oauth.id}`}></a>
+
                 <button
                     onClick={e => handleSubmit(e)}
-                    className="login-view-container__card__button">Авторизоваться</button>
+                    className="login-view-container__card__button login-view-container__card__button_margin">Авторизоваться</button>
                 <Link to="/registration" className="login-view-container__card__link">Ещё нет аккаунта? Создайте!</Link>
-                <a href={`${oauth.url}${oauth.id}`}>яндекс</a>
             </div>
         </div>
     )

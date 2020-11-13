@@ -11,7 +11,7 @@ import searchImg from '../../images/search-glass.svg';
  * Group members component
  * @return {jsx}
  */
-function GroupMembersComponent({cookies, id, changeReload, okToast, errToast}) {
+function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, roleID}) {
     const initialState = {
         isAddDelBtn: false,
         addDelBtnFlag: '',
@@ -103,14 +103,17 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast}) {
                         placeholder="Поиск"
                         onChange={(e) => changeSearch(e.target.value)}/>
                 </div>
-                <div>
-                    <button
-                        className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-add"
-                        onClick={() => addDelButtonClick('add')}/>
-                    <button
-                        className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-del"
-                        onClick={() => addDelButtonClick('del')}/>
-                </div>
+
+                {roleID !== 3 && (
+                    <div>
+                        <button
+                            className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-add"
+                            onClick={() => addDelButtonClick('add')}/>
+                        <button
+                            className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-del"
+                            onClick={() => addDelButtonClick('del')}/>
+                    </div>
+                )}
             </div>
             {isAddDelBtn && (
                 <AddDeleteGroupMembersComponent flag={addDelBtnFlag} close={closeAddDelComponent} cookies={cookies} id={id} changeReload={changeReload}

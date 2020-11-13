@@ -30,4 +30,5 @@ export const data = {
         },
     ],
     author: {id: 279, email: "AnnaShishova@mail.ru", name: "Anna", surname: "Shishova", avatarURL: ""},
+    marked: false,
 };

@@ -8,6 +8,7 @@ import fetchModule from '../../utils/API/FetchModule';
 import { BACKEND_ADDRESS, okToastConfig, errToastConfig } from '../../utils/Config/Config';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import GroupImportantCOmponent from '../../components/GroupImportantComponent/GroupImportant';
 
 /**
  * Group view
@@ -22,8 +23,8 @@ function GroupView({cookies}) {
                 'а' : '';
     };
 
-    const changeComponentActiveState = (isPosts, isMembers, isSettings) => {
-        dispatch({type: 'CHANGE_ALL_FIELDS', isPosts, isMembers, isSettings});
+    const changeComponentActiveState = (isPosts, isImportant, isMembers, isSettings) => {
+        dispatch({type: 'CHANGE_ALL_FIELDS', isPosts, isImportant, isMembers, isSettings});
     };
 
     const setGroup = (value) => {
@@ -34,9 +35,14 @@ function GroupView({cookies}) {
         dispatch({type: 'RELOAD_GROUP', value: !reloadGroup});
     }
 
+    const changeField = (field, value) => {
+        dispatch({type: 'CHANGE_FIELD', field, value});
+    }
+
     const initialState = {
         componentActive: {
             posts: true,
+            important: false,
             members: false,
             settings: false,
         },
@@ -47,6 +53,7 @@ function GroupView({cookies}) {
         id: location.pathname.split('/')[2],
         group: {},
         reloadGroup: false,
+        roleID: 1,
     };
 
     const [state, dispatch] = useReducer(
@@ -55,11 +62,14 @@ function GroupView({cookies}) {
                 case 'CHANGE_ALL_FIELDS':
                     return {...state, componentActive: {
                         posts: action.isPosts,
+                        important: action.isImportant,
                         members: action.isMembers,
                         settings: action.isSettings,
                     }};
                 case 'SET_GROUP':
                     return {...state, group: action.value};
+                case 'CHANGE_FIELD':
+                    return {...state, [action.field]: action.value};
                 case 'RELOAD_GROUP':
                     return {...state, reloadGroup: action.value};
                 default:
@@ -74,7 +84,8 @@ function GroupView({cookies}) {
         groupInfo,
         id,
         group,
-        reloadGroup
+        reloadGroup,
+        roleID,
     } = state;
 
     useEffect(
@@ -101,6 +112,7 @@ function GroupView({cookies}) {
                 console.log(responseBody);
                 if (responseBody.id) {
                     setGroup(responseBody);
+                    changeField('roleID', responseBody.userRole.roleID);
                 }
             });
     };
@@ -161,13 +173,19 @@ function GroupView({cookies}) {
                         <div className="group-view-banner__items__links">
                             <div
                                 className={`group-view-banner__items__links__${(componentActive.posts) ? 'active' : 'normal'}-link`}
-                                onClick={() => changeComponentActiveState(true, false, false)}>Посты</div>
+                                onClick={() => changeComponentActiveState(true, false, false, false)}>Посты</div>
+                            <div
+                                className={`group-view-banner__items__links__${(componentActive.important) ? 'active' : 'normal'}-link`}
+                                onClick={() => changeComponentActiveState(false, true, false, false)}>Важное</div>
                             <div
                                 className={`group-view-banner__items__links__${(componentActive.members) ? 'active' : 'normal'}-link`}
-                                onClick={() => changeComponentActiveState(false, true, false)}>Участники</div>
-                            <div
+                                onClick={() => changeComponentActiveState(false, false, true, false)}>Участники</div>
+                            
+                            {roleID !== 3 && (
+                                <div
                                 className={`group-view-banner__items__links__${(componentActive.settings) ? 'active' : 'normal'}-link`}
-                                onClick={() => changeComponentActiveState(false, false, true)}>Настройки</div>
+                                onClick={() => changeComponentActiveState(false, false, false, true)}>Настройки</div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -176,10 +194,13 @@ function GroupView({cookies}) {
             <div id="groupViewPostsContainer" className="group-view-posts-container">
                 <div className="group-view-posts-container__create-post">
                     {componentActive.posts && (
-                        <GroupPostsComponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast}/>
+                        <GroupPostsComponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast} roleID={roleID}/>
+                    )}
+                    {componentActive.important && (
+                        <GroupImportantCOmponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast} roleID={roleID}/>
                     )}
                     {componentActive.members && (
-                        <GroupMembersComponent cookies={cookies} id={id} changeReload={changeReload} okToast={createOkToast} errToast={createErrorToast}/>
+                        <GroupMembersComponent cookies={cookies} id={id} changeReload={changeReload} okToast={createOkToast} errToast={createErrorToast} roleID={roleID}/>
                     )}
                     {componentActive.settings && (
                         <GroupSettingsComponent changeReload={changeReload} group={group} cookies={cookies} okToast={createOkToast} errToast={createErrorToast}/>

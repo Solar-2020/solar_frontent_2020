@@ -25,9 +25,10 @@ function IndexView() {
                     </div>
                 </div>
                 <div className="index-view-container__info">
-                    Сервис находится на этапе разработки, поэтому некоторые окна не совсем доработаны. Вам предлагается пройти следующий сценарий действий:
-                    <div className="index-view-container__info__way">Зарегистрироваться → Создать группу → Перейти в группу → Разместить пост → Изменить данные о группе → Добавить участника в группу (при желании)</div>
-                    Оставьте, пожалуйста, отзыв об удобстве использования и ориентировании по сайту: <a href="https://forms.gle/smRL27MP4NNAK93z9" target="_blank">https://forms.gle/smRL27MP4NNAK93z9</a></div>
+                    <div>Сервис находится на этапе разработки, поэтому некоторые окна не совсем доработаны. Вам предлагается пройти следующий сценарий действий: <a href="https://docs.google.com/document/d/1iizi4WEIyT2iF8-Ihlsmz5PPLypO59nzimdkrklQwm8/edit?usp=sharing" target="_blank">cценарий SolAr</a></div>
+                    <div>Оставьте, пожалуйста, отзыв в форме: <a href="https://docs.google.com/forms/d/e/1FAIpQLSerEfghFlLwbv4nEBD5rLEBWsyBkITsk32iq6ec2WNEX7gUQg/viewform" target="_blank">форма SolAr</a></div>
+                    <div>Ссылки, перечисленный ранее, можно найти в таблице по функциональному тестированию: <a href="https://docs.google.com/spreadsheets/d/1k-vRxIn4IPdSTk2rqfNMjt75Qx4SkT6ABxotNA-JADc/edit#gid=0" target="_blank">таблица</a> </div>
+                </div>
             </div>
         </div>
     );

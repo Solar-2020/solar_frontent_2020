@@ -71,7 +71,7 @@ function App({cookies}) {
 
     function checkProfile(location, history, cookies) {
         fetchModule.get({
-            url: BACKEND_ADDRESS + `/api/group/list`,
+            url: BACKEND_ADDRESS + `/api/account/by-cookie`,
             body: null,
             headers: {
                 'Content-Type': 'application/json',
@@ -91,9 +91,13 @@ function App({cookies}) {
          // при неудаче редирект на логин, если это не location ='/'
     }
 
+    function delAuth() {
+        changeField('isAuth', false);
+    };
+
     return (
         <BrowserRouter>
-            <Header checkAuth={checkAuth} isAuth={isAuth} cookies={cookies}/>
+            <Header checkAuth={checkAuth} isAuth={isAuth} cookies={cookies} delAuth={delAuth}/>
             <div className="container">
                 <Switch>
                     <Route path={'/'} exact render={() => (<IndexView cookies={cookies}/>)}/>
