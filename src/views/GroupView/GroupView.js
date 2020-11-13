@@ -8,6 +8,7 @@ import fetchModule from '../../utils/API/FetchModule';
 import { BACKEND_ADDRESS, okToastConfig, errToastConfig } from '../../utils/Config/Config';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import GroupImportantCOmponent from '../../components/GroupImportantComponent/GroupImportant';
 
 /**
  * Group view
@@ -175,7 +176,7 @@ function GroupView({cookies}) {
                                 onClick={() => changeComponentActiveState(true, false, false, false)}>Посты</div>
                             <div
                                 className={`group-view-banner__items__links__${(componentActive.important) ? 'active' : 'normal'}-link`}
-                                onClick={() => changeComponentActiveState(false, true, false, false)}>Участники</div>
+                                onClick={() => changeComponentActiveState(false, true, false, false)}>Важное</div>
                             <div
                                 className={`group-view-banner__items__links__${(componentActive.members) ? 'active' : 'normal'}-link`}
                                 onClick={() => changeComponentActiveState(false, false, true, false)}>Участники</div>
@@ -194,6 +195,9 @@ function GroupView({cookies}) {
                 <div className="group-view-posts-container__create-post">
                     {componentActive.posts && (
                         <GroupPostsComponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast} roleID={roleID}/>
+                    )}
+                    {componentActive.important && (
+                        <GroupImportantCOmponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast} roleID={roleID}/>
                     )}
                     {componentActive.members && (
                         <GroupMembersComponent cookies={cookies} id={id} changeReload={changeReload} okToast={createOkToast} errToast={createErrorToast} roleID={roleID}/>
