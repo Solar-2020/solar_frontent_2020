@@ -14,7 +14,6 @@ import searchImg from '../../images/search-glass.svg';
 function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, roleID}) {
     const initialState = {
         isAddDelBtn: false,
-        addDelBtnFlag: '',
         membersList: [],
         searchList: [],
         updateList: false,
@@ -35,16 +34,14 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
 
     const {
         isAddDelBtn,
-        addDelBtnFlag,
         membersList,
         updateList,
         searchList,
         ifSearch,
     } = state;
 
-    function addDelButtonClick(value) {
-        changeField('isAddDelBtn', true);
-        changeField('addDelBtnFlag', value);
+    function addDelButtonClick() {
+        changeField('isAddDelBtn', !isAddDelBtn);
     };
 
     function closeAddDelComponent() {
@@ -105,18 +102,13 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
                 </div>
 
                 {roleID !== 3 && (
-                    <div>
-                        <button
-                            className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-add"
-                            onClick={() => addDelButtonClick('add')}/>
-                        <button
-                            className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-del"
-                            onClick={() => addDelButtonClick('del')}/>
-                    </div>
+                    <button
+                        className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-add"
+                        onClick={() => addDelButtonClick()}/>
                 )}
             </div>
             {isAddDelBtn && (
-                <AddDeleteGroupMembersComponent flag={addDelBtnFlag} close={closeAddDelComponent} cookies={cookies} id={id} changeReload={changeReload}
+                <AddDeleteGroupMembersComponent cookies={cookies} id={id} changeReload={changeReload}
                 okToast={okToast} errToast={errToast} changeMembersList={changeMembersList}/>
             )}
             {searchList.map((elem) => (

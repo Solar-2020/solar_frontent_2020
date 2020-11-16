@@ -7,25 +7,20 @@ import {BACKEND_ADDRESS} from '../../../utils/Config/Config.js';
  * Group members component
  * @return {jsx}
  */
-function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload, okToast, errToast, changeMembersList}) {
+function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, errToast, changeMembersList}) {
     function changeAddUserField(field, value) {
         dispatch({type: 'CHANGE_ADD_USER_FIELD', field, value});
     };
 
-    function changeDelUserEmail(value) {
-        dispatch({type: 'CHANGE_DEL_USER_FIELD', value});
-    }
-
     function changeField(field, value) {
         dispatch({type: 'CHANGE_FIELD', field, value});
-    }
+    };
 
     const initialState = {
         addUser: {
             userEmail: '',
             role: 3,
         },
-        delUserEmail: '',
         addMainError: '',
     };
 
@@ -34,8 +29,6 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload,
             switch (action.type) {
                 case 'CHANGE_ADD_USER_FIELD':
                     return {...state, addUser: {...state.addUser, [action.field]: action.value}};
-                case 'CHANGE_DEL_USER_FIELD':
-                    return {...state, delUserEmail: action.value};
                 case 'CHANGE_FIELD':
                     return {...state, [action.field]: action.value};
                 case 'CLEAN_FORM':
@@ -55,7 +48,6 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload,
 
     function closeForm() {
         dispatch({type:'CLEAN_FORM'});
-        close();
     };
 
     function addUserAction(e) {
@@ -78,9 +70,6 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload,
             },
         })
             .then((response) => {
-                // if (response.ok) {
-                //     return response.json();
-                // }
                 return response.json();
             })
             .then((responseBody) => {
@@ -106,63 +95,35 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload,
     };
 
     return (
-        <div>
-            {flag === 'add' && (
-                <div>
-                    <div className="add-del-group-members-component-title-container">
-                        <div className="add-del-group-members-component-title-container__title">Добавление пользователя</div>
-                        <button 
-                            className="add-del-group-members-component-title-container__close-button"
-                            onClick={() => closeForm()}/>
-                    </div>
-                    {addMainError && (
-                        <div className="group-view-container__group-memebers-conteiner__add-user__error">{addMainError}</div>
-                    )}
-                    <div className="add-del-group-members-component__fields">
-                        <input
-                            placeholder="Введите email"
-                            className="add-del-group-members-component__fields_input"
-                            type="email"
-                            onChange={(e) => changeAddUserField('userEmail', String(e.target.value))}
-                            value={addUser.userEmail}
-                            />
-                        <select
-                            className="add-del-group-members-component__fields_select"
-                            onChange={(e) => changeAddUserField('role', Number(e.target.value))}
-                            value={addUser.role}
-                            >
-                            <option value="3">Участник</option>
-                            <option value="2">Администратор</option>
-                        </select>
-                    </div>
-                    <button
-                        className="group-view-container__group-memebers-conteiner__add-button"
-                        onClick={(e) => addUserAction(e)}>Добавить</button>
-                </div>
+        <div className="add-del-group-members-component-container">
+            <div className="add-del-group-members-component-title-container">
+                <div className="add-del-group-members-component-title-container__title">Добавление пользователя</div>
+            </div>
+            {addMainError && (
+                <div className="group-view-container__group-memebers-conteiner__add-user__error">{addMainError}</div>
             )}
-            {flag === 'del' && (
-                <div>
-                    <div className="add-del-group-members-component-title-container">
-                        <div className="add-del-group-members-component-title-container__title">Удаление пользователя</div>
-                        <button 
-                            className="add-del-group-members-component-title-container__close-button"
-                            onClick={() => closeForm()}/>
-                    </div>
-                    <div className="add-del-group-members-component__fields">
-                        <input
-                            placeholder="Введите email"
-                            className="add-del-group-members-component__fields_input"
-                            type="email"
-                            onChange={(e) => changeDelUserEmail(String(e.target.value))}
-                            value={delUserEmail}
-                            />
-                    </div>
-                    <button
-                        className="group-view-container__group-memebers-conteiner__add-button"
-                        onClick={(e) => delUserAction(e)}>Удалить</button>
-                </div>
-            )}
+            <div className="add-del-group-members-component__fields">
+                <input
+                    placeholder="Введите email"
+                    className="add-del-group-members-component__fields_input"
+                    type="email"
+                    onChange={(e) => changeAddUserField('userEmail', String(e.target.value))}
+                    value={addUser.userEmail}
+                    />
+                <select
+                    className="add-del-group-members-component__fields_select"
+                    onChange={(e) => changeAddUserField('role', Number(e.target.value))}
+                    value={addUser.role}
+                    >
+                    <option value="3">Участник</option>
+                    <option value="2">Администратор</option>
+                </select>
+            </div>
+            <button
+                className="group-view-container__group-memebers-conteiner__add-button"
+                onClick={(e) => addUserAction(e)}>Добавить</button>
         </div>
+
     );
 }
 

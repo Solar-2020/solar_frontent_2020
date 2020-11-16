@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 20px;
     margin-bottom: 7px;
 }
 
@@ -68,4 +67,9 @@
 
 .group-view-container__group-memebers-conteiner__add-user__error {
     color: red;
+}
+
+.add-del-group-members-component-container {
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 0;
 }
