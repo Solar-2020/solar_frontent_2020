@@ -20,8 +20,8 @@ function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast
     };
 
     const errorMap = {
-        titleError: 'Минимальная длина 2 символа',
-        urlError: 'Минимальная длина 3 символа. Допустимы символы: a-z'
+        titleError: 'Минимальная длина 2 символа, на конце не должно быть пробелов',
+        urlError: 'Минимальная длина 3 символа. Допустимы символы: a-z, на конце не должно быть пробелов'
     };
 
     const errStyle = {
@@ -151,7 +151,7 @@ function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast
 
     function validationArea(event) {
         if (event.target.value[0] === ' ') {
-            event.target.value = event.target.value.slice(1);
+            event.target.value = event.target.value.trim();
         };
     };
 
@@ -225,6 +225,7 @@ function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast
 
     function fixURL(event) {
         event.target.value = event.target.value.toLowerCase();
+        validationArea(event);
     };
 
     return (
@@ -259,6 +260,7 @@ function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast
                     <div className="search-add-group-component-container__create-group-form__card__form__text">Название</div>
                     <input
                         type="text" name="title" placeholder="Введите название"
+                        onInput={validationArea}
                         onChange={event => validationField('title', event.target.value)}
                         value={groupInfo.title}
                         className={errStyle[titleError]}/>
