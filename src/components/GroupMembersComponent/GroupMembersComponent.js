@@ -100,10 +100,15 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
             .then((response) => {
                 if (response.ok) {
                     return response.json();
-                }
+                } else {
+                    errToast('С удалением участника произошла ошибка, обновите страницу');
+                };
             })
             .then((responseBody) => {
-                console.log(responseBody);
+                if (responseBody.userEmail) {
+                    okToast(`Пользователь ${email} удалён`);
+                    changeMembersList();
+                };
             });
     };
 
