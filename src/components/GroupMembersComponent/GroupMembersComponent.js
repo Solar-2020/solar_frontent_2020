@@ -90,7 +90,7 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
         };
 
         fetchModule.delete({
-            url: BACKEND_ADDRESS + `/api/group/membership/`,
+            url: BACKEND_ADDRESS + `/api/group/membership`,
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
