@@ -7,7 +7,7 @@ import PaymentComponent from './PaymentComponent/PaymentComponent';
 import DocsComponent from './DocsComponent/DocsComponent';
 import PhotoComponent from './PhotoComponet/PhotoComponent';
 import fetchModule from '../../utils/API/FetchModule.js';
-import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
+import {BACKEND_ADDRESS, FILE_SIZE, FILE_STR} from '../../utils/Config/Config.js';
 
 /**
  * Create post component
@@ -115,6 +115,11 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
         formData.append('body', JSON.stringify({name: file.name}));
         formData.append('file', file);
 
+        if (file.size > FILE_SIZE) {
+            errToast(`Размер файл не должен превышать ${FILE_STR}`);
+            return;
+        };
+
         fetchModule.post({
             url: BACKEND_ADDRESS + '/api/upload/photo',
             body: formData,
@@ -138,6 +143,11 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
         const formData = new FormData();
         formData.append('body', JSON.stringify({name: file.name}));
         formData.append('file', file);
+    
+        if (file.size > FILE_SIZE) {
+            errToast(`Размер файл не должен превышать ${FILE_STR}`);
+            return;
+        };
 
         fetchModule.post({
             url: BACKEND_ADDRESS + '/api/upload/file',
@@ -269,7 +279,10 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                         {interviewError && (
                             <div className="create-post-component__white-part__interview-container__error">Тема должна быть заполнена. В опросе следует иметь больше одного ответа</div>
                         )}
-                        <div className="create-post-component__white-part__interview-container__title">Тема опроса</div>
+                        <div className="interwiew-component__title-container">
+                            <div className="create-post-component__white-part__interview-container__title">Тема опроса</div>
+                            <button className="create-post-component__white-part__interview-container__title__input-container__button" onClick={() => delInterviewComponent()}></button>
+                        </div>
                         <div className="create-post-component__white-part__interview-container__title__input-container">
                             <input
                                 type="text"
@@ -278,7 +291,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                                 onChange={(e) => setInterviewTitle(e.target.value)}
                                 className="create-post-component__white-part__interview-container__title__input-container__input"
                             />
-                            <button className="create-post-component__white-part__interview-container__title__input-container__button" onClick={() => delInterviewComponent()}></button>
+                            {/* <button className="create-post-component__white-part__interview-container__title__input-container__button" onClick={() => delInterviewComponent()}></button> */}
                         </div>
                         <InterviewElements interviewElems={interviewElems} delHandler={delInterviewElemHandler}/>
                         <InterviewForm addHandler={addInterviewElemHandler}/>

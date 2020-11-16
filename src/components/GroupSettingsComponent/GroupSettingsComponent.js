@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import './GroupSettingsComponent.css';
 import '../SearchAddGroupComponent/SearchAddGroupComponent.css';
 import fetchModule from '../../utils/API/FetchModule.js';
-import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
+import {BACKEND_ADDRESS, FILE_SIZE, FILE_STR} from '../../utils/Config/Config.js';
 import { useHistory } from 'react-router-dom';
 
 /**
@@ -124,6 +124,11 @@ function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast
         const formData = new FormData();
         formData.append('body', JSON.stringify({name: file.name}));
         formData.append('file', file);
+
+        if (file.size > FILE_SIZE) {
+            errToast(`Размер файла не должен превышать ${FILE_STR}`);
+            return;
+        }
 
         fetchModule.post({
             url: BACKEND_ADDRESS + '/api/upload/photo',

@@ -68,7 +68,7 @@ input, textarea, button {
   padding: 35px;
   text-align: center;
   border-radius: var(--cards-radius);
-  border: 2px dashed var(--border-color);
+  border: 1px dashed var(--border-color);
   color: var(--border-color);
   margin-bottom: 20px;
 }

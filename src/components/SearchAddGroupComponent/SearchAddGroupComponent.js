@@ -1,7 +1,7 @@
 import React, {useReducer} from 'react';
 import './SearchAddGroupComponent.css';
 import searchImg from '../../images/search-glass.svg';
-import {BACKEND_ADDRESS, errToastConfig} from '../../utils/Config/Config.js';
+import {BACKEND_ADDRESS, FILE_SIZE, FILE_STR} from '../../utils/Config/Config.js';
 import fetchModule from '../../utils/API/FetchModule.js';
 
 /**
@@ -175,6 +175,11 @@ function SearchAddGroupComponent({changeAllGroups, cookies, okToast, errToast, c
         const formData = new FormData();
         formData.append('body', JSON.stringify({name: file.name}));
         formData.append('file', file);
+
+        if (file.size > FILE_SIZE) {
+            errToast(`Размер файл не должен превышать ${FILE_STR}`);
+            return;
+        };
 
         fetchModule.post({
             url: BACKEND_ADDRESS + '/api/upload/photo',

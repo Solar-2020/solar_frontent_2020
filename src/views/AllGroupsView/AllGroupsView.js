@@ -93,9 +93,9 @@ function AllGroupsView({cookies}) {
     };
 
     const ending = (count) => {
-        return (/[0, 5-9]/.test(count)) ?
-            'ов' : /[2-4]/.test(count) ?
-                'а' : '';
+        return (/1[1-4]/.test(count) || /[0, 5-9]/.test(count % 10)) ?
+        'ов' : /[2-4]/.test(count % 10) ?
+            'а' : '';
     };
 
     const createOkToast= (text) => {

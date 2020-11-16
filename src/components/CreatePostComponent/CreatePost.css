@@ -42,7 +42,7 @@
 
 .create-post-component__white-part__avatar-text__text:focus {
     outline: none;
-    border: 2px solid var(--main-light-green);
+    border: 1px solid var(--main-light-green);
     border-radius: 3px;
 }
 
@@ -140,4 +140,10 @@
     color: red;
     font-size: 12px;
     margin-bottom: 5px;
+}
+
+.interwiew-component__title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

@@ -43,7 +43,7 @@
 
 .login-view-container__card__input-block__input:invalid,
 .login-view-container__card__input-block__input:invalid:focus {
-    border: 2px solid red;
+    border: 1px solid red;
 }
 
 .login-view-container__card__input-block__input__error-input {
@@ -52,7 +52,7 @@
     padding-left: 5px;
     padding-right: 5px;
     border-radius: 3px;
-    border: 2px solid red;
+    border: 1px solid red;
     outline: none;
 }
 
@@ -64,7 +64,7 @@
 
 .login-view-container__card__input-block__input:focus {
     outline: none;
-    border: 2px solid var(--main-light-green);
+    border: 1px solid var(--main-light-green);
     border-radius: 3px;
 }
 

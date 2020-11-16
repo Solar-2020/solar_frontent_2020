@@ -133,7 +133,6 @@ function AddDeleteGroupMembersComponent({flag, close, cookies, id, changeReload,
                             >
                             <option value="3">Участник</option>
                             <option value="2">Администратор</option>
-                            <option value="1">Создатель</option>
                         </select>
                     </div>
                     <button

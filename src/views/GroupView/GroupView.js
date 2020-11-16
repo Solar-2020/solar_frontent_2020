@@ -18,8 +18,8 @@ function GroupView({cookies}) {
     const location = useLocation();
 
     const ending = (count) => {
-        return (/[0, 5-9]/.test(count)) ?
-            'ов' : /[2-4]/.test(count) ?
+        return (/[11-14]/.test(count) || /[0, 5-9]/.test(count % 10)) ?
+            'ов' : /[2-4]/.test(count % 10) ?
                 'а' : '';
     };
 
@@ -164,7 +164,7 @@ function GroupView({cookies}) {
                     <div className="group-view-banner__items__info-container">
                         <div className="group-view-banner__items__info">
                             <div className="group-view-banner__items__info__title">{group.title}</div>
-                            <div className="group-view-banner__items__info__count">{`${group.count} участник${ending(group.count % 10)}`}</div>
+                            <div className="group-view-banner__items__info__count">{`${group.count} участник${ending(group.count % 100)}`}</div>
                             {group.description && (
                                 <div className="group-view-banner__items__info_description">{group.description}</div>
                             )}
