@@ -85,7 +85,7 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
 
     function deleteUser(email) {
         const data = {
-            group: id,
+            group: Number(id),
             userEmail: email,
         };
 
