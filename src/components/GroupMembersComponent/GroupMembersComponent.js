@@ -83,6 +83,40 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
             });
     };
 
+    function deleteUser(email) {
+        const data = {
+            group: id,
+            userEmail: email,
+        };
+
+        fetchModule.delete({
+            url: BACKEND_ADDRESS + `/api/group/membership/`,
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+            })
+            .then((responseBody) => {
+                console.log(responseBody);
+            });
+    };
+
+    function copyData(email) {
+        const dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = email;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+        okToast(`Почта ${email} скопирована`);  
+    };
+
     function changeSearch(value) {
         changeField('searchList', searchMember(value.trim().toLowerCase(), membersList));
     };
@@ -115,8 +149,17 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
                 <div key={elem.userID} className="group-view-container__group-memebers-conteiner__members-list_person">
                     <div className="show-post-component__white-part__avatar-text__avatar"></div>
                     <div className="show-post-component__white-part__avatar-text__text">
-                        <div className="show-post-component__white-part__avatar-text__text__name">{`${elem.name} ${elem.surname}`}</div>
+                        <div className="show-post-component__white-part__avatar-text__text__name">{`${elem.name} ${elem.surname} [${elem.roleName}]`}</div>
                         <div className="show-post-component__white-part__avatar-text__text__data">{elem.email}</div>
+                    </div>
+                    <div className="dropdown">
+                        <div className="nav__settings"></div>
+                        <div className="dropdown-content">
+                            {elem.roleID !== 1 && (
+                                <div onClick={() => deleteUser(elem.email)}>Удалить</div>
+                            )}
+                            <div onClick={() => copyData(elem.email)}>Копировать почту</div>
+                        </div>
                     </div>
                 </div>
             ))}
