@@ -140,7 +140,7 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
             // getData(posts[0].publishDate, 'add');
             console.log('ddddddd');
             console.log(posts[posts.length - 1].publishDate);
-            getData(posts[posts.length - 1].publishDate, 'add');
+            getData(fixTime(posts[posts.length - 1].publishDate), 'add');
         }
     };
 
