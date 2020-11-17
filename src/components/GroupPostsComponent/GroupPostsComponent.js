@@ -95,11 +95,34 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
                         changeAllPosts(responseBody);
                     }
 
-                    // if (responseBody.length > 0) {
-                    //     addLastId(responseBody[responseBody.length - 1].publishDate)
-                    // }
+                    if (responseBody.length > 0) {
+                        addLastId(responseBody[responseBody.length - 1].publishDate)
+                    };
                 }
             });
+    };
+
+    useEffect(
+        () => {
+            console.log('fff');
+            window.addEventListener('scroll', handleScroll);
+
+            return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const handleScroll = () => {
+        let contentHeight = document.documentElement.offsetHeight;
+        let yOffset       = document.documentElement.scrollTop;
+        let window_height = window.innerHeight;
+        let y             = yOffset + window_height;
+
+        console.log(contentHeight);
+        console.log(y);
+
+        if ((Math.trunc(y + 5) > contentHeight) && lastID) {
+            console.log('appp');
+            getData(lastID, 'add');
+        }
     };
 
     return (
@@ -117,7 +140,7 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
             {!posts.length && (
                 <div className="empty-field">Здесь пока пусто...</div>
             )}
-            {/* <ShowPostComponent data={data} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast}/> */}
+            <ShowPostComponent data={data} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast}/>
         </div>
     );
 }

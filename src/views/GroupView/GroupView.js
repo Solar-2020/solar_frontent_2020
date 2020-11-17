@@ -18,7 +18,7 @@ function GroupView({cookies}) {
     const location = useLocation();
 
     const ending = (count) => {
-        return (/[11-14]/.test(count) || /[0, 5-9]/.test(count % 10)) ?
+        return (/1[1-4]/.test(count) || /[0, 5-9]/.test(count % 10)) ?
             'ов' : /[2-4]/.test(count % 10) ?
                 'а' : '';
     };
@@ -116,27 +116,6 @@ function GroupView({cookies}) {
                 }
             });
     };
-
-    // useEffect(
-    //     () => {
-    //         // console.log('fff');
-    //         window.addEventListener('scroll', handleScroll);
-
-    //         return () => window.removeEventListener('scroll', handleScroll);
-    // }, []);
-
-    // const handleScroll = () => {
-    //     let contentHeight = document.documentElement.offsetHeight;
-    //     let yOffset       = document.documentElement.scrollTop;
-    //     let window_height = window.innerHeight;
-    //     let y             = yOffset + window_height;
-
-    //     if (Math.trunc(y) === contentHeight) {
-    //         // console.log('appp');
-    //         // console.log(lastId);
-    //         // getData(fixTime(lastId));
-    //     }
-    // };
 
     const createOkToast= (text) => {
         toast(text, okToastConfig);            
