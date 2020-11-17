@@ -160,7 +160,7 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
                     <div className="dropdown">
                         <div className="nav__settings"></div>
                         <div className="dropdown-content">
-                            {elem.roleID !== 1 && (
+                            {(elem.roleID !== 1 && roleID !== 3) && (
                                 <div onClick={() => deleteUser(elem.email)}>Удалить</div>
                             )}
                             <div onClick={() => copyData(elem.email)}>Копировать почту</div>
