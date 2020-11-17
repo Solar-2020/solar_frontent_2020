@@ -111,7 +111,7 @@ function GroupImportantCOmponent({cookies, id, okToast, errToast, roleID}) {
             <button onClick={() => getData(lastID)}>получить данные</button> */}
             {posts.map((elem) => (
                 <div key={elem.id}>
-                    <ShowPostComponent data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast} key={'markedPost'} deleteMarkedPost={deleteMarkedPost}/>
+                    <ShowPostComponent data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast} key={true} deleteMarkedPost={deleteMarkedPost}/>
                 </div>
             ))}
             {!posts.length && (
