@@ -134,7 +134,7 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
             {!posts.length && (
                 <div className="empty-field">Здесь пока пусто...</div>
             )}
-            <ShowPostComponent data={data} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast}/>
+            {/* <ShowPostComponent data={data} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast}/> */}
         </div>
     );
 }
