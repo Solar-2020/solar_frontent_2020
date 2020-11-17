@@ -130,10 +130,10 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
         let window_height = window.innerHeight;
         let y             = yOffset + window_height;
 
-        console.log(contentHeight);
-        console.log(y);
+        // console.log(contentHeight);
+        // console.log(y);
 
-        if ((Math.trunc(y + 5) > contentHeight) && (posts.length > 0)) {
+        if ((Math.trunc(y + 3) > contentHeight) && (posts.length > 0)) {
             console.log('appp');
             console.log('----------lastID: ', lastID);
 
