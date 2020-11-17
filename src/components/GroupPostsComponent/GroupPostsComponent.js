@@ -133,14 +133,14 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
         console.log(contentHeight);
         console.log(y);
 
-        if (Math.trunc(y + 5) > contentHeight) {
+        if ((Math.trunc(y + 5) > contentHeight) && (posts.length > 0)) {
             console.log('appp');
             console.log('----------lastID: ', lastID);
 
             // getData(posts[0].publishDate, 'add');
             console.log('ddddddd');
             console.log(posts[posts.length - 1].publishDate);
-            getData(lastID, 'add');
+            getData(posts[posts.length - 1].publishDate, 'add');
         }
     };
 
