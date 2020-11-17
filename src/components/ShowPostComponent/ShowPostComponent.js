@@ -12,7 +12,7 @@ import {createNormDate} from '../../utils/time';
  * Show post component
  * @return {jsx}
  */
-function ShowPostComponent({data, cookies, roleID, okToast, errToast}) {
+function ShowPostComponent({data, cookies, roleID, okToast, errToast, key, deleteMarkedPost}) {
     const initialState = {
         dataComp: data,
         isLightbox: false,
@@ -76,6 +76,9 @@ function ShowPostComponent({data, cookies, roleID, okToast, errToast}) {
                 if (response.ok) {
                     changeMarked(!dataComp.marked);
                     okToast('Статус поста изменён');
+                    if (key === 'markedPost') {
+                        deleteMarkedPost(dataComp.id);
+                    };
                 } else {
                     errToast('Что-то пошло не по плану ...');
                 }

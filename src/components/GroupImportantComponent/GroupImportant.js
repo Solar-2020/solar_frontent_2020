@@ -101,13 +101,17 @@ function GroupImportantCOmponent({cookies, id, okToast, errToast, roleID}) {
             });
     };
 
+    function deleteMarkedPost(id) {
+        console.log(id);
+    };
+
     return (
         <div>
             {/* {lastID}
             <button onClick={() => getData(lastID)}>получить данные</button> */}
             {posts.map((elem) => (
                 <div key={elem.id}>
-                    <ShowPostComponent data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast}/>
+                    <ShowPostComponent data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast} key={'markedPost'} deleteMarkedPost={deleteMarkedPost}/>
                 </div>
             ))}
             {!posts.length && (
