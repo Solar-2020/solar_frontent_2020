@@ -77,6 +77,7 @@ function ShowPostComponent({data, cookies, roleID, okToast, errToast, key, delet
                     changeMarked(!dataComp.marked);
                     okToast('Статус поста изменён');
                     if (key === 'markedPost') {
+                        console.log('marked');
                         deleteMarkedPost(dataComp.id);
                     };
                 } else {
