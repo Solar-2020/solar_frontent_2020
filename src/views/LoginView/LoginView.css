@@ -114,3 +114,8 @@
     background-color: #ffdb4d;
     border-radius: 3px;
 }
+
+.login-view-container__form {
+    display: flex;
+    flex-direction: column;
+}
