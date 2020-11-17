@@ -12,7 +12,7 @@ import {createNormDate} from '../../utils/time';
  * Show post component
  * @return {jsx}
  */
-function ShowMarkedPost({data, cookies, roleID, okToast, errToast}) {
+function ShowMarkedPost({data, cookies, roleID, okToast, errToast, deletePost}) {
     const initialState = {
         dataComp: data,
         isLightbox: false,
@@ -103,9 +103,17 @@ function ShowMarkedPost({data, cookies, roleID, okToast, errToast}) {
                 </div>
                 
                 {roleID !== 3 ? (
-                    <button 
-                        onClick={() => setMarked()}
-                        className={`show-post-component__white-part__avatar-text__star-button_${dataComp.marked}`}/>
+                    <div className="show-post-component__white-part__avatar-text__star-button_margin">
+                        <div className="dropdown nav__settings_margin">
+                            <div className="nav__settings"></div>
+                            <div className="dropdown-content">
+                                <div>Удалить пост</div>
+                            </div>
+                        </div>
+                        <button 
+                            onClick={() => setMarked()}
+                            className={`show-post-component__white-part__avatar-text__star-button_${dataComp.marked}`}/>
+                    </div>
                 ): (
                     <button className={`show-post-component__white-part__avatar-text__star-button_${dataComp.marked}-user`}/>
                 )}

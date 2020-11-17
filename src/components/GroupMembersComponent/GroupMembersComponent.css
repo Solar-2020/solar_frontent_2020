@@ -83,6 +83,10 @@
     margin-left: auto;
 }
 
+.nav__settings_margin {
+    margin-right: 10px;
+}
+
 .dropdown {
     position: relative;
     display: inline-block;

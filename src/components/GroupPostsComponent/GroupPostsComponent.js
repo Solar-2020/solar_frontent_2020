@@ -30,6 +30,9 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
                     return {...state, lastID: fixTime(action.value)};
                 case 'CHANGE_RELOAD':
                     return {...state, reloadPosts: action.value};
+                case 'DELETE_POST':
+                    const newPosts = state.posts.filter(elem => elem.id !== action.value);
+                    return {...state, posts: newPosts};
                 default:
                     return state
             }
@@ -42,6 +45,10 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
         lastID,
         reloadPosts,
     } = state;
+
+    function deletePost(value) {
+        dispatch({type: 'DELETE_POST', value});
+    }
 
     function addNewPosts(value) {
         dispatch({type: 'SET_NEW_POSTS', value});
@@ -128,7 +135,7 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
             )}
             {posts.map((elem) => (
                 <div key={elem.id}>
-                    <ShowPostComponent data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast}/>
+                    <ShowPostComponent data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast} deletePost={deletePost}/>
                 </div>
             ))}
             {!posts.length && (
