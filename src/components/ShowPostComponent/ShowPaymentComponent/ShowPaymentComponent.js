@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom'
 import './ShowPaymentComponent.css';
 import {okToastConfig, errToastConfig} from '../../../utils/Config/Config.js';
 import {ToastContainer, toast} from 'react-toastify';
@@ -13,8 +12,6 @@ import {BACKEND_ADDRESS} from '../../../utils/Config/Config';
  * @return {jsx}
  */
 function ShowPaymentComponent({payment, cookies}) {
-    const history = useHistory();
-
     function sendCost() {
         const data = {
             paymentID: payment.id,
@@ -38,7 +35,7 @@ function ShowPaymentComponent({payment, cookies}) {
                     toast('Кошелёк не активирован или не сужествует!', errToastConfig);
                 };
                 if (responseBody.url) {
-                    history.push(`${responseBody.url}?orderId=${responseBody.orderID}`)
+                    window.location.href = `${responseBody.url}?orderId=${responseBody.orderID}`;
                 };
             });
     };
