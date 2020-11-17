@@ -28,6 +28,9 @@ function GroupImportantCOmponent({cookies, id, okToast, errToast, roleID}) {
                     return {...state, lastID: fixTime(action.value)};
                 case 'CHANGE_RELOAD':
                     return {...state, reloadPosts: action.value};
+                case 'DELETE_POST':
+                    const newPosts = state.posts.filter(elem => elem.id !== action.value);
+                    return {...state, posts: newPosts};
                 default:
                     return state
             }
@@ -40,6 +43,10 @@ function GroupImportantCOmponent({cookies, id, okToast, errToast, roleID}) {
         lastID,
         reloadPosts,
     } = state;
+
+    function deletePostComp(value) {
+        dispatch({type: 'DELETE_POST', value});
+    }
 
     function addNewPosts(value) {
         dispatch({type: 'SET_NEW_POSTS', value});
@@ -100,8 +107,23 @@ function GroupImportantCOmponent({cookies, id, okToast, errToast, roleID}) {
             });
     };
 
-    function deleteMarkedPost(id) {
-        console.log(id);
+    function deletePost(value) {
+        fetchModule.post({
+            url: BACKEND_ADDRESS + `/api/posts/remove?groupId=${id}&postId=${value}`,
+            body: null,
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    deletePostComp(value);
+                    okToast('Пост удалён');
+                } else {
+                    errToast('Ошибка во время удаления поста');
+                }
+            });
     };
 
     return (
@@ -110,7 +132,7 @@ function GroupImportantCOmponent({cookies, id, okToast, errToast, roleID}) {
             <button onClick={() => getData(lastID)}>получить данные</button> */}
             {posts.map((elem) => (
                 <div key={elem.id}>
-                    <ShowMarkedPost data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast} deleteMarkedPost={deleteMarkedPost}/>
+                    <ShowMarkedPost data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast} deletePost={deletePost} deletePostComp={deletePostComp}/>
                 </div>
             ))}
             {!posts.length && (

@@ -12,7 +12,7 @@ import {createNormDate} from '../../utils/time';
  * Show post component
  * @return {jsx}
  */
-function ShowMarkedPost({data, cookies, roleID, okToast, errToast, deletePost}) {
+function ShowMarkedPost({data, cookies, roleID, okToast, errToast, deletePost, deletePostComp}) {
     const initialState = {
         dataComp: data,
         isLightbox: false,
@@ -75,6 +75,7 @@ function ShowMarkedPost({data, cookies, roleID, okToast, errToast, deletePost}) 
             .then((response) => {
                 if (response.ok) {
                     changeMarked(!dataComp.marked);
+                    deletePostComp(dataComp.id);
                     console.log('marked');
                     okToast('Статус поста изменён');
                 } else {
@@ -107,7 +108,7 @@ function ShowMarkedPost({data, cookies, roleID, okToast, errToast, deletePost}) 
                         <div className="dropdown nav__settings_margin">
                             <div className="nav__settings"></div>
                             <div className="dropdown-content">
-                                <div>Удалить пост</div>
+                                <div onClick={() => deletePost(dataComp.id)}>Удалить пост</div>
                             </div>
                         </div>
                         <button 
