@@ -66,10 +66,6 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
     useEffect(
         () => {
             getData(getNowTime(), 'all');
-            console.log('fff');
-            window.addEventListener('scroll', handleScroll);
-
-            return () => window.removeEventListener('scroll', handleScroll);
         }, [reloadPosts]);
 
     // 2020-10-14T15%3A43%3A17.541428%2B03%3A00
@@ -102,13 +98,11 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
             });
     };
 
-    // useEffect(
-    //     () => {
-    //         console.log('fff');
-    //         window.addEventListener('scroll', handleScroll);
+    useEffect(() => {
+            window.addEventListener('scroll', handleScroll);
 
-    //         return () => window.removeEventListener('scroll', handleScroll);
-    // }, [posts]);
+            return () => window.removeEventListener('scroll', handleScroll);
+    }, [posts]);
 
     const handleScroll = () => {
         let contentHeight = document.documentElement.offsetHeight;
