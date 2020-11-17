@@ -10,6 +10,7 @@ import fetchModule from './utils/API/FetchModule.js';
 import {BACKEND_ADDRESS} from './utils/Config/Config.js';
 import { withCookies } from 'react-cookie'
 import LoginYandex from './views/LoginYandex/LoginYandex';
+import PayView from './views/PayView/PayView';
 
 /**
  * Application root
@@ -105,6 +106,8 @@ function App({cookies}) {
                     <Route path={'/registration'} exact render={() => (<RegistrationView cookies={cookies}/>)}/>
                     <Route path={'/allgroups'} exact render={() => (<AllGroupsView cookies={cookies}/>)}/>
                     <Route path={'/yandexoauth'} render={() => (<LoginYandex cookies={cookies}/>)}/>
+                    <Route path={'/pay/success'} render={() => (<PayView cookies={cookies}/>)}/>
+                    <Route path={'/pay/error'} render={() => (<PayView cookies={cookies}/>)}/>
                     <Route path={'/group/:groupUrl'} render={() => (<GroupView cookies={cookies}/>)}/>
                     <Route render={() => <h1>404: Страница не найдена</h1>} />
                 </Switch>
