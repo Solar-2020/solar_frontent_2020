@@ -1,9 +1,8 @@
 import React, {useEffect, useReducer} from 'react';
-import ShowPostComponent from '../../components/ShowPostComponent/ShowPostComponent';
+import ShowMarkedPost from '../../components/ShowPostComponent/ShowMarkedPost';
 import fetchModule from '../../utils/API/FetchModule.js';
 import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
 import {getNowTime, fixTime} from '../../utils/time.js';
-import CreatePost from '../../components/CreatePostComponent/CreatePost';
 
 /**
  * Group settings component
@@ -111,7 +110,7 @@ function GroupImportantCOmponent({cookies, id, okToast, errToast, roleID}) {
             <button onClick={() => getData(lastID)}>получить данные</button> */}
             {posts.map((elem) => (
                 <div key={elem.id}>
-                    <ShowPostComponent data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast} key={true} deleteMarkedPost={deleteMarkedPost}/>
+                    <ShowMarkedPost data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast} deleteMarkedPost={deleteMarkedPost}/>
                 </div>
             ))}
             {!posts.length && (
