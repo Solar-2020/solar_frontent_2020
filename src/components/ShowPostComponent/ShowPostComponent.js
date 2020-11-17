@@ -106,7 +106,7 @@ function ShowPostComponent({data, cookies, roleID, okToast, errToast, deletePost
                         <div className="dropdown nav__settings_margin">
                             <div className="nav__settings"></div>
                             <div className="dropdown-content">
-                                <div>Удалить пост</div>
+                                <div onClick={() => deletePost(dataComp.id)}>Удалить пост</div>
                             </div>
                         </div>
                         <button 

@@ -46,7 +46,7 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
         reloadPosts,
     } = state;
 
-    function deletePost(value) {
+    function deletePostComp(value) {
         dispatch({type: 'DELETE_POST', value});
     }
 
@@ -101,6 +101,25 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
                     } else {
                         changeAllPosts(responseBody);
                     }
+                }
+            });
+    };
+
+    function deletePost(value) {
+        fetchModule.post({
+            url: BACKEND_ADDRESS + `/api/posts/remove?groupId=${id}&postId=${value}`,
+            body: null,
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    deletePostComp(value);
+                    okToast('Пост удалён');
+                } else {
+                    errToast('Ошибка во время удаления поста');
                 }
             });
     };
