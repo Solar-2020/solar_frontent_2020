@@ -242,6 +242,8 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                         changeReload();
                         clearPostForm();
                         okToast('Пост создан успешно');
+                    } else if (responseBody.error) {
+                        errToast(`Ошибка при создании поста: ${responseBody.error}`);
                     } else {
                         errToast('Пост не был создан');
                     }
