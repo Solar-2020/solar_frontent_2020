@@ -22,7 +22,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
     const [interviewTitle, setInterviewTitle] = useState('');
 
     const [paymentComp, setPaymentComp] = useState(false);
-    const [paymentValue, setPaymentValue] = useState({requisite: '', cost: 0, currency: 1});
+    const [paymentValue, setPaymentValue] = useState({totalCost: 0, paymentAccount: ''});
 
     const [docsComp, setDocsComp] = useState([]);
     const [photoComp, setPhotoComp] = useState([]);
@@ -213,7 +213,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
             form = {...form, interviews: []};
         }
 
-        if (!form.payments[0].requisite.trim()) {
+        if (!form.payments[0].paymentAccount.trim()) {
             form = {...form, payments: []};
         }
 
@@ -258,13 +258,13 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
         setPaymentComp(false);
         setDocsComp([]);
         setPhotoComp([]);
-        setPaymentValue({requisite: '', cost: 0, currency: 1});
+        setPaymentValue({totalCost: 0, paymentAccount: ''});
         document.getElementById('createPostComponentText').value = '';
     };
 
     const delPaymentComp = () => {
         setPaymentComp(false);
-        setPaymentValue({requisite: '', cost: 0, currency: 1});
+        setPaymentValue({totalCost: 0, paymentAccount: ''});
     };
 
     return (
@@ -307,7 +307,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                         </div>
                 )}
                 {paymentComp && (
-                    <PaymentComponent delPaymentComp={delPaymentComp} changePaymentHandler={changePaymentHandler} payVal={paymentValue.requisite}/>
+                    <PaymentComponent delPaymentComp={delPaymentComp} changePaymentHandler={changePaymentHandler} payVal={paymentValue.paymentAccount}/>
                 )}
                 {photoComp.length > 0 && (
                     <PhotoComponent photos={photoComp} delPhotoHandler={delPhotoHandler}/>

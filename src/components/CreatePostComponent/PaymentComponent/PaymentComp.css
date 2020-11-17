@@ -3,7 +3,7 @@
     flex-direction: row;
     align-items: center;
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 .payment-component__title-close__title {
@@ -66,4 +66,20 @@ input::-webkit-inner-spin-button {
 
 .payment-component__payment-form__summ__requisite {
     padding-left: 5px;
+}
+
+.payment-component__payment-form__list_flex {
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+}
+
+.payment-component_target {
+    color: var(--main-grey-text-color);
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.payment-component_target a {
+    color: var(--main-green-color);
 }
