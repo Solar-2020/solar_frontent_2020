@@ -117,7 +117,7 @@ function ShowPostComponent({data, cookies, roleID, okToast, errToast}) {
             )}
             {/* Исправила cost на length */}
             {dataComp.payments.length > 0 && (
-                <ShowPaymentComponent payment={dataComp.payments[0]}/>
+                <ShowPaymentComponent payment={dataComp.payments[0]} cookies={cookies}/>
             )}
             {dataComp.photos.length > 0 && (
                 <ShowPhotosComponent photos={dataComp.photos} backendAddress={BACKEND_ADDRESS} openImg={openImg}/>
