@@ -96,7 +96,7 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
                     }
 
                     if (responseBody.length > 0) {
-                        addLastId(responseBody[responseBody.length - 1].publishDate)
+                        addLastId(responseBody[responseBody.length - 1].publishDate);
                     };
                 }
             });
@@ -119,7 +119,9 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
         console.log(contentHeight);
         console.log(y);
 
-        if ((Math.trunc(y + 5) > contentHeight) && lastID) {
+        console.log('---', lastID);
+
+        if (Math.trunc(y + 5) > contentHeight) {
             console.log('appp');
             getData(lastID, 'add');
         }
