@@ -1,6 +1,7 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom'
 import './ShowPaymentComponent.css';
-import {okToastConfig} from '../../../utils/Config/Config.js';
+import {okToastConfig, errToastConfig} from '../../../utils/Config/Config.js';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import fetchModule from '../../../utils/API/FetchModule';
@@ -12,15 +13,7 @@ import {BACKEND_ADDRESS} from '../../../utils/Config/Config';
  * @return {jsx}
  */
 function ShowPaymentComponent({payment, cookies}) {
-    function copyData() {
-        const dummy = document.createElement("textarea");
-        document.body.appendChild(dummy);
-        dummy.value = payment.requisite;
-        dummy.select();
-        document.execCommand("copy");
-        document.body.removeChild(dummy);
-        toast('Реквизиты скопированы', okToastConfig);  
-    };
+    const history = useHistory();
 
     function sendCost() {
         const data = {
@@ -41,6 +34,12 @@ function ShowPaymentComponent({payment, cookies}) {
             })
             .then((responseBody) => {
                 console.log(responseBody);
+                if (responseBody.error) {
+                    toast('Кошелёк не активирован или не сужествует!', errToastConfig);
+                };
+                if (responseBody.url) {
+                    history.push(`${responseBody.url}?orderId=${responseBody.orderID}`)
+                };
             });
     };
 
