@@ -82,7 +82,32 @@ class FetchModule {
         mode = CORS_CONST,
     } = {}
     ) {
-        return fetch(url, {method, body, credentials, headers, mode});
+        return fetch(url, {method, body, credentials, headers, mode})
+        .then((response) => {
+            // console.log(response, response.status);
+            switch (response.status) {
+                case 403:
+                  alert('У вас недостаточно прав для выполнения действий! Вы беде перенаправлены на предыдущую страницу');
+                  window.history.back();
+                  break;
+                case 500:
+                  alert('Кажется...беку плохо! Повторите свои действия позже');
+                  break;
+                default:
+            };
+            return response;
+        });
+    }
+    
+    /**
+     * checkStatus
+     * @param {*} response 
+     * @param {*} history 
+     */
+    checkStatus(response, history) {
+        if (response.status === 200) {
+            console.log('...');
+        }
     }
 }
 

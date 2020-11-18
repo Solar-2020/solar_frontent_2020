@@ -1,6 +1,9 @@
 export const BACKEND_ADDRESS = process.env.REACT_APP_BACKEND || 'https://develop.nl-mail.ru';
 export const CORS_CONST = 'cors';
 
+export const FILE_SIZE = 5000000;
+export const FILE_STR = '5МБ';
+
 export const okToastConfig = {
     position: 'top-right',
     className: 'ok-toast',

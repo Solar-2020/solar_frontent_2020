@@ -27,6 +27,7 @@ function Header({checkAuth, isAuth, cookies, delAuth}) {
                     <div className="header-component-container__content_padding">
                         <Link to="/" className="header-component__links">Главная</Link>
                         <Link to="/allgroups" className="header-component__links">Мои группы</Link>
+                        <Link to="/pay" className="header-component__links">Статистика</Link>
                         {/* <Link to="/group/39" className="header-component__links">Группа 39</Link> */}
                         <div onClick={() => exit()} className="header-component__links header-component__links_margin ">Выйти</div>
                     </div>

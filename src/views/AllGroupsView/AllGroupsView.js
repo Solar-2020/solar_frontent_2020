@@ -93,9 +93,9 @@ function AllGroupsView({cookies}) {
     };
 
     const ending = (count) => {
-        return (/[0, 5-9]/.test(count)) ?
-            'ов' : /[2-4]/.test(count) ?
-                'а' : '';
+        return (/1[1-4]/.test(count) || /[0, 5-9]/.test(count % 10)) ?
+        'ов' : /[2-4]/.test(count % 10) ?
+            'а' : '';
     };
 
     const createOkToast= (text) => {
@@ -115,9 +115,6 @@ function AllGroupsView({cookies}) {
                     <SearchAddGroupComponent changeAllGroups={changeAllGroups} cookies={cookies} okToast={createOkToast} errToast={createErrorToast}
                     changeSearch={changeSearch}/>
 
-                    {/* {allGroups.isGroup && (
-                        <div className="all-groups-view-container__search-style__value">{allGroups.value}</div>
-                    )} */}
                     <div className="all-groups-view-container__groups">
                         {searchGroups.map((elem) => (
                             <div key={elem.id} className="all-groups-view-container__groups__block">

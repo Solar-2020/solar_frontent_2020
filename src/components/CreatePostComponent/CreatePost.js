@@ -7,7 +7,7 @@ import PaymentComponent from './PaymentComponent/PaymentComponent';
 import DocsComponent from './DocsComponent/DocsComponent';
 import PhotoComponent from './PhotoComponet/PhotoComponent';
 import fetchModule from '../../utils/API/FetchModule.js';
-import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
+import {BACKEND_ADDRESS, FILE_SIZE, FILE_STR} from '../../utils/Config/Config.js';
 
 /**
  * Create post component
@@ -22,7 +22,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
     const [interviewTitle, setInterviewTitle] = useState('');
 
     const [paymentComp, setPaymentComp] = useState(false);
-    const [paymentValue, setPaymentValue] = useState({requisite: '', cost: 0, currency: 1});
+    const [paymentValue, setPaymentValue] = useState({totalCost: 0, paymentAccount: ''});
 
     const [docsComp, setDocsComp] = useState([]);
     const [photoComp, setPhotoComp] = useState([]);
@@ -115,6 +115,11 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
         formData.append('body', JSON.stringify({name: file.name}));
         formData.append('file', file);
 
+        if (file.size > FILE_SIZE) {
+            errToast(`Размер файл не должен превышать ${FILE_STR}`);
+            return;
+        };
+
         fetchModule.post({
             url: BACKEND_ADDRESS + '/api/upload/photo',
             body: formData,
@@ -138,6 +143,11 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
         const formData = new FormData();
         formData.append('body', JSON.stringify({name: file.name}));
         formData.append('file', file);
+    
+        if (file.size > FILE_SIZE) {
+            errToast(`Размер файл не должен превышать ${FILE_STR}`);
+            return;
+        };
 
         fetchModule.post({
             url: BACKEND_ADDRESS + '/api/upload/file',
@@ -203,7 +213,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
             form = {...form, interviews: []};
         }
 
-        if (!form.payments[0].requisite.trim()) {
+        if (!form.payments[0].paymentAccount.trim()) {
             form = {...form, payments: []};
         }
 
@@ -232,6 +242,8 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                         changeReload();
                         clearPostForm();
                         okToast('Пост создан успешно');
+                    } else if (responseBody.error) {
+                        errToast(`Ошибка при создании поста: ${responseBody.error}`);
                     } else {
                         errToast('Пост не был создан');
                     }
@@ -248,13 +260,13 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
         setPaymentComp(false);
         setDocsComp([]);
         setPhotoComp([]);
-        setPaymentValue({requisite: '', cost: 0, currency: 1});
+        setPaymentValue({totalCost: 0, paymentAccount: ''});
         document.getElementById('createPostComponentText').value = '';
     };
 
     const delPaymentComp = () => {
         setPaymentComp(false);
-        setPaymentValue({requisite: '', cost: 0, currency: 1});
+        setPaymentValue({totalCost: 0, paymentAccount: ''});
     };
 
     return (
@@ -269,7 +281,10 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                         {interviewError && (
                             <div className="create-post-component__white-part__interview-container__error">Тема должна быть заполнена. В опросе следует иметь больше одного ответа</div>
                         )}
-                        <div className="create-post-component__white-part__interview-container__title">Тема опроса</div>
+                        <div className="interwiew-component__title-container">
+                            <div className="create-post-component__white-part__interview-container__title">Тема опроса</div>
+                            <button className="create-post-component__white-part__interview-container__title__input-container__button" onClick={() => delInterviewComponent()}></button>
+                        </div>
                         <div className="create-post-component__white-part__interview-container__title__input-container">
                             <input
                                 type="text"
@@ -278,7 +293,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                                 onChange={(e) => setInterviewTitle(e.target.value)}
                                 className="create-post-component__white-part__interview-container__title__input-container__input"
                             />
-                            <button className="create-post-component__white-part__interview-container__title__input-container__button" onClick={() => delInterviewComponent()}></button>
+                            {/* <button className="create-post-component__white-part__interview-container__title__input-container__button" onClick={() => delInterviewComponent()}></button> */}
                         </div>
                         <InterviewElements interviewElems={interviewElems} delHandler={delInterviewElemHandler}/>
                         <InterviewForm addHandler={addInterviewElemHandler}/>
@@ -294,7 +309,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                         </div>
                 )}
                 {paymentComp && (
-                    <PaymentComponent delPaymentComp={delPaymentComp} changePaymentHandler={changePaymentHandler} payVal={paymentValue.requisite}/>
+                    <PaymentComponent delPaymentComp={delPaymentComp} changePaymentHandler={changePaymentHandler} payVal={paymentValue.paymentAccount}/>
                 )}
                 {photoComp.length > 0 && (
                     <PhotoComponent photos={photoComp} delPhotoHandler={delPhotoHandler}/>

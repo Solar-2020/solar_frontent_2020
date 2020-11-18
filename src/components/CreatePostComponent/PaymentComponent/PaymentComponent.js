@@ -7,22 +7,18 @@ import './PaymentComp.css';
  * @return {jsx}
  */
 function PaymentComponent({delPaymentComp, changePaymentHandler, payVal}) {
-    const [typeMask, setTypeMask] = useState(1);
-
-    const changeMaskButton = (e) => {
-        setTypeMask(String(e.target.value));
-        changePaymentHandler('requisite', '');
-    };
+    const [typeMask, setTypeMask] = useState(3);
 
     const maskMap = {
         '1': '(###) ###-##-##',
         '2': '#### #### #### ####',
+        '3': '################',
     };
 
     const handleChangeMask = (value) => {
         value = value.replace(/[^\d]/g, '');
 
-        changePaymentHandler('requisite', format(value, maskMap[typeMask]));
+        changePaymentHandler('paymentAccount', format(value, maskMap[typeMask]));
     };
 
     const format = (value, mask) => {
@@ -40,19 +36,19 @@ function PaymentComponent({delPaymentComp, changePaymentHandler, payVal}) {
         return filledMask.substring(0, lastIndex + 1);
     };
 
+    const fixSum = (e) => {
+        e.target.value = e.target.value.slice(0, 4);
+    };
+
     return (
         <div className="payment-component">
             <div className="payment-component__title-close">
                 <div className="payment-component__title-close__title">Параметры оплаты</div>
                 <button className="payment-component__title-close__close-btn" onClick={() => delPaymentComp()}/>
             </div>
+            <div>
             <div className="payment-component__payment-form">
-                <select
-                    className="payment-component__payment-form__list"
-                    onChange={(e) => changeMaskButton(e)}>
-                    <option value="1">Телефон</option>
-                    <option value="2">Карта</option>
-                </select>
+                <div className="payment-component__payment-form__list payment-component__payment-form__list_flex">Номер YouMoney</div>
                 <input
                     className="payment-component__payment-form__summ payment-component__payment-form__summ__requisite"
                     type="text"
@@ -62,18 +58,18 @@ function PaymentComponent({delPaymentComp, changePaymentHandler, payVal}) {
                 </input>
             </div>
             <div className="payment-component__payment-form">
-                <select
-                    className="payment-component__payment-form__list"
-                    onChange={(e) => changePaymentHandler('currency', Number(e.target.value))}>
-                    <option value="1">Рубли</option>
-                    <option value="2">Доллары</option>
-                </select>
+                <div className="payment-component__payment-form__list payment-component__payment-form__list_flex"> Сумма к оплате [₽]</div>
                 <input
                     placeholder="Сумма"
                     className="payment-component__payment-form__summ payment-component__payment-form__summ__requisite"
                     type="number"
-                    onChange={(e) => changePaymentHandler('cost', Number(e.target.value))}/>
+                    onInput={(e) => fixSum(e)}
+                    onChange={(e) => changePaymentHandler('totalCost', Number(e.target.value))}/>
             </div>
+            </div>
+            <div className="payment-component_target">* Номер кошелька на YouMoney можно узнать по <a href="https://yoomoney.ru/start" target="_blank">ссылке</a>.
+            Если не пройдена верификация, то деньги Вам на счёт не смогут перевести.</div>
+ 
         </div>
     );
 }

@@ -30,6 +30,9 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
                     return {...state, lastID: fixTime(action.value)};
                 case 'CHANGE_RELOAD':
                     return {...state, reloadPosts: action.value};
+                case 'DELETE_POST':
+                    const newPosts = state.posts.filter(elem => elem.id !== action.value);
+                    return {...state, posts: newPosts};
                 default:
                     return state
             }
@@ -42,6 +45,10 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
         lastID,
         reloadPosts,
     } = state;
+
+    function deletePostComp(value) {
+        dispatch({type: 'DELETE_POST', value});
+    }
 
     function addNewPosts(value) {
         dispatch({type: 'SET_NEW_POSTS', value});
@@ -68,6 +75,27 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
             getData(getNowTime(), 'all');
         }, [reloadPosts]);
 
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [posts]);
+
+    const handleScroll = () => {
+        let contentHeight = document.documentElement.offsetHeight;
+        let yOffset       = document.documentElement.scrollTop;
+        let window_height = window.innerHeight;
+        let y             = yOffset + window_height;
+
+        // console.log(contentHeight);
+        // console.log(y);
+
+        if ((Math.trunc(y + 3) > contentHeight) && (posts.length > 0)) {
+            console.log(posts[posts.length - 1].publishDate);
+            getData(fixTime(posts[posts.length - 1].publishDate), 'add');
+        }
+    };
+
     // 2020-10-14T15%3A43%3A17.541428%2B03%3A00
     // 2020-10-14T15:43:17.541428+03:00
     function getData(time, key) {
@@ -90,14 +118,29 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
                 console.log(responseBody);
                 if (Array.isArray(responseBody)) {
                     if (key === 'add') {
-                        addNewPosts(responseBody);
+                        addNewPosts(responseBody.slice(1));
                     } else {
                         changeAllPosts(responseBody);
-                    }
+                    };
+                };
+            });
+    };
 
-                    if (responseBody.length > 0) {
-                        addLastId(responseBody[responseBody.length - 1].publishDate)
-                    }
+    function deletePost(value) {
+        fetchModule.post({
+            url: BACKEND_ADDRESS + `/api/posts/remove?groupId=${id}&postId=${value}`,
+            body: null,
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    deletePostComp(value);
+                    okToast('Пост удалён');
+                } else {
+                    errToast('Ошибка во время удаления поста');
                 }
             });
     };
@@ -111,7 +154,7 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID}) {
             )}
             {posts.map((elem) => (
                 <div key={elem.id}>
-                    <ShowPostComponent data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast}/>
+                    <ShowPostComponent data={elem} cookies={cookies} roleID={roleID} okToast={okToast} errToast={errToast} deletePost={deletePost}/>
                 </div>
             ))}
             {!posts.length && (

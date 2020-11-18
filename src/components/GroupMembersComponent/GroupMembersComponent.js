@@ -14,7 +14,6 @@ import searchImg from '../../images/search-glass.svg';
 function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, roleID}) {
     const initialState = {
         isAddDelBtn: false,
-        addDelBtnFlag: '',
         membersList: [],
         searchList: [],
         updateList: false,
@@ -35,16 +34,14 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
 
     const {
         isAddDelBtn,
-        addDelBtnFlag,
         membersList,
         updateList,
         searchList,
         ifSearch,
     } = state;
 
-    function addDelButtonClick(value) {
-        changeField('isAddDelBtn', true);
-        changeField('addDelBtnFlag', value);
+    function addDelButtonClick() {
+        changeField('isAddDelBtn', !isAddDelBtn);
     };
 
     function closeAddDelComponent() {
@@ -86,6 +83,45 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
             });
     };
 
+    function deleteUser(email) {
+        const data = {
+            group: Number(id),
+            userEmail: email,
+        };
+
+        fetchModule.delete({
+            url: BACKEND_ADDRESS + `/api/group/membership`,
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    errToast('С удалением участника произошла ошибка, обновите страницу');
+                };
+            })
+            .then((responseBody) => {
+                if (responseBody.userEmail) {
+                    okToast(`Пользователь ${email} удалён`);
+                    changeMembersList();
+                };
+            });
+    };
+
+    function copyData(email) {
+        const dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = email;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+        okToast(`Почта ${email} скопирована`);  
+    };
+
     function changeSearch(value) {
         changeField('searchList', searchMember(value.trim().toLowerCase(), membersList));
     };
@@ -105,26 +141,30 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
                 </div>
 
                 {roleID !== 3 && (
-                    <div>
-                        <button
-                            className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-add"
-                            onClick={() => addDelButtonClick('add')}/>
-                        <button
-                            className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-del"
-                            onClick={() => addDelButtonClick('del')}/>
-                    </div>
+                    <button
+                        className="group-view-container__group-memebers-conteiner__buttons group-view-container__group-memebers-conteiner__buttons-add"
+                        onClick={() => addDelButtonClick()}/>
                 )}
             </div>
             {isAddDelBtn && (
-                <AddDeleteGroupMembersComponent flag={addDelBtnFlag} close={closeAddDelComponent} cookies={cookies} id={id} changeReload={changeReload}
+                <AddDeleteGroupMembersComponent cookies={cookies} id={id} changeReload={changeReload}
                 okToast={okToast} errToast={errToast} changeMembersList={changeMembersList}/>
             )}
             {searchList.map((elem) => (
                 <div key={elem.userID} className="group-view-container__group-memebers-conteiner__members-list_person">
                     <div className="show-post-component__white-part__avatar-text__avatar"></div>
                     <div className="show-post-component__white-part__avatar-text__text">
-                        <div className="show-post-component__white-part__avatar-text__text__name">{`${elem.name} ${elem.surname}`}</div>
+                        <div className="show-post-component__white-part__avatar-text__text__name">{`${elem.name} ${elem.surname} [${elem.roleName}]`}</div>
                         <div className="show-post-component__white-part__avatar-text__text__data">{elem.email}</div>
+                    </div>
+                    <div className="dropdown">
+                        <div className="nav__settings"></div>
+                        <div className="dropdown-content">
+                            {(elem.roleID !== 1 && roleID !== 3) && (
+                                <div onClick={() => deleteUser(elem.email)}>Удалить</div>
+                            )}
+                            <div onClick={() => copyData(elem.email)}>Копировать почту</div>
+                        </div>
                     </div>
                 </div>
             ))}

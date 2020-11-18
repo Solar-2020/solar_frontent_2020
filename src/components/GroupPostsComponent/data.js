@@ -23,11 +23,7 @@ export const data = {
         {id: 2, name: 'doc2.docx', url: 'storage/files/te/f534e47333774172007944db06b0627a.docx'},
     ],
     payments: [
-        {
-            requisite: '89167305555',
-            cost: 300,
-            currency: 1,
-        },
+        {id:17, groupID:1412, postID:1336, createBy:281, totalCost:"10", paymentAccount:"4100116099561401"}
     ],
     author: {id: 279, email: "AnnaShishova@mail.ru", name: "Anna", surname: "Shishova", avatarURL: ""},
     marked: false,

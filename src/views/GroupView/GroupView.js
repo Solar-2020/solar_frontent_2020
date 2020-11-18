@@ -18,8 +18,8 @@ function GroupView({cookies}) {
     const location = useLocation();
 
     const ending = (count) => {
-        return (/[0, 5-9]/.test(count)) ?
-            'ов' : /[2-4]/.test(count) ?
+        return (/1[1-4]/.test(count) || /[0, 5-9]/.test(count % 10)) ?
+            'ов' : /[2-4]/.test(count % 10) ?
                 'а' : '';
     };
 
@@ -117,33 +117,42 @@ function GroupView({cookies}) {
             });
     };
 
-    // useEffect(
-    //     () => {
-    //         // console.log('fff');
-    //         window.addEventListener('scroll', handleScroll);
-
-    //         return () => window.removeEventListener('scroll', handleScroll);
-    // }, []);
-
-    // const handleScroll = () => {
-    //     let contentHeight = document.documentElement.offsetHeight;
-    //     let yOffset       = document.documentElement.scrollTop;
-    //     let window_height = window.innerHeight;
-    //     let y             = yOffset + window_height;
-
-    //     if (Math.trunc(y) === contentHeight) {
-    //         // console.log('appp');
-    //         // console.log(lastId);
-    //         // getData(fixTime(lastId));
-    //     }
-    // };
-
     const createOkToast= (text) => {
         toast(text, okToastConfig);            
     };
 
     const createErrorToast= (text) => {
         toast(text, errToastConfig);            
+    };
+
+    function deleteUser(email) {
+        createOkToast('Группу пока нельзя покинуть, нет функционала');
+        // const data = {
+        //     group: Number(id),
+        //     userEmail: email,
+        // };
+
+        // fetchModule.delete({
+        //     url: BACKEND_ADDRESS + `/api/group/membership`,
+        //     body: JSON.stringify(data),
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Cookie': cookies.get('SessionToken'),
+        //     },
+        // })
+        //     .then((response) => {
+        //         if (response.ok) {
+        //             return response.json();
+        //         } else {
+        //             errToast('С удалением участника произошла ошибка, обновите страницу');
+        //         };
+        //     })
+        //     .then((responseBody) => {
+        //         if (responseBody.userEmail) {
+        //             okToast(`Пользователь ${email} удалён`);
+        //             changeMembersList();
+        //         };
+        //     });
     };
 
     return (
@@ -162,14 +171,25 @@ function GroupView({cookies}) {
                     )}
 
                     <div className="group-view-banner__items__info-container">
-                        <div className="group-view-banner__items__info">
-                            <div className="group-view-banner__items__info__title">{group.title}</div>
-                            <div className="group-view-banner__items__info__count">{`${group.count} участник${ending(group.count % 10)}`}</div>
-                            {group.description && (
-                                <div className="group-view-banner__items__info_description">{group.description}</div>
+                        <div className="group-view-banner__items_flex">
+                            <div className="group-view-banner__items__info">
+                                <div className="group-view-banner__items__info__title">{group.title}</div>
+                                <div className="group-view-banner__items__info__count">{`${group.count} участник${ending(group.count % 100)}`}</div>
+                                {group.description && (
+                                    <div className="group-view-banner__items__info_description">{group.description}</div>
+                                )}
+                                {/* <div>{id}</div> */}
+                            </div>
+                            {roleID !== 1 && (
+                                <div className="dropdown nav__settings_margin group-view-banner__items_margin-top">
+                                    <div className="nav__settings"></div>
+                                    <div className="dropdown-content">
+                                        <div onClick={() => deleteUser('ddd')}>Покинуть группу</div>
+                                    </div>
+                                </div>
                             )}
-                            {/* <div>{id}</div> */}
                         </div>
+                        
                         <div className="group-view-banner__items__links">
                             <div
                                 className={`group-view-banner__items__links__${(componentActive.posts) ? 'active' : 'normal'}-link`}

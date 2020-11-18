@@ -90,23 +90,26 @@ function LoginView() {
                 {mainError && (
                     <div className="login-view-container__card__input-block__input__error-text">{mainError}</div>
                 )}
-                <div className="login-view-container__card__input-block__title">Электронная почта</div>
-                <input
-                    className="login-view-container__card__input-block__input"
-                    onChange={e => changeField('email', e.target.value)}
-                    placeholder="Электронная почта"/>
+                <form className="login-view-container__form">
+                    <div className="login-view-container__card__input-block__title">Электронная почта</div>
+                    <input
+                        className="login-view-container__card__input-block__input"
+                        onChange={e => changeField('email', e.target.value)}
+                        placeholder="Электронная почта"/>
 
-                <div className="login-view-container__card__input-block__title">Пароль</div>
-                <input
-                    onChange={e => changeField('password', e.target.value)}
-                    type="password"
-                    className="login-view-container__card__input-block__input"placeholder="Введите пароль"/>
-                
-                <a className="login-view-container__card__yandex" href={`${oauth.url}${oauth.id}`}></a>
+                    <div className="login-view-container__card__input-block__title">Пароль</div>
+                    <input
+                        onChange={e => changeField('password', e.target.value)}
+                        type="password"
+                        className="login-view-container__card__input-block__input"placeholder="Введите пароль"/>
+                    
+                    <a className="login-view-container__card__yandex" href={`${oauth.url}${oauth.id}`}></a>
 
                 <button
+                    type="submit"
                     onClick={e => handleSubmit(e)}
                     className="login-view-container__card__button login-view-container__card__button_margin">Авторизоваться</button>
+                </form>
                 <Link to="/registration" className="login-view-container__card__link">Ещё нет аккаунта? Создайте!</Link>
             </div>
         </div>

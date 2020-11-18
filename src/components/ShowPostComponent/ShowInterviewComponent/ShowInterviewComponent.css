@@ -73,5 +73,5 @@
 }
 
 .show-post-component__white-part__show-interview-container__form-button-container__button:hover {
-    border: 2px solid var(--main-light-green);
+    border: 1px solid var(--main-light-green);
 }
