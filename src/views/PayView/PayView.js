@@ -1,14 +1,26 @@
-import React, { useReducer } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import '../LoginView/LoginView.css';
+import React, { useReducer, useEffect } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import {BACKEND_ADDRESS, okToastConfig, errToastConfig} from '../../utils/Config/Config.js';
+import {ToastContainer, toast} from 'react-toastify';
+import './PayView.css';
 // import fetchModule from '../../utils/API/FetchModule.js';
-// import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
 
 /**
  * Login view
  */
 function PayView({cookies}) {
+    const location = useLocation();
     const history = useHistory();
+
+    useEffect(() => {
+        if (/success/.test(location.pathname)) {
+            toast('Оплата прошла успешно', okToastConfig);
+        };
+
+        if (/error/.test(location.pathname)) {
+            toast('Оплата не прошла', errToastConfig);
+        };
+    }, [location]);
 
     function changeField(field, value) {
         dispatch({type: 'CHANGE_FIELD', field, value});
@@ -47,8 +59,13 @@ function PayView({cookies}) {
     } = state;
 
     return (
-        <div className="login-view-container">
-           Pay page
+        <div className="pay-view-container">
+            <div className="pay-view-container_style">
+                <div className="pay-view-container_padding">
+                    <ToastContainer/>
+                    Здесь будет представлена ваша статистика
+                </div>
+            </div>
         </div>
     )
 }

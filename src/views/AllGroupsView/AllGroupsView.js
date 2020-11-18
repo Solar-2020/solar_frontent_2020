@@ -115,9 +115,6 @@ function AllGroupsView({cookies}) {
                     <SearchAddGroupComponent changeAllGroups={changeAllGroups} cookies={cookies} okToast={createOkToast} errToast={createErrorToast}
                     changeSearch={changeSearch}/>
 
-                    {/* {allGroups.isGroup && (
-                        <div className="all-groups-view-container__search-style__value">{allGroups.value}</div>
-                    )} */}
                     <div className="all-groups-view-container__groups">
                         {searchGroups.map((elem) => (
                             <div key={elem.id} className="all-groups-view-container__groups__block">
