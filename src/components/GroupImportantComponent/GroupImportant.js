@@ -73,6 +73,27 @@ function GroupImportantCOmponent({cookies, id, okToast, errToast, roleID}) {
             getData(getNowTime(), 'all');
         }, [reloadPosts]);
 
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [posts]);
+
+    const handleScroll = () => {
+        let contentHeight = document.documentElement.offsetHeight;
+        let yOffset       = document.documentElement.scrollTop;
+        let window_height = window.innerHeight;
+        let y             = yOffset + window_height;
+
+        // console.log(contentHeight);
+        // console.log(y);
+
+        if ((Math.trunc(y + 3) > contentHeight) && (posts.length > 0)) {
+            console.log(posts[posts.length - 1].publishDate);
+            getData(fixTime(posts[posts.length - 1].publishDate), 'add');
+        }
+    };
+
     // 2020-10-14T15%3A43%3A17.541428%2B03%3A00
     // 2020-10-14T15:43:17.541428+03:00
     function getData(time, key) {
@@ -98,12 +119,8 @@ function GroupImportantCOmponent({cookies, id, okToast, errToast, roleID}) {
                         addNewPosts(responseBody);
                     } else {
                         changeAllPosts(responseBody);
-                    }
-
-                    if (responseBody.length > 0) {
-                        addLastId(responseBody[responseBody.length - 1].publishDate)
-                    }
-                }
+                    };
+                };
             });
     };
 
