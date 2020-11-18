@@ -82,7 +82,11 @@ class FetchModule {
         mode = CORS_CONST,
     } = {}
     ) {
-        return fetch(url, {method, body, credentials, headers, mode});
+        return fetch(url, {method, body, credentials, headers, mode})
+            .then((response) => {
+                console.log(response);
+                return response;
+            });
     }
 }
 
