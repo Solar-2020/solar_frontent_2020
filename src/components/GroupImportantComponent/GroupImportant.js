@@ -116,7 +116,7 @@ function GroupImportantCOmponent({cookies, id, okToast, errToast, roleID}) {
                 console.log(responseBody);
                 if (Array.isArray(responseBody)) {
                     if (key === 'add') {
-                        addNewPosts(responseBody);
+                        addNewPosts(responseBody.slice(1));
                     } else {
                         changeAllPosts(responseBody);
                     };
