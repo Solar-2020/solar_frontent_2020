@@ -3,7 +3,7 @@
     flex-direction: row;
     align-items: center;
     padding-top: 20px;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
 }
 
 .payment-component__title-close__title {
@@ -35,7 +35,7 @@
 }
 
 .payment-component__payment-form:last-child {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .payment-component {
@@ -76,7 +76,7 @@ input::-webkit-inner-spin-button {
 
 .payment-component_target {
     color: var(--main-grey-text-color);
-    margin-bottom: 10px;
+    margin-top: 15px;
     font-size: 12px;
 }
 

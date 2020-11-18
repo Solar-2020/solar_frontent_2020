@@ -46,7 +46,7 @@ function PaymentComponent({delPaymentComp, changePaymentHandler, payVal}) {
                 <div className="payment-component__title-close__title">Параметры оплаты</div>
                 <button className="payment-component__title-close__close-btn" onClick={() => delPaymentComp()}/>
             </div>
-            <div className="payment-component_target">* Номер кошелька на YouMoney можно узнать по <a href="https://yoomoney.ru/start" target="_blank">ссылке</a></div>
+            <div>
             <div className="payment-component__payment-form">
                 <div className="payment-component__payment-form__list payment-component__payment-form__list_flex">Номер YouMoney</div>
                 <input
@@ -66,6 +66,10 @@ function PaymentComponent({delPaymentComp, changePaymentHandler, payVal}) {
                     onInput={(e) => fixSum(e)}
                     onChange={(e) => changePaymentHandler('totalCost', Number(e.target.value))}/>
             </div>
+            </div>
+            <div className="payment-component_target">* Номер кошелька на YouMoney можно узнать по <a href="https://yoomoney.ru/start" target="_blank">ссылке</a>.
+            Если не пройдена верификация, то деньги Вам на счёт не смогут перевести.</div>
+ 
         </div>
     );
 }
