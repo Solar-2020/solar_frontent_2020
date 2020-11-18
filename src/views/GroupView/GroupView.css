@@ -103,3 +103,11 @@
 .group-view-banner__items__info_description {
     margin-top: 15px;
 }
+
+.group-view-banner__items_flex {
+    display: flex;
+}
+
+.group-view-banner__items_margin-top {
+    margin-top: 10px;
+}

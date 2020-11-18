@@ -125,6 +125,36 @@ function GroupView({cookies}) {
         toast(text, errToastConfig);            
     };
 
+    function deleteUser(email) {
+        createOkToast('Группу пока нельзя покинуть, нет функционала');
+        // const data = {
+        //     group: Number(id),
+        //     userEmail: email,
+        // };
+
+        // fetchModule.delete({
+        //     url: BACKEND_ADDRESS + `/api/group/membership`,
+        //     body: JSON.stringify(data),
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Cookie': cookies.get('SessionToken'),
+        //     },
+        // })
+        //     .then((response) => {
+        //         if (response.ok) {
+        //             return response.json();
+        //         } else {
+        //             errToast('С удалением участника произошла ошибка, обновите страницу');
+        //         };
+        //     })
+        //     .then((responseBody) => {
+        //         if (responseBody.userEmail) {
+        //             okToast(`Пользователь ${email} удалён`);
+        //             changeMembersList();
+        //         };
+        //     });
+    };
+
     return (
         <div className="container">
             <div className="group-view-banner">
@@ -141,14 +171,25 @@ function GroupView({cookies}) {
                     )}
 
                     <div className="group-view-banner__items__info-container">
-                        <div className="group-view-banner__items__info">
-                            <div className="group-view-banner__items__info__title">{group.title}</div>
-                            <div className="group-view-banner__items__info__count">{`${group.count} участник${ending(group.count % 100)}`}</div>
-                            {group.description && (
-                                <div className="group-view-banner__items__info_description">{group.description}</div>
+                        <div className="group-view-banner__items_flex">
+                            <div className="group-view-banner__items__info">
+                                <div className="group-view-banner__items__info__title">{group.title}</div>
+                                <div className="group-view-banner__items__info__count">{`${group.count} участник${ending(group.count % 100)}`}</div>
+                                {group.description && (
+                                    <div className="group-view-banner__items__info_description">{group.description}</div>
+                                )}
+                                {/* <div>{id}</div> */}
+                            </div>
+                            {roleID !== 1 && (
+                                <div className="dropdown nav__settings_margin group-view-banner__items_margin-top">
+                                    <div className="nav__settings"></div>
+                                    <div className="dropdown-content">
+                                        <div onClick={() => deleteUser('ddd')}>Покинуть группу</div>
+                                    </div>
+                                </div>
                             )}
-                            {/* <div>{id}</div> */}
                         </div>
+                        
                         <div className="group-view-banner__items__links">
                             <div
                                 className={`group-view-banner__items__links__${(componentActive.posts) ? 'active' : 'normal'}-link`}
