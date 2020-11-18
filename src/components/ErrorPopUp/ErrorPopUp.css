@@ -1,0 +1,11 @@
+.error-pop-up__title {
+    font-size: 40px;
+}
+
+.error-pop-up__text {
+    margin: 20px;
+}
+
+.error-pop-up__img {
+    max-width: 80%;
+}
