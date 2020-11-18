@@ -1,4 +1,5 @@
 import {CORS_CONST} from '../Config/Config.js';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 
 /** Class create fetch. */
 class FetchModule {
@@ -85,6 +86,11 @@ class FetchModule {
         return fetch(url, {method, body, credentials, headers, mode})
             .then((response) => {
                 console.log(response);
+                if (response.status === 200) {
+                    const history = useHistory();
+                    history.push('/servererror');
+                }
+
                 return response;
             });
     }
