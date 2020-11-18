@@ -84,7 +84,7 @@ class FetchModule {
     ) {
         return fetch(url, {method, body, credentials, headers, mode})
         .then((response) => {
-            console.log(response, response.status);
+            // console.log(response, response.status);
             switch (response.status) {
                 case 403:
                   alert('У вас недостаточно прав для выполнения действий! Вы беде перенаправлены на предыдущую страницу');
