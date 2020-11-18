@@ -46,3 +46,16 @@
 .show-post-component__white-part__show-payment-container__requisite {
     margin: 20px 0 5px 0;
 }
+
+.show-post-component__white-part__show-payment-container__input {
+    margin-top: 20px;
+    border-radius: 3px;
+    border: none;
+    color: var(--main-grey-text-color);
+    height: 20px;
+}
+
+.show-post-component__white-part__show-payment-container__input:focus {
+    border: 1px solid var(--main-light-green);
+    outline: none;
+}

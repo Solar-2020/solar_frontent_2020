@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ShowPaymentComponent.css';
 import {okToastConfig, errToastConfig} from '../../../utils/Config/Config.js';
 import {ToastContainer, toast} from 'react-toastify';
@@ -12,10 +12,12 @@ import {BACKEND_ADDRESS} from '../../../utils/Config/Config';
  * @return {jsx}
  */
 function ShowPaymentComponent({payment, cookies}) {
+    const [message, setMessage] = useState('');
+
     function sendCost() {
         const data = {
             paymentID: payment.id,
-            message: 'Оплата',
+            message: message,
         };
 
         fetchModule.post({
@@ -46,6 +48,10 @@ function ShowPaymentComponent({payment, cookies}) {
             <div className="show-post-component__white-part__show-payment-container__title">К оплате</div>
             <div className="show-post-component__white-part__show-payment-container__requisite">{`Перевести на: ${payment.paymentAccount}`}</div>
             <div className="show-post-component__white-part__show-payment-container__cost">{`${payment.totalCost} ₽`}</div>
+            <input
+                className="show-post-component__white-part__show-payment-container__input"
+                onChange={(e) => setMessage(e.target.value.trim())}
+                placeholder="Сообщение получателю.."/>
             <button onClick={() => sendCost()} className="show-post-component__white-part__show-payment-container__button">Оплатить</button>
         </div>
     );
