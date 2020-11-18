@@ -52,7 +52,7 @@
     border-radius: 3px;
     border: none;
     color: var(--main-grey-text-color);
-    height: 20px;
+    padding: 5px;
 }
 
 .show-post-component__white-part__show-payment-container__input:focus {
