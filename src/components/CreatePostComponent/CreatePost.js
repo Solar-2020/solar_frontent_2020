@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useReducer} from 'react';
 import InterviewForm from './InterviewComponent/InterviewForm';
 import InterviewElements from './InterviewComponent/InterviewElements';
 import './CreatePost.css';
@@ -14,23 +14,60 @@ import {BACKEND_ADDRESS, FILE_SIZE, FILE_STR} from '../../utils/Config/Config.js
  * @return {jsx}
  */
 function CreatePost({changeReload, cookies, id, okToast, errToast}) {
-    const [interviewError, setInterviewError] = useState(false);
+    const initialState = {
+        interviewError: false,
+        interviewElems: [],
+        interviewType: 1,
+        interviewComp: false,
+        interviewTitle: '',
 
-    const [interviewElems, setInterviewElems] = useState([]);
-    const [interviewType, setInterviewType] = useState(1);
-    const [interviewComp, setInterviewComp] = useState(false);
-    const [interviewTitle, setInterviewTitle] = useState('');
+        paymentComp: false,
+        paymentValue: {totalCost: 0, paymentAccount: ''},
 
-    const [paymentComp, setPaymentComp] = useState(false);
-    const [paymentValue, setPaymentValue] = useState({totalCost: 0, paymentAccount: ''});
+        docsComp: [],
+        photoComp: [],
+    };
 
-    const [docsComp, setDocsComp] = useState([]);
-    const [photoComp, setPhotoComp] = useState([]);
+    const [state, dispatch] = useReducer(
+        (state, action) => {
+            switch (action.type) {
+                case 'CHANGE_FIELD':
+                    return {...state, [action.field]: action.value};
+                case 'CLEAN_FORM':
+                    return {...initialState};
+                case 'CHANGE_PAYMENT':
+                    return {...state, paymentValue: {...state.paymentValue, [action.field]: action.value}};
+                default:
+                    return state;
+            }
+        },
+        initialState
+    );
 
-    const changePaymentHandler = (key, value) => {
-        const newPayment = Object.assign({}, paymentValue);
-        newPayment[key] = value;
-        setPaymentValue(newPayment);
+    const changeField = (field, value) => {
+        dispatch({type: 'CHANGE_FIELD', field, value});
+    };
+
+    const cleanForm = () => {
+        dispatch({type: 'CLEAN_FORM'});
+    };
+
+    const {
+        interviewError,
+        interviewElems,
+        interviewType,
+        interviewComp,
+        interviewTitle,
+
+        paymentComp,
+        paymentValue,
+
+        docsComp,
+        photoComp,
+    } = state;
+
+    const changePaymentHandler = (field, value) => {
+        dispatch({type: 'CHANGE_PAYMENT', field, value});
     };
 
     const addInterviewElemHandler = (value) => {
@@ -39,49 +76,44 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
         const lastId = (elems.length) ? elems[elems.length - 1].id : 0;
         elems.push({id: lastId + 1, title: value});
 
-        setInterviewElems(elems);
+        changeField('interviewElems', elems);
     };
 
     const delInterviewElemHandler = (id) => {
         const elems = interviewElems.filter((elem) => elem.id !== id);
-        setInterviewElems(elems);
+        changeField('interviewElems', elems);
     };
 
     const delDocElemHandler = (id) => {
         const elems = docsComp.filter((elem) => elem.id !== id);
-        setDocsComp(elems);
+        changeField('docsComp', elems);
     };
 
     const delPhotoHandler = (id) => {
         const elems = photoComp.filter((elem) => elem.id !== id);
-        setPhotoComp(elems);
+        changeField('photoComp', elems);
     };
 
     const changeComponentsView = (key, response={}) => {
         switch (key) {
         case 'interview':
-            if (!interviewComp) setInterviewComp(!interviewComp);
+            if (!interviewComp) changeField('interviewComp', !interviewComp);
             break;
 
         case 'payment':
-            if (!paymentComp) setPaymentComp(!paymentComp);
+            if (!paymentComp) changeField('paymentComp', !paymentComp);
             break;
 
         case 'docs':
             const docsElems = docsComp.slice();
-
-            // const lastId = (docsElems.length) ? docsElems[docsElems.length - 1].id : 0;
-            // docsElems.push({id: lastId + 1, title: `Doc ${lastId + 1}`, url: 'https://уютдома.ru.com/wp-content/uploads/2020/06/7yr5bsawwhm.jpg'});
-
             docsElems.push({id: response.id, title: response.name, url: `${BACKEND_ADDRESS}${response.url}`});
-            setDocsComp(docsElems);
+            changeField('docsComp', docsElems);
             break;
 
         case 'photo':
             const photoElems = photoComp.slice();
             photoElems.push({id: response.id, url: `${BACKEND_ADDRESS}${response.url}`});
-            // photoElems.push({id: response.id, url: 'http://nl-mail.ru/static/dwoilp3BVjlE.jpg'});
-            setPhotoComp(photoElems);
+            changeField('photoComp', photoElems);
             break;
 
         default:
@@ -91,23 +123,17 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
 
     const addImageToPostFetch = (event) => {
         event.preventDefault();
-
-        // Будет дёргать функцию, которая меняет стайт
-        // changeComponentsView('photo');
         postPhoto(event.target.files[0]);
     };
 
     const addDocToPostFetch = (event) => {
         event.preventDefault();
-
-        // Будет дёргать функцию, которая меняет стайт
-        // changeComponentsView('docs');
         postFile(event.target.files[0]);
     };
 
     const delInterviewComponent = () => {
-        setInterviewTitle('');
-        setInterviewComp(!interviewComp);
+        changeField('interviewTitle', '');
+        changeField('interviewComp', !interviewComp);
     };
 
     const postPhoto = (file) => {
@@ -169,11 +195,11 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
 
     const checkInterview = () => {
         if (!interviewTitle.trim() || interviewElems.filter(elem => elem.title.trim()).length < 2) {
-            setInterviewError(true);
+            changeField('interviewError', true);
             return false;
         };
 
-        setInterviewError(false);
+        changeField('interviewError', false);
         return true;
     };
 
@@ -252,21 +278,13 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
     };
 
     const clearPostForm = () => {
-        setInterviewError(false);
-        setInterviewElems([]);
-        setInterviewType(1);
-        setInterviewComp(false);
-        setInterviewTitle('');
-        setPaymentComp(false);
-        setDocsComp([]);
-        setPhotoComp([]);
-        setPaymentValue({totalCost: 0, paymentAccount: ''});
+        cleanForm();
         document.getElementById('createPostComponentText').value = '';
     };
 
     const delPaymentComp = () => {
-        setPaymentComp(false);
-        setPaymentValue({totalCost: 0, paymentAccount: ''});
+        changeField('paymentComp', false);
+        changeField('paymentValue', {totalCost: 0, paymentAccount: ''});
     };
 
     return (
@@ -290,7 +308,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                                 type="text"
                                 placeholder="Введите название опроса"
                                 value={interviewTitle}
-                                onChange={(e) => setInterviewTitle(e.target.value)}
+                                onChange={(e) => changeField('interviewTitle', e.target.value)}
                                 className="create-post-component__white-part__interview-container__title__input-container__input"
                             />
                             {/* <button className="create-post-component__white-part__interview-container__title__input-container__button" onClick={() => delInterviewComponent()}></button> */}
@@ -302,7 +320,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                         create-post-component__white-part__interview-container__answers-type_margin">Количество ответов</div>
                             <select
                                 className="create-post-component__white-part__interview-container__answers-type"
-                                onChange={(e) => setInterviewType(Number(e.target.value))}>
+                                onChange={(e) => changeField('interviewType', Number(e.target.value))}>
                                 <option value="1">Один вариант ответа</option>
                                 <option value="2">Много вариантов ответа</option>
                             </select>
