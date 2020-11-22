@@ -22,7 +22,12 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
         interviewTitle: '',
 
         paymentComp: false,
-        paymentValue: {totalCost: 0, paymentAccount: ''},
+        paymentArrays: {
+            phones: [],
+            cards: [],
+            moneys: [],
+        },
+        paymentValue: '',
 
         docsComp: [],
         photoComp: [],
@@ -36,7 +41,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                 case 'CLEAN_FORM':
                     return {...initialState};
                 case 'CHANGE_PAYMENT':
-                    return {...state, paymentValue: {...state.paymentValue, [action.field]: action.value}};
+                    return {...state, paymentArrays: {...state.paymentArrays, [action.field]: state.paymentArrays[action.field].concat(action.value)}};
                 default:
                     return state;
             }
@@ -60,6 +65,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
         interviewTitle,
 
         paymentComp,
+        paymentArrays,
         paymentValue,
 
         docsComp,
@@ -327,7 +333,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                         </div>
                 )}
                 {paymentComp && (
-                    <PaymentComponent delPaymentComp={delPaymentComp} changePaymentHandler={changePaymentHandler} payVal={paymentValue.paymentAccount}/>
+                    <PaymentComponent delPaymentComp={delPaymentComp} changePaymentHandler={changePaymentHandler} paymentArrays={paymentArrays}/>
                 )}
                 {photoComp.length > 0 && (
                     <PhotoComponent photos={photoComp} delPhotoHandler={delPhotoHandler}/>
