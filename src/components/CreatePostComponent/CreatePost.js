@@ -40,6 +40,8 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                     return {...state, [action.field]: action.value};
                 case 'CLEAN_FORM':
                     return {...initialState};
+                case 'CHANGE_PAYMENT_ARRAY':
+                    return {...state, paymentArrays: {...state.paymentArrays, [action.field]: action.value}};
                 case 'CHANGE_PAYMENT':
                     return {...state, paymentArrays: {...state.paymentArrays, [action.field]: state.paymentArrays[action.field].concat(action.value)}};
                 default:
@@ -55,6 +57,15 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
 
     const cleanForm = () => {
         dispatch({type: 'CLEAN_FORM'});
+    };
+
+    const changeArray = (field, value) => {
+        dispatch({type: 'CHANGE_PAYMENT_ARRAY', field, value});
+    };
+
+    const deleteArraysElem = (key, id) => {
+        const newArray = paymentArrays[key].filter((elem, index) => index !== id);
+        changeArray(key, newArray);
     };
 
     const {
@@ -238,15 +249,11 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                 acc.push(elem.id);
                 return acc;
             }, []),
-            payments: [paymentValue],
+            payments: [{paymentValue, paymentArrays}],
         };
 
         if (!form.interviews[0].text.trim()) {
             form = {...form, interviews: []};
-        }
-
-        if (!form.payments[0].paymentAccount.trim()) {
-            form = {...form, payments: []};
         }
 
         console.log(form);
@@ -333,7 +340,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
                         </div>
                 )}
                 {paymentComp && (
-                    <PaymentComponent delPaymentComp={delPaymentComp} changePaymentHandler={changePaymentHandler} paymentArrays={paymentArrays}/>
+                    <PaymentComponent delPaymentComp={delPaymentComp} changePaymentHandler={changePaymentHandler} paymentArrays={paymentArrays} deleteElem={deleteArraysElem} changeValue={changeField}/>
                 )}
                 {photoComp.length > 0 && (
                     <PhotoComponent photos={photoComp} delPhotoHandler={delPhotoHandler}/>

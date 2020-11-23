@@ -7,7 +7,7 @@ import './PaymentComp.css';
  * @param {object} param0 - handler for removing component
  * @return {jsx}
  */
-function PaymentComponent({delPaymentComp, changePaymentHandler, paymentArrays}) {
+function PaymentComponent({delPaymentComp, changePaymentHandler, paymentArrays, deleteElem, changeValue}) {
     const initialState = {
         phone: '',
 
@@ -94,13 +94,20 @@ function PaymentComponent({delPaymentComp, changePaymentHandler, paymentArrays})
     const selectChange = (value) => {
         cleanForm();
         changeField('openForm', value);
+        changeField('error', '');
     };
 
     const addElemsForm = () => {
-        console.log(paymentArrays);
+        let flag = false;
 
         switch(openForm) {
             case '1':
+                if (phone.trim().length < 15) {
+                    changeField('error', 'Телефон должен быть заполнен');
+                    break;
+                }
+                changeField('error', '');
+                flag = true;
                 changePaymentHandler('phones', Array(phone));
                 break;
             case '2':
@@ -112,15 +119,27 @@ function PaymentComponent({delPaymentComp, changePaymentHandler, paymentArrays})
                     style,
                 };
 
+                if (data.cardNumber.trim().length < 19) {
+                    changeField('error', 'Номер карты должен быть заполнен');
+                    break;
+                }
+                changeField('error', '');
+                flag = true;
                 changePaymentHandler('cards', Array(data));
                 break;
             case '3':
+                if (youMoney.trim().length < 15) {
+                    changeField('error', 'Номер кошелька должен быть заполнен');
+                    break;
+                }
+                changeField('error', '');
+                flag = true;
                 changePaymentHandler('moneys', Array(youMoney));
                 break;
             default:
                 break;
         };
-        cleanForm();
+        if (flag) cleanForm();
     };
 
     const cardInput = (value) => {
@@ -174,75 +193,130 @@ function PaymentComponent({delPaymentComp, changePaymentHandler, paymentArrays})
                         onInput={(e) => fixSum(e)}
                         onChange={(e) => changePaymentHandler('totalCost', Number(e.target.value))}/>
                 </div> */}
+                <input
+                    placeholder="Сумма к оплате"
+                    className="payment-component__payment-form__summ payment-component__card-arrays__title_margin"
+                    type="number"
+                    style={{marginTop: 0}}
+                    onInput={(e) => fixSum(e)}
+                    onChange={(e) => changeValue('paymentValue', Number(e.target.value))}/>
+
                 {paymentArrays.phones.length > 0 && (
-                    <div>Номера есть</div>
-                )}
-                {paymentArrays.cards.length > 0 && (
-                    <div> Карты есть</div>
-                )}
-                {paymentArrays.moneys. length > 0 && (
-                    <div>деньги есть</div>
-                )}
-                
-                <div className="payment-component__payment-form">
-                    <select
-                        value={openForm}
-                        className="payment-component__payment-form__list-select"
-                        onChange={(e) => selectChange(e.target.value)}
-                        >
-                        <option value="1">Телефон</option>
-                        <option value="2">Карта</option>
-                        <option value="3">YouMoney</option>
-                    </select>
-                    <button onClick={(e) => addElemsForm()}>Добавить</button>
-                </div>
-                {error && (
-                    <div className="payment-component__error">{error}</div>
-                )}
-                {openForm === '1' && (
-                    <input
-                        className="payment-component__payment-form__summ payment-component__payment-form__summ_margin"
-                        type="text"
-                        placeholder={maskMap[1]}
-                        value={phone}
-                        onChange={(e) => handleChangeMask(String(e.target.value), 1, 'phone')}/>
-                )}  
-                {openForm === '2' && (
-                    <div
-                        style={{backgroundColor: style.backgroundColor}}
-                        className="payment-component__card-elems-container payment-component__card-elems-container__card-style payment-component__payment-form__summ_margin">
-                        {cardBank && cardBankLogo && (
-                            <div className="payment-component__card-symbol">
-                                <img className="payment-component__card-symbol__img" src={cardBankLogo} alt=""/>
-                                <div 
-                                    style={{color: style.color}}
-                                    className="payment-component__card-symbol__text">{cardBank}</div>
+                    <div className="payment-component__card-arrays__title_margin">
+                        <div className="payment-component__card-arrays__title">Номера телефонов</div>
+                        {paymentArrays.phones.map((elem, index) => (
+                            <div key={index}>
+                                <input className="payment-component__payment-form__summ" value={elem} disabled/>
+                                <button className="payment-component__title-close__close-btn payment-component__title-close__close-btn_margin" onClick={() => deleteElem('phones', index)}/>
                             </div>
-                        )}
-                        <input
-                            className="payment-component__payment-form__summ"
-                            type="text"
-                            placeholder={maskMap[2]}
-                            value={cardNumber}
-                            onInput={(e) => cardInput(String(e.target.value))}
-                            onChange={(e) => handleChangeMask(String(e.target.value), 2, 'cardNumber')}/>
-                        <input
-                            className="payment-component__payment-form__summ"
-                            type="text"
-                            placeholder={maskMap[1]}
-                            value={cardPhone}
-                            onChange={(e) => handleChangeMask(String(e.target.value), 1, 'cardPhone')}/>
+                        ))}
                     </div>
                 )}
-                {openForm === '3' && (
-                    <input
-                        className="payment-component__payment-form__summ payment-component__payment-form__summ_margin"
-                        type="text"
-                        placeholder={maskMap[3]}
-                        value={youMoney}
-                        onChange={(e) => handleChangeMask(String(e.target.value), 3, 'youMoney')}/>
+                {paymentArrays.cards.length > 0 && (
+                    <div className="payment-component__card-arrays__title_margin">
+                        <div className="payment-component__card-arrays__title">Банковские карты</div>
+                        {paymentArrays.cards.map((elem, index) => (
+                            <div key={index}
+                                className="payment-component__payment-form__summ_card-margin"
+                                style={{display: 'flex'}}>
+                                <div
+                                    style={{backgroundColor: elem.style.backgroundColor}}
+                                    className="payment-component__card-elems-container payment-component__card-elems-container__card-style">
+                                    {elem.cardBank && elem.cardBankLogo && (
+                                        <div className="payment-component__card-symbol">
+                                            <img className="payment-component__card-symbol__img" src={elem.cardBankLogo} alt=""/>
+                                            <div 
+                                                style={{color: elem.style.color}}
+                                                className="payment-component__card-symbol__text">{elem.cardBank}</div>
+                                        </div>
+                                    )}
+                                    <input
+                                        className="payment-component__payment-form__summ"
+                                        value={elem.cardNumber}
+                                        disabled/>
+                                    {elem.cardPhone && (
+                                        <input
+                                            className="payment-component__payment-form__summ"
+                                            value={elem.cardPhone}
+                                            disabled/>
+                                    )}
+                                </div>
+                                <button className="payment-component__title-close__close-btn payment-component__title-close__close-btn_margin" onClick={() => deleteElem('cards', index)}/>
+                            </div>
+                        ))}
+                    </div>
+                )}
+                {paymentArrays.moneys. length > 0 && (
+                    <div className="payment-component__card-arrays__title_margin">
+                    <div className="payment-component__card-arrays__title">Номера YouMoney</div>
+                    {paymentArrays.moneys.map((elem, index) => (
+                        <div key={index}>
+                            <input className="payment-component__payment-form__summ" value={elem} disabled/>
+                            <button className="payment-component__title-close__close-btn payment-component__title-close__close-btn_margin" onClick={() => deleteElem('moneys', index)}/>
+                        </div>
+                    ))}
+                </div>
                 )}
             </div>
+                
+            <div className="payment-component__payment-form payment-component__border-top">
+                <select
+                    value={openForm}
+                    className="payment-component__payment-form__list-select"
+                    onChange={(e) => selectChange(e.target.value)}
+                    >
+                    <option value="1">Телефон</option>
+                    <option value="2">Карта</option>
+                    <option value="3">YouMoney</option>
+                </select>
+                <button className="payment-component__add-button" onClick={(e) => addElemsForm()}>Добавить</button>
+            </div>
+            {error && (
+                <div className="payment-component__error">{error}</div>
+            )}
+            {openForm === '1' && (
+                <input
+                    className="payment-component__payment-form__summ payment-component__payment-form__summ_margin"
+                    type="text"
+                    placeholder={maskMap[1]}
+                    value={phone}
+                    onChange={(e) => handleChangeMask(String(e.target.value), 1, 'phone')}/>
+            )}  
+            {openForm === '2' && (
+                <div
+                    style={{backgroundColor: style.backgroundColor}}
+                    className="payment-component__card-elems-container payment-component__card-elems-container__card-style payment-component__payment-form__summ_margin">
+                    {cardBank && cardBankLogo && (
+                        <div className="payment-component__card-symbol">
+                            <img className="payment-component__card-symbol__img" src={cardBankLogo} alt=""/>
+                            <div 
+                                style={{color: style.color}}
+                                className="payment-component__card-symbol__text">{cardBank}</div>
+                        </div>
+                    )}
+                    <input
+                        className="payment-component__payment-form__summ"
+                        type="text"
+                        placeholder={maskMap[2]}
+                        value={cardNumber}
+                        onInput={(e) => cardInput(String(e.target.value))}
+                        onChange={(e) => handleChangeMask(String(e.target.value), 2, 'cardNumber')}/>
+                    <input
+                        className="payment-component__payment-form__summ"
+                        type="text"
+                        placeholder={maskMap[1]}
+                        value={cardPhone}
+                        onChange={(e) => handleChangeMask(String(e.target.value), 1, 'cardPhone')}/>
+                </div>
+            )}
+            {openForm === '3' && (
+                <input
+                    className="payment-component__payment-form__summ payment-component__payment-form__summ_margin"
+                    type="text"
+                    placeholder={maskMap[3]}
+                    value={youMoney}
+                    onChange={(e) => handleChangeMask(String(e.target.value), 3, 'youMoney')}/>
+            )}
             <div className="payment-component_target">* Номер кошелька на YouMoney можно узнать по <a href="https://yoomoney.ru/start" target="_blank">ссылке</a>.
             Если не пройдена верификация, то деньги Вам на счёт не смогут перевести.</div>
  

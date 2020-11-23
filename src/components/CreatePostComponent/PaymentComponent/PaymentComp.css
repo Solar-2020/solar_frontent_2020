@@ -43,10 +43,15 @@
     margin-top: 5px;
     padding: 0 5px;
     height: 30px;
+    background-color: #ffffff;
 }
 
 .payment-component__payment-form__summ_margin {
     margin-top: 10px;
+}
+
+.payment-component__payment-form__summ_card-margin {
+    margin-top: 5px;
 }
 
 .payment-component__payment-form__list {
@@ -119,4 +124,41 @@ input::-webkit-inner-spin-button {
 .payment-component__card-symbol__text {
     margin-left: 10px;
     font-weight: bold;
+}
+
+.payment-component__card-arrays__title {
+    color: var(--main-grey-text-color);
+}
+
+.payment-component__card-arrays__title_margin {
+    margin-bottom: 15px;
+}
+
+.payment-component__title-close__close-btn_margin {
+    margin-left: 10px;
+}
+
+.payment-component__add-button {
+    height: 30px;
+    border: 1px solid var(--border-color);
+    color: var(--main-grey-text-color);
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 3px;
+    margin-left: 10px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.payment-component__add-button:focus {
+    outline: none;
+}
+
+.payment-component__add-button:hover {
+    border: 1px solid var(--main-light-green);
+}
+
+.payment-component__border-top {
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
 }
