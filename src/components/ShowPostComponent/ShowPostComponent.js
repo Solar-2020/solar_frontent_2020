@@ -17,6 +17,8 @@ function ShowPostComponent({data, cookies, roleID, okToast, errToast, deletePost
         dataComp: data,
         isLightbox: false,
         lightboxImg: '',
+
+        dropdown: false,
     };
 
     function changeStatus(value) {
@@ -62,6 +64,7 @@ function ShowPostComponent({data, cookies, roleID, okToast, errToast, deletePost
         dataComp,
         isLightbox,
         lightboxImg,
+        dropdown,
     } = state;
 
     function setMarked() {
@@ -104,8 +107,8 @@ function ShowPostComponent({data, cookies, roleID, okToast, errToast, deletePost
                 {roleID !== 3 ? (
                     <div className="show-post-component__white-part__avatar-text__star-button_margin">
                         <div className="dropdown nav__settings_margin">
-                            <div className="nav__settings"></div>
-                            <div className="dropdown-content">
+                            <div onClick={() => changeField('dropdown', !dropdown)} className="nav__settings"></div>
+                            <div className={`dropdown-content_${dropdown}`}>
                                 <div onClick={() => deletePost(dataComp.id)}>Удалить пост</div>
                             </div>
                         </div>
