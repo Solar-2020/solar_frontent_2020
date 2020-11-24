@@ -60,9 +60,10 @@ function App({cookies}) {
         if (location.pathname.includes('/yandexoauth')) return;
 
         if (location.pathname !== '/login' && location.pathname !== '/registration') {
-            if (!isAuth) {
-                checkProfile(location, history, cookies);
-            }
+            // if (!isAuth) {
+            //     checkProfile(location, history, cookies);
+            // }
+            checkProfile(location, history, cookies);
         } else {
             // надо доработать, чтобудет, если зайдут сразу с login
             if (isAuth) {
@@ -84,6 +85,7 @@ function App({cookies}) {
             .then((response) => {
                 if (response.ok) {
                     changeField('isAuth', true);
+                    changeField('userData', response.json());
                 } else if (location.pathname !== '/') {
                     changeField('isAuth', false);
                     history.push('/login');
@@ -100,7 +102,7 @@ function App({cookies}) {
 
     return (
         <BrowserRouter>
-            <Header checkAuth={checkAuth} isAuth={isAuth} cookies={cookies} delAuth={delAuth}/>
+            <Header checkAuth={checkAuth} isAuth={isAuth} cookies={cookies} delAuth={delAuth} userData={userData}/>
             <div className="container">
                 <Switch>
                     <Route path={'/'} exact render={() => (<IndexView cookies={cookies}/>)}/>
@@ -111,7 +113,7 @@ function App({cookies}) {
                     <Route path={'/pay'} render={() => (<PayView cookies={cookies}/>)}/>
                     <Route path={'/group/:groupUrl'} render={() => (<GroupView cookies={cookies}/>)}/>
                     <Route path={'/servererror'} exact render={() => (<ErrorPopUp/>)}/>
-                    <Route path={'/profile'} exact render={() => (<ProfileView cookies={cookies}/>)}/>
+                    <Route path={'/profile'} exact render={() => (<ProfileView cookies={cookies} userData={userData}/>)}/>
                     <Route render={() => <h1>404: Страница не найдена</h1>} />
                 </Switch>
             </div>
