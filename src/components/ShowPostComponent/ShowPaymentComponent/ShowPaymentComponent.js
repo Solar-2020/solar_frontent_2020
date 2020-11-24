@@ -124,7 +124,7 @@ function ShowPaymentComponent({payment, cookies}) {
                             className="show-post-component__white-part__show-payment-container__input"
                             placeholder="Сообщение получателю.."
                             id={`money_${payment.id}_money`}/>
-                        <button style={{height: '30px'}} onClick={() => sendCost(document.getElementById(`money_${payment.id}_money`))} className="show-post-component__white-part__show-payment-container__button">Оплатить</button>
+                        <button style={{height: '30px'}} onClick={() => sendCost(document.getElementById(`money_${payment.id}_money`).value)} className="show-post-component__white-part__show-payment-container__button">Оплатить</button>
                     </div>
                 </div>
             ) : (
