@@ -85,6 +85,19 @@ function ShowPostComponent({data, cookies, roleID, okToast, errToast, deletePost
             });
     };
 
+    function Greeting({avatar}) {
+        if (/photos/.test(avatar)) {
+            return (<img src={avatar} className="show-post-component__white-part__avatar-text__avatar"/>);
+        }
+        if (!avatar.length) {
+            return (<img className="show-post-component__white-part__avatar-text__avatar"/>);
+        }
+
+        const yandexIn = 'https://avatars.mds.yandex.net/get-yapic/';
+        const yandexOut = '/islands-300'
+        return (<img src={`${yandexIn}${avatar}${yandexOut}`} className="show-post-component__white-part__avatar-text__avatar"/>);
+    };
+
     return (
         <div className="show-post-component">
             {isLightbox && (
@@ -98,7 +111,9 @@ function ShowPostComponent({data, cookies, roleID, okToast, errToast, deletePost
             )}
 
             <div className="show-post-component__white-part__avatar-text">
-                <div className="show-post-component__white-part__avatar-text__avatar"></div>
+                {dataComp.author && (
+                    <Greeting avatar={dataComp.author.avatarURL}/>
+                )}
                 <div className="show-post-component__white-part__avatar-text__text">
                     <div className="show-post-component__white-part__avatar-text__text__name">{`${dataComp.author.name} ${dataComp.author.surname}`}</div>
                     <div className="show-post-component__white-part__avatar-text__text__data">{createNormDate(dataComp.publishDate.split('T')[0], dataComp.publishDate.split('T')[1].split('.')[0])}</div>
