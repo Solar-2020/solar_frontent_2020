@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 /**
  * Profile view
  */
-function ProfileView({cookies, userData}) {
+function ProfileView({cookies, userData, changeData}) {
     // const user = {"id":281,"email":"Ad.shishova@yandex.ru","name":"Анастасия","surname":"Шишова","avatarURL":"61207/enc-bccac8eccfa2ed0b4918b8f64687f983f23d9a96d2eccac2a697ce7cd339719d"};
     const initialState = {
         oldData: userData,
@@ -184,7 +184,10 @@ function ProfileView({cookies, userData}) {
                     if (responseBody.error) {
                         changeField('mainError', responseBody.error);
                     } else {
+                        changeData('userData', responseBody);
+                        changeField('save', false);
                         changeField('mainError', '');
+                        toast('Данные успешно изменены', okToastConfig);
                     }
                 });
         }
@@ -213,6 +216,7 @@ function ProfileView({cookies, userData}) {
         <div className="profile-view-container">
             <div className="profile-view-container_width">
                 <div className="profile-view-container_paddding">
+                    <ToastContainer/>
                     <div className="profile-view-container__img-container" 
                     onClick={() => document.getElementById('changeAvatarInput').click()}>
                         <div className="profile-view-container__img-container__button_div">
