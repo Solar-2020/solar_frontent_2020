@@ -213,7 +213,6 @@ function ProfileView({cookies, userData, changeData}) {
     };
 
     function Greeting() {
-        console.log(newData);
         if (/photos/.test(newData.avatarURL)) {
             return (<img src={newData.avatarURL} className="profile-view-container__img-container__img"/>);
         }
@@ -224,7 +223,7 @@ function ProfileView({cookies, userData, changeData}) {
         const yandexIn = 'https://avatars.mds.yandex.net/get-yapic/';
         const yandexOut = '/islands-300'
         return (<img src={`${yandexIn}${newData.avatarURL}${yandexOut}`} className="profile-view-container__img-container__img"/>);
-    }
+    };
       
 
     return (
@@ -237,7 +236,9 @@ function ProfileView({cookies, userData, changeData}) {
                         <div className="profile-view-container__img-container__button_div">
                             <div className="profile-view-container__img-container__button"/>
                         </div>
-                        <Greeting/>
+                        {newData.avatarURL && (
+                            <Greeting/>
+                        )}
                     </div>
                     <input
                         id="changeAvatarInput"
