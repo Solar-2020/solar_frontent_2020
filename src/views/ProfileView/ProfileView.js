@@ -236,7 +236,7 @@ function ProfileView({cookies, userData, changeData}) {
                         <div className="profile-view-container__img-container__button_div">
                             <div className="profile-view-container__img-container__button"/>
                         </div>
-                        {newData.avatarURL && (
+                        {newData.id && (
                             <Greeting/>
                         )}
                     </div>
