@@ -95,13 +95,12 @@ function App({cookies}) {
                 return response.json();
             })
             .then((responseBody) => {
-                console.log(responseBody);
                 if (responseBody.id) {
                     changeField('userData', responseBody);
                 } else {
                     changeField('userData', {});
                 }
-            });    
+            });
          // при неудаче редирект на логин, если это не location ='/'
     }
 

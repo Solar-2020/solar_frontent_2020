@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Header.css';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 
@@ -10,7 +10,10 @@ function Header({checkAuth, isAuth, cookies, delAuth, userData}) {
     const location = useLocation();
     const history = useHistory();
 
+    const [dropdown, setDropdown] = useState('false');
+
     useEffect(() => {
+        setDropdown(false);
         checkAuth(location, history, cookies);
     }, [location]);
 
@@ -27,15 +30,26 @@ function Header({checkAuth, isAuth, cookies, delAuth, userData}) {
                     <div className="header-component-container__content_padding">
                         <Link to="/" className="header-component__links">Главная</Link>
                         <Link to="/allgroups" className="header-component__links">Мои группы</Link>
-                        <Link to="/profile" className="header-component__links">{`Профиль: ${userData.id}`}</Link>
-                        {/* <Link to="/group/39" className="header-component__links">Группа 39</Link> */}
-                        
-                        <div onClick={() => exit()} className="header-component__links header-component__links_margin ">Выйти</div>
+
+                        <div className="header-dropdown nav__settings_margin">
+                            <div onClick={() => setDropdown(!dropdown)} className="header-nav-settings">
+                                <img src={userData.avatarURL} className="header-nav-settings__img"/>
+                                <div className="header-dropdown__content__down"/>
+                            </div>
+                            <div className={`header-dropdown__content_${dropdown}`}>
+                                <div className="header-dropdown__content__data">
+                                    <div className="header-dropdown__content__data-title">{`${userData.name} ${userData.surname}`}</div>
+                                    <Link to="/profile" className="header-dropdown__content__data-link">Редактировать</Link>
+                                    <div onClick={() => exit()} className="header-dropdown__content__data-exit">Выйти</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 ) : (
                     <div className="header-component-container__content_padding">
                         <Link to="/" className="header-component__links">Главная</Link>
                         <Link to="/login" className="header-component__links">Авторизация</Link>
+                        <Link to="/pay" className="header-component__links">Статистика</Link>
                     </div>
                 )}
             </div>
