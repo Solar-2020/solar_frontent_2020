@@ -46,7 +46,9 @@ function Header({checkAuth, isAuth, cookies, delAuth, userData}) {
 
                         <div className="header-dropdown nav__settings_margin">
                             <div onClick={() => setDropdown(!dropdown)} className="header-nav-settings">
-                                <Greeting/>
+                                {userData.id && (
+                                    <Greeting/>
+                                )}
                                 <div className="header-dropdown__content__down"/>
                             </div>
                             <div className={`header-dropdown__content_${dropdown}`}>
