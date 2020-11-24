@@ -14,7 +14,7 @@ import GroupImportantCOmponent from '../../components/GroupImportantComponent/Gr
  * Group view
  * @return {jsx}
  */
-function GroupView({cookies}) {
+function GroupView({cookies, userData}) {
     const location = useLocation();
 
     const ending = (count) => {
@@ -217,7 +217,7 @@ function GroupView({cookies}) {
             <div id="groupViewPostsContainer" className="group-view-posts-container">
                 <div className="group-view-posts-container__create-post">
                     {componentActive.posts && (
-                        <GroupPostsComponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast} roleID={roleID}/>
+                        <GroupPostsComponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast} roleID={roleID} userData={userData}/>
                     )}
                     {componentActive.important && (
                         <GroupImportantCOmponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast} roleID={roleID}/>

@@ -13,7 +13,7 @@ import {BACKEND_ADDRESS, FILE_SIZE, FILE_STR} from '../../utils/Config/Config.js
  * Create post component
  * @return {jsx}
  */
-function CreatePost({changeReload, cookies, id, okToast, errToast}) {
+function CreatePost({changeReload, cookies, id, okToast, errToast, userData}) {
     const initialState = {
         interviewError: false,
         interviewElems: [],
@@ -300,11 +300,26 @@ function CreatePost({changeReload, cookies, id, okToast, errToast}) {
         changeField('paymentValue', {totalCost: 0, paymentAccount: ''});
     };
 
+    function Greeting({avatar}) {
+        if (/photos/.test(avatar)) {
+            return (<img src={avatar} className="create-post-component__white-part__avatar-text__avatar"/>);
+        }
+        if (!avatar.length) {
+            return (<img className="create-post-component__white-part__avatar-text__avatar"/>);
+        }
+
+        const yandexIn = 'https://avatars.mds.yandex.net/get-yapic/';
+        const yandexOut = '/islands-300'
+        return (<img src={`${yandexIn}${avatar}${yandexOut}`} className="create-post-component__white-part__avatar-text__avatar"/>);
+    };
+
     return (
         <div className="create-post-component">
             <div className="create-post-component__white-part">
                 <div className="create-post-component__white-part__avatar-text">
-                    <div className="create-post-component__white-part__avatar-text__avatar"></div>
+                    {userData.id && (
+                        <Greeting avatar={userData.avatarURL}/>
+                    )}
                     <textarea id="createPostComponentText" className="create-post-component__white-part__avatar-text__text" placeholder="Добавьте текст.."></textarea>
                 </div>
                 {interviewComp && (

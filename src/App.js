@@ -119,7 +119,7 @@ function App({cookies}) {
                     <Route path={'/allgroups'} exact render={() => (<AllGroupsView cookies={cookies}/>)}/>
                     <Route path={'/yandexoauth'} render={() => (<LoginYandex cookies={cookies}/>)}/>
                     <Route path={'/pay'} render={() => (<PayView cookies={cookies}/>)}/>
-                    <Route path={'/group/:groupUrl'} render={() => (<GroupView cookies={cookies}/>)}/>
+                    <Route path={'/group/:groupUrl'} render={() => (<GroupView cookies={cookies} userData={userData}/>)}/>
                     <Route path={'/servererror'} exact render={() => (<ErrorPopUp/>)}/>
                     <Route path={'/profile'} exact render={() => (<ProfileView cookies={cookies} userData={userData} changeData={changeField}/>)}/>
                     <Route render={() => <h1>404: Страница не найдена</h1>} />
