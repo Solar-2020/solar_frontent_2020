@@ -29,9 +29,26 @@ function GroupMemberComponent({elem, roleID, deleteUser, copyData}) {
         dispatch({type: 'CHANGE_FIELD', field, value});
     }
 
+    function Greeting({avatar}) {
+        if (/photos/.test(avatar)) {
+            return (<img src={avatar} className="show-post-component__white-part__avatar-text__avatar"/>);
+        }
+        if (!avatar.length) {
+            return (<img className="show-post-component__white-part__avatar-text__avatar"/>);
+        }
+
+        const yandexIn = 'https://avatars.mds.yandex.net/get-yapic/';
+        const yandexOut = '/islands-300'
+        return (<img src={`${yandexIn}${avatar}${yandexOut}`} className="show-post-component__white-part__avatar-text__avatar"/>);
+    };
+
     return (
         <div key={elem.userID} className="group-view-container__group-memebers-conteiner__members-list_person">
-            <div className="show-post-component__white-part__avatar-text__avatar"></div>
+
+            {elem.userID && (
+                <Greeting avatar={elem.avatarURL}/>
+            )}
+            
             <div className="show-post-component__white-part__avatar-text__text">
                 <div className="show-post-component__white-part__avatar-text__text__name">{`${elem.name} ${elem.surname} [${elem.roleName}]`}</div>
                 <div className="show-post-component__white-part__avatar-text__text__data">{elem.email}</div>

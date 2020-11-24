@@ -119,6 +119,7 @@ input::-webkit-inner-spin-button {
 
 .payment-component__card-symbol__img {
     width: 30px;
+    height: 30px;
 }
 
 .payment-component__card-symbol__text {
