@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px 25px;
+    padding: 25px 25px;
     background-color: var(--background-light-green);
 }
 
@@ -58,4 +58,85 @@
 .show-post-component__white-part__show-payment-container__input:focus {
     border: 1px solid var(--main-light-green);
     outline: none;
+}
+
+.show-payment-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--main-text-color);
+}
+
+.show-payment-white-part {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 3px;
+    margin-top: 25px;
+}
+
+.show-payment-white-part_padding {
+    padding: 25px;
+}
+
+.show-payment-white-part__select-container__select {
+    border: none;
+    background: none;
+    margin-left: 5px;
+    outline: none;
+    color: var(--main-text-color);
+    cursor: pointer;
+}
+
+.show-payment-white-part__select-container__text {
+    display: flex;
+    /* flex-direction: row; */
+    color: var(--main-text-color);
+}
+
+.show-payment-white-part__select-container {
+    display: flex;
+    border-bottom: 1px solid var(--main-text-color);
+    padding-bottom: 5px;
+}
+
+.show-payment-white-part__copy-img {
+    background-size: contain;
+    height: 37px;
+    width: 37px;
+    border: none;
+    outline: none;
+    background-image: url('../../../images/files-copy-interface-grey.svg');
+    cursor: pointer;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+    margin-left: 10px;
+}
+
+.show-payment-white-part__phone {
+    display: flex;
+    margin-top: 15px;
+    align-items: center;
+    /* color: var(--main-grey-text-color); */
+    color: var(--main-text-color);
+}
+
+.show-payment-white-part__input {
+    border-radius: 3px;
+    border: none;
+    color: var(--main-grey-text-color);
+    padding: 5px;
+    border: 1px solid var(--border-color);
+}
+
+.show-payment-white-part__input:focus {
+    border: 1px solid var(--main-light-green);
+    outline: none;
+}
+
+.show-payment-white-part__input__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    cursor: pointer;
 }

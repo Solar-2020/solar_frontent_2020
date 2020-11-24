@@ -248,7 +248,7 @@ function PaymentComponent({delPaymentComp, changePaymentHandler, paymentArrays, 
                 )}
                 {paymentArrays.moneys. length > 0 && (
                     <div className="payment-component__card-arrays__title_margin">
-                    <div className="payment-component__card-arrays__title">Номера YouMoney</div>
+                    <div className="payment-component__card-arrays__title">Номера YooMoney</div>
                     {paymentArrays.moneys.map((elem, index) => (
                         <div key={index}>
                             <input className="payment-component__payment-form__summ" value={elem} disabled/>
@@ -267,7 +267,7 @@ function PaymentComponent({delPaymentComp, changePaymentHandler, paymentArrays, 
                     >
                     <option value="1">Телефон</option>
                     <option value="2">Карта</option>
-                    <option value="3">YouMoney</option>
+                    <option value="3">YooMoney</option>
                 </select>
                 <button className="payment-component__add-button" onClick={(e) => addElemsForm()}>Добавить</button>
             </div>
@@ -317,7 +317,7 @@ function PaymentComponent({delPaymentComp, changePaymentHandler, paymentArrays, 
                     value={youMoney}
                     onChange={(e) => handleChangeMask(String(e.target.value), 3, 'youMoney')}/>
             )}
-            <div className="payment-component_target">* Номер кошелька на YouMoney можно узнать по <a href="https://yoomoney.ru/start" target="_blank">ссылке</a>.
+            <div className="payment-component_target">* Номер кошелька на YooMoney можно узнать по <a href="https://yoomoney.ru/start" target="_blank">ссылке</a>.
             Если не пройдена верификация, то деньги Вам на счёт не смогут перевести.</div>
  
         </div>
