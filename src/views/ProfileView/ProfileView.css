@@ -34,7 +34,6 @@
     width: 30px;
     border: none;
     outline: none;
-    background-color: var(--cards-background);
     cursor: pointer;
     background-repeat: no-repeat;
     background-image: url('../../images/edit.svg');
@@ -45,7 +44,7 @@
 }
 
 .profile-view-container__img-container__button_div {
-    background: var(--main-background-color);
+    background: #ffffff;
     position: absolute;
     right: 0;
     height: 40px;
