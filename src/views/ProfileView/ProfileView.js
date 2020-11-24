@@ -156,7 +156,59 @@ function ProfileView({cookies, userData}) {
             });
     };
 
-    
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        const form = {
+            'name': newData.name,
+            'surname': newData.surname,
+            'avatarURL': newData.avatarURL,
+            'email': newData.email,
+        };
+
+        if (checkValidationForm()) {
+            console.log(form);
+
+            fetchModule.post({
+                url: BACKEND_ADDRESS + `/api/auth/cookie`,
+                body: JSON.stringify(form),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Cookie': cookies.get('SessionToken'),
+                },
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((responseBody) => {
+                    if (responseBody.error) {
+                        changeField('mainError', responseBody.error);
+                    } else {
+                        changeField('mainError', '');
+                    }
+                });
+        }
+    };
+
+    function checkValidationForm() {
+        let flag = true;
+
+        if (!regExpr.FIO.test(newData.name) || !regExpr.FIO.test(newData.surname)) {
+            changeField('userNameError', true);
+            flag = false;
+        } else {
+            changeField('userNameError', false);
+        }
+
+        if (!regExpr.email.test(newData.email)) {
+            changeField('emailError', true);
+            flag = false;
+        } else {
+            changeField('emailError', false);
+        }
+        return flag;
+    };
+
     return (
         <div className="profile-view-container">
             <div className="profile-view-container_width">
@@ -204,7 +256,7 @@ function ProfileView({cookies, userData}) {
                                 placeholder="Электронная почта"/>
                         </div>
                         {save && (
-                            <button className="login-view-container__card__button profile-view-container__button">Сохранить изменения</button>
+                            <button className="login-view-container__card__button profile-view-container__button" onClick={(e) => handleSubmit(e)}>Сохранить изменения</button>
                         )}
                     </div>
                 </div>
