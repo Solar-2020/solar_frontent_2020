@@ -58,6 +58,7 @@
     width: 100%;
     height: 100%;
     border-radius: var(--cards-radius);
+    object-fit: cover;
 }
 
 .profile-view-container__context-container {
