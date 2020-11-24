@@ -27,7 +27,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast, userData}) {
             cards: [],
             moneys: [],
         },
-        paymentValue: '',
+        paymentValue: 0,
 
         docsComp: [],
         photoComp: [],
@@ -227,7 +227,18 @@ function CreatePost({changeReload, cookies, id, okToast, errToast, userData}) {
         return true;
     };
 
+    const createMethods = () => {
+        let methods = [];
+        paymentArrays.phones.forEach((elem) => methods.push({type: 'phone', phoneNumber: elem}));
+        paymentArrays.cards.forEach((elem) => methods.push({type: 'card', phoneNumber: elem.cardPhone, cardNumber: elem.cardNumber}));
+        paymentArrays.moneys.forEach((elem) => methods.push({type: 'yoomoney', yoomoneyAccount: elem}));
+
+        return methods;
+    };
+
     const submitInfo = () => {
+        const methods = createMethods();
+
         let form = {
             groupID: Number(id),
             text: document.getElementById('createPostComponentText').value,
@@ -249,11 +260,25 @@ function CreatePost({changeReload, cookies, id, okToast, errToast, userData}) {
                 acc.push(elem.id);
                 return acc;
             }, []),
-            payments: [{paymentValue, paymentArrays}],
+            payments: [
+                {
+                    paymentValue: paymentValue,
+                    methods: methods,
+                }],
         };
 
         if (!form.interviews[0].text.trim()) {
             form = {...form, interviews: []};
+        }
+
+        if (paymentComp && !paymentValue) {
+            errToast(`Заполните поле суммы`);
+            return;
+        };
+
+        if (paymentComp && !paymentArrays.phones.length && !paymentArrays.cards.length && !paymentArrays.moneys.length) {
+            errToast(`Заполните реквизиты для оплаты`);
+            return;
         }
 
         console.log(form);
@@ -297,7 +322,8 @@ function CreatePost({changeReload, cookies, id, okToast, errToast, userData}) {
 
     const delPaymentComp = () => {
         changeField('paymentComp', false);
-        changeField('paymentValue', {totalCost: 0, paymentAccount: ''});
+        changeField('paymentValue', 0);
+        changeField('paymentArrays', initialState.paymentArrays);
     };
 
     function Greeting({avatar}) {
