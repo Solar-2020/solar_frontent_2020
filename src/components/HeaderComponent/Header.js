@@ -49,7 +49,6 @@ function Header({checkAuth, isAuth, cookies, delAuth, userData}) {
                     <div className="header-component-container__content_padding">
                         <Link to="/" className="header-component__links">Главная</Link>
                         <Link to="/login" className="header-component__links">Авторизация</Link>
-                        <Link to="/pay" className="header-component__links">Статистика</Link>
                     </div>
                 )}
             </div>
