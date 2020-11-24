@@ -169,8 +169,8 @@ function ProfileView({cookies, userData}) {
         if (checkValidationForm()) {
             console.log(form);
 
-            fetchModule.post({
-                url: BACKEND_ADDRESS + `/api/auth/cookie`,
+            fetchModule.put({
+                url: BACKEND_ADDRESS + `/api/account/user`,
                 body: JSON.stringify(form),
                 headers: {
                     'Content-Type': 'application/json',
@@ -229,7 +229,7 @@ function ProfileView({cookies, userData}) {
                     <div className="profile-view-container__context-container">
                         <div className="profile-view-container__context-container__title">Данные пользователя</div>
                         {mainError && (
-                            <div className="login-view-container__card__input-block__input__error-text">{mainError}</div>
+                            <div className="reginstration-view__input_error">{mainError}</div>
                         )}
 
                         {userNameError && (
