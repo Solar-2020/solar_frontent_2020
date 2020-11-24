@@ -85,14 +85,22 @@ function App({cookies}) {
             .then((response) => {
                 if (response.ok) {
                     changeField('isAuth', true);
-                    console.log(response.json());
-                    changeField('userData', response.json());
                 } else if (location.pathname !== '/') {
                     changeField('isAuth', false);
                     history.push('/login');
                 } else {
                     changeField('isAuth', false);
                 };
+
+                return response.json();
+            })
+            .then((responseBody) => {
+                console.log(responseBody);
+                if (responseBody.id) {
+                    changeField('userData', responseBody);
+                } else {
+                    changeField('userData', {});
+                }
             });    
          // при неудаче редирект на логин, если это не location ='/'
     }
