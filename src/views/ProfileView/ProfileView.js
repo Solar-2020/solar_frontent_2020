@@ -42,6 +42,12 @@ function ProfileView({cookies, userData}) {
         mainError,
     } = state;
 
+    useEffect(
+        () => {
+            changeField('oldData', userData);
+            changeField('newData', userData);
+        }, [userData]);
+
     const changeField = (field, value) => {
         dispatch({type: 'CHANGE_FIELD', field, value});
     };
