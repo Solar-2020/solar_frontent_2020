@@ -81,23 +81,28 @@
 }
 
 .header-dropdown__content__data-link {
-    font-size: 12px;
+    /* font-size: 12px;
     text-decoration: none;
     background: var(--main-green-color);
     padding: 0 5px;
     border-radius: 3px;
-    color: #ffffff;
+    color: #ffffff; */
+    color: var(--main-grey-text-color);
+    cursor: pointer;
+    padding-top: 3px;
+    text-decoration: none;
 }
 
 .header-dropdown__content__data-title {
     color: var(--main-text-color);
     margin-bottom: 5px;
+    font-weight: bolder;
 }
 
 .header-dropdown__content__data-exit {
     color: var(--main-grey-text-color);
     border-top: 2px solid var(--border-color);
-    margin-top: 10px;
+    margin-top: 15px;
     cursor: pointer;
     padding-top: 3px;
 }
