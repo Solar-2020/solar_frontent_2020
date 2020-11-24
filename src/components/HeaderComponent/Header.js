@@ -6,7 +6,7 @@ import { Link, useLocation, useHistory } from 'react-router-dom';
  * Header component
  * @return {jsx}
  */
-function Header({checkAuth, isAuth, cookies, delAuth}) {
+function Header({checkAuth, isAuth, cookies, delAuth, userData}) {
     const location = useLocation();
     const history = useHistory();
 
@@ -27,8 +27,9 @@ function Header({checkAuth, isAuth, cookies, delAuth}) {
                     <div className="header-component-container__content_padding">
                         <Link to="/" className="header-component__links">Главная</Link>
                         <Link to="/allgroups" className="header-component__links">Мои группы</Link>
-                        <Link to="/profile" className="header-component__links">Профиль</Link>
+                        <Link to="/profile" className="header-component__links">{`Профиль: ${userData.id}`}</Link>
                         {/* <Link to="/group/39" className="header-component__links">Группа 39</Link> */}
+                        
                         <div onClick={() => exit()} className="header-component__links header-component__links_margin ">Выйти</div>
                     </div>
                 ) : (
