@@ -12,6 +12,7 @@ import { withCookies } from 'react-cookie'
 import LoginYandex from './views/LoginYandex/LoginYandex';
 import PayView from './views/PayView/PayView';
 import ErrorPopUp from './components/ErrorPopUp/ErrorPopUp';
+import ProfileView from './views/ProfileView/ProfileView';
 
 /**
  * Application root
@@ -110,6 +111,7 @@ function App({cookies}) {
                     <Route path={'/pay'} render={() => (<PayView cookies={cookies}/>)}/>
                     <Route path={'/group/:groupUrl'} render={() => (<GroupView cookies={cookies}/>)}/>
                     <Route path={'/servererror'} exact render={() => (<ErrorPopUp/>)}/>
+                    <Route path={'/profile'} exact render={() => (<ProfileView cookies={cookies}/>)}/>
                     <Route render={() => <h1>404: Страница не найдена</h1>} />
                 </Switch>
             </div>
