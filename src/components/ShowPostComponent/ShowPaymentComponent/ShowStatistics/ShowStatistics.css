@@ -17,7 +17,7 @@
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
     background-color: #ffffff;
     border-radius: var(--cards-radius);
-    padding: 15px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
 }
@@ -44,4 +44,26 @@
     background-color: var(--cards-background);
     cursor: pointer;
     background-repeat: no-repeat;
+}
+
+.show-stat-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+.show-stat-table td, .show-stat-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+  
+.show-stat-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.show-stat-table_margin {
+    margin-top: 15px;
 }
