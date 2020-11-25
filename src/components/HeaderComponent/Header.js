@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Header.css';
 import { Link, useLocation, useHistory } from 'react-router-dom';
+import logoImg from '../../images/logo2.png';
 
 /**
  * Header component
@@ -41,7 +42,9 @@ function Header({checkAuth, isAuth, cookies, delAuth, userData}) {
             <div className="header-component-container__content">
                 {isAuth ? (
                     <div className="header-component-container__content_padding">
-                        <Link to="/" className="header-component__links">Главная</Link>
+                        <Link to="/">
+                            <img src={logoImg} alt="" className="header-component__links_img"/>
+                        </Link>
                         <Link to="/allgroups" className="header-component__links">Мои группы</Link>
 
                         <div className="header-dropdown nav__settings_margin">
@@ -62,8 +65,10 @@ function Header({checkAuth, isAuth, cookies, delAuth, userData}) {
                     </div>
                 ) : (
                     <div className="header-component-container__content_padding">
-                        <Link to="/" className="header-component__links">Главная</Link>
-                        <Link to="/login" className="header-component__links">Авторизация</Link>
+                        <Link to="/">
+                            <img src={logoImg} alt="" className="header-component__links_img"/>
+                        </Link>
+                        <Link to="/login" className="header-component__links" style={{marginLeft: 'auto'}}>Войти</Link>
                     </div>
                 )}
             </div>

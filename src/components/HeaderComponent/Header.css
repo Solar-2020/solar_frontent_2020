@@ -23,14 +23,20 @@
 .header-component__links {
     color: white;
     font-weight: bolder;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     text-decoration: none;
     cursor: pointer;
 }
 
-.header-component__links:first-child {
-    margin-left: 0;
+.header-component__links_img {
+    width: 100px;
+    margin-top: 5px;
+    margin-right: 10px;
 }
+
+/* .header-component__links:first-child {
+    margin-left: 0;
+} */
 
 .header-component__links_margin {
     margin-left: auto;
