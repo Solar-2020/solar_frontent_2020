@@ -42,7 +42,7 @@ function ShowStatistics({cookies, closeStat, paymentID}) {
                 return response.json();
             })
             .then((responseBody) => {
-                if (responseBody.payer) {
+                if (responseBody.length > 0) {
                     setStatistic(responseBody);
                     setIsStat(true);
                 }
@@ -60,30 +60,34 @@ function ShowStatistics({cookies, closeStat, paymentID}) {
                     <div className="show-stat-table_margin">Пока никто из пользователей не оставил оплату</div>
                 ) : (
                     <div className="show-stat-table_margin">
-                        <table className="show-stat-table" id={`table-to-xls-${paymentID}`}>
-                            <tbody>
-                                <tr>
-                                    <th>Платильщик</th>
-                                    <th>Почта</th>
-                                    <th>Сумма</th>
-                                    <th>Дата</th>
-                                </tr>
-                                {statistic.map((elem, index) => (
-                                    <tr key={index}>
-                                        <td>{`${elem.payer.name} ${elem.payer.surname}`}</td>
-                                        <td>{elem.payer.email}</td>
-                                        <td>{elem.cost}</td>
-                                        <td>{elem.paidAt.split('T')[0]}</td>
+                        {isStat && (
+                            <table className="show-stat-table" id={`table-to-xls-${paymentID}`}>
+                                <tbody>
+                                    <tr>
+                                        <th>Платильщик</th>
+                                        <th>Почта</th>
+                                        <th>Сумма</th>
+                                        <th>Дата</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        <ReactHTMLTableToExcel
-                        className="show-stat-table__save-btn"
-                        table={`table-to-xls-${paymentID}`}
-                        filename={`tablexls-${paymentID}`}
-                        sheet={`PayTogether-${paymentID}`}
-                        buttonText="Скачать .xls"/>
+                                    {statistic.map((elem, index) => (
+                                        <tr key={index}>
+                                            <td>{`${elem.payer.name} ${elem.payer.surname}`}</td>
+                                            <td>{elem.payer.email}</td>
+                                            <td>{elem.cost}</td>
+                                            <td>{elem.paidAt.split('T')[0]}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        )}
+                        {isStat && (
+                            <ReactHTMLTableToExcel
+                            className="show-stat-table__save-btn"
+                            table={`table-to-xls-${paymentID}`}
+                            filename={`tablexls-${paymentID}`}
+                            sheet={`PayTogether-${paymentID}`}
+                            buttonText="Скачать .xls"/>
+                        )}
                     </div>
                 )}
             </div>
