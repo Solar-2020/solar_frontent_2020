@@ -8,27 +8,9 @@ import './IndexView.css';
 function IndexView() {
     return (
         <div className="index-view-container">
-            <div className="index-view-container_width">
-                <div className="index-view-container__banner">
-                    Добро пожаловать в Pay-Together!
-                </div>
-                <div className="index-view-container__about">
-                    <div className="index-view-container__about_right-col">
-                        <div className="index-view-container__about_right-col__title">Краткое описание продукта</div>
-                        <div className="index-view-container__about_right-col__text">Сервис для создания инструмента 
-                        взаимодействия между членами некоторой группы (акцент делается на совместную оплату счетов, опросы и объявления)</div>
-                    </div>
-                    <div className="index-view-container__about_right-col">
-                        <div className="index-view-container__about_right-col__title">Призван решать проблему</div>
-                        <div className="index-view-container__about_right-col__text">Упрощает взаимодействие организатора со всеми 
-                        членами группы, делает наглядными расходы членов группы в их личных кабинетах, упрощает оплату взносов и необходимых платежей</div>
-                    </div>
-                </div>
-                <div className="index-view-container__info">
-                    <div>Сервис находится на этапе разработки, поэтому некоторые окна не совсем доработаны. Вам предлагается пройти следующий сценарий действий: <a href="https://docs.google.com/document/d/1iizi4WEIyT2iF8-Ihlsmz5PPLypO59nzimdkrklQwm8/edit?usp=sharing" target="_blank">cценарий SolAr</a></div>
-                    <div>Оставьте, пожалуйста, отзыв в форме: <a href="https://forms.gle/Cr3z9Svf7YnDh8Pf7" target="_blank">форма SolAr</a></div>
-                    <div>По всем возникшим сложностям пишите в телеграм @nellin_lin</div>
-                </div>
+            <div className="index-view-container_img"></div>
+            <div className="index-view-container_img_content">
+                <div className="index-view-container_img-white"></div>
             </div>
         </div>
     );
