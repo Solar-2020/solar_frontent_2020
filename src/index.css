@@ -26,6 +26,20 @@ code {
   --cards-radius: 10px;
 }
 
+@font-face {
+  font-family: 'Roboto-Regular'; 
+  src: url('./fonts/Roboto-Regular.ttf') format('truetype'); 
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Roboto-Light'; 
+  src: url('./fonts/Roboto-Light.ttf') format('truetype'); 
+  font-style: normal;
+  font-weight: normal;
+} 
+
 @media screen and (max-width: 1000px) {
   :root {
     --width-app: 100%;
@@ -33,7 +47,8 @@ code {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
+  font-family: 'Roboto-Regular';
   font-size: 14px;
   margin: 0;
   padding: 0;
