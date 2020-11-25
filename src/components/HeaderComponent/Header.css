@@ -28,6 +28,11 @@
     cursor: pointer;
 }
 
+.header-component__links_border {
+    border-left: 1px solid #ffffff;
+    padding-left: 10px;
+}
+
 .header-component__links_img {
     width: 100px;
     margin-top: 5px;

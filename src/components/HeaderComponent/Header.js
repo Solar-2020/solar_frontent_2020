@@ -45,7 +45,7 @@ function Header({checkAuth, isAuth, cookies, delAuth, userData}) {
                         <Link to="/">
                             <img src={logoImg} alt="" className="header-component__links_img"/>
                         </Link>
-                        <Link to="/allgroups" className="header-component__links">Мои группы</Link>
+                        <Link to="/allgroups" className="header-component__links header-component__links_borde">Мои группы</Link>
 
                         <div className="header-dropdown nav__settings_margin">
                             <div onClick={() => setDropdown(!dropdown)} className="header-nav-settings">
