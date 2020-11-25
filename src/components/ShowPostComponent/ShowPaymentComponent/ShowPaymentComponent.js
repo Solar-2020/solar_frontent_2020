@@ -162,6 +162,7 @@ function ShowPaymentComponent({payment, cookies}) {
                     changeField('message', '');
                     changeField('addMessage', false);
                     changeField('summ', 0);
+                    document.getElementById(`show-payment-paid-input-${payment.id}`).value = '';
                 } else {
                     toast('Ваш отчёт не был доставлен серверу', errToastConfig);
                 }
@@ -280,6 +281,7 @@ function ShowPaymentComponent({payment, cookies}) {
                         <div className="show-payment-component__paid-container_row">
                             <div className="show-payment-component__paid-container__add-message_icon" onClick={() => delMessage()}/>
                             <input
+                                id={`show-payment-paid-input-${payment.id}`}
                                 className="show-payment-white-part__input"
                                 type="number"
                                 onChange={(e) => changeField('summ', Number(e.target.value))}
