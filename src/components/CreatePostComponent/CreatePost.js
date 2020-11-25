@@ -281,7 +281,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast, userData}) {
             return;
         };
 
-        if (form.payments.paymentValue === 0 ) {
+        if (form.payments[0].paymentValue === 0 ) {
             form = {...form, payments: []};
         }
 
