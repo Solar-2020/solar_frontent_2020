@@ -18,6 +18,9 @@ function ShowPaymentComponent({payment, cookies}) {
         yoomoney: [],
 
         select: 1,
+        summ: 0,
+        message: '',
+        addMessage: false,
     };
 
     const [state, dispatch] = useReducer(
@@ -39,6 +42,9 @@ function ShowPaymentComponent({payment, cookies}) {
         phone,
         yoomoney,
         select,
+        summ,
+        message,
+        addMessage,
     } = state;
 
     function changeField(field, value) {
@@ -111,6 +117,56 @@ function ShowPaymentComponent({payment, cookies}) {
         toast(`Реквизит ${email} скопирован`, okToastConfig);  
     };
 
+    function delMessage() {
+        changeField('addMessage', !addMessage);
+        changeField('message', '');
+    };
+
+    function paidSumm() {
+        if (summ === 0 || summ > payment.paymentValue) {
+            toast('Поле суммы должно быть заполненным и не превышать указанную сумму', errToastConfig);
+            return;
+        };
+
+        const reqType = {
+            'phone': 2,
+            'card': 1,
+            'yoomoney': 3,
+        }
+
+        const data = {
+            postID: payment.postID,
+            groupID: payment.groupID,
+            paymentID: payment.id,
+            message: message,
+            requisiteType: reqType[payment.methods[0].type],
+            requisiteID: payment.methods[0].id,
+            cost: summ,
+        };
+
+        console.log(data);
+
+        fetchModule.post({
+            url: BACKEND_ADDRESS + `/api/payment/paid`,
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((responseBody) => {
+                if (responseBody.error) {
+                    toast('Ваш отчёт не был доставлен серверу', errToastConfig);
+                };
+                // if (responseBody.url) {
+                    
+                // };
+            });
+    }
+
     return (
         <div className="show-post-component__white-part__show-payment-container">
             <ToastContainer/>
@@ -128,91 +184,113 @@ function ShowPaymentComponent({payment, cookies}) {
                     </div>
                 </div>
             ) : (
-                <div className="show-payment-white-part">
-                    <div className="show-payment-white-part_padding">
-                        <div className="show-payment-white-part__select-container">
-                            <div className="show-payment-white-part__select-container__text">Реквизиты:</div>
-                            <select className="show-payment-white-part__select-container__select" onChange={(e) => changeField('select', Number(e.target.value))}>
-                                {phone.length > 0 && (
-                                    <option value="1">номера телефонов</option>
-                                )}
-                                {card.length > 0 && (
-                                    <option value="2">банковские карты</option>
-                                )}
-                                {yoomoney.length > 0 && (
-                                    <option value="3">кошельки YooMoney</option>
-                                )}
-                            </select>
-                        </div>
-                        {phone.length > 0 && select === 1 && (
-                            <div>
-                                {phone.map((elem, index) => (
-                                    <div key={index} className="show-payment-white-part__phone">
-                                        <div>{elem.phoneNumber}</div>
-                                        <div className="show-payment-white-part__copy-img" onClick={() => copyData(elem.phoneNumber)}/>
-                                    </div>
-                                ))}
+                <div style={{width: '100%'}}>
+                    <div className="show-payment-white-part">
+                        <div className="show-payment-white-part_padding">
+                            <div className="show-payment-white-part__select-container">
+                                <div className="show-payment-white-part__select-container__text">Реквизиты:</div>
+                                <select className="show-payment-white-part__select-container__select" onChange={(e) => changeField('select', Number(e.target.value))}>
+                                    {phone.length > 0 && (
+                                        <option value="1">номера телефонов</option>
+                                    )}
+                                    {card.length > 0 && (
+                                        <option value="2">банковские карты</option>
+                                    )}
+                                    {yoomoney.length > 0 && (
+                                        <option value="3">кошельки YooMoney</option>
+                                    )}
+                                </select>
                             </div>
-                        )}
-                        {card.length > 0 && select === 2 && (
-                            <div>
-                                {card.map((elem, index) => (
-                                    <div key={index}
-                                        className="payment-component__payment-form__summ_card-margin"
-                                        style={{display: 'flex', marginTop: '10px'}}>
-                                        <div
-                                            style={{backgroundColor: elem.backgroundColor}}
-                                            className="payment-component__card-elems-container payment-component__card-elems-container__card-style">
-                                            {elem.cardBank && elem.cardBankLogo && (
-                                                <div className="payment-component__card-symbol">
-                                                    <img className="payment-component__card-symbol__img" src={elem.cardBankLogo} alt=""/>
-                                                    <div 
-                                                        style={{color: elem.color}}
-                                                        className="payment-component__card-symbol__text">{elem.cardBank}</div>
-                                                </div>
-                                            )}
-                                            <div className="show-payment-white-part__cards-container">
-                                                <input
-                                                    className="payment-component__payment-form__summ"
-                                                    value={elem.cardNumber}
-                                                    disabled/>
-                                                <div className="show-payment-white-part__copy-img_white" onClick={() => copyData(elem.cardNumber)}/>
-                                            </div>
-                                            {elem.phoneNumber && (
+                            {phone.length > 0 && select === 1 && (
+                                <div>
+                                    {phone.map((elem, index) => (
+                                        <div key={index} className="show-payment-white-part__phone">
+                                            <div>{elem.phoneNumber}</div>
+                                            <div className="show-payment-white-part__copy-img" onClick={() => copyData(elem.phoneNumber)}/>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                            {card.length > 0 && select === 2 && (
+                                <div>
+                                    {card.map((elem, index) => (
+                                        <div key={index}
+                                            className="payment-component__payment-form__summ_card-margin"
+                                            style={{display: 'flex', marginTop: '10px'}}>
+                                            <div
+                                                style={{backgroundColor: elem.backgroundColor}}
+                                                className="payment-component__card-elems-container payment-component__card-elems-container__card-style">
+                                                {elem.cardBank && elem.cardBankLogo && (
+                                                    <div className="payment-component__card-symbol">
+                                                        <img className="payment-component__card-symbol__img" src={elem.cardBankLogo} alt=""/>
+                                                        <div 
+                                                            style={{color: elem.color}}
+                                                            className="payment-component__card-symbol__text">{elem.cardBank}</div>
+                                                    </div>
+                                                )}
                                                 <div className="show-payment-white-part__cards-container">
                                                     <input
                                                         className="payment-component__payment-form__summ"
-                                                        value={elem.phoneNumber}
+                                                        value={elem.cardNumber}
                                                         disabled/>
-                                                    <div className="show-payment-white-part__copy-img_white" onClick={() => copyData(elem.phoneNumber)}/>
+                                                    <div className="show-payment-white-part__copy-img_white" onClick={() => copyData(elem.cardNumber)}/>
                                                 </div>
-                                            )}
+                                                {elem.phoneNumber && (
+                                                    <div className="show-payment-white-part__cards-container">
+                                                        <input
+                                                            className="payment-component__payment-form__summ"
+                                                            value={elem.phoneNumber}
+                                                            disabled/>
+                                                        <div className="show-payment-white-part__copy-img_white" onClick={() => copyData(elem.phoneNumber)}/>
+                                                    </div>
+                                                )}
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                        {yoomoney.length > 0 && select === 3 && (
-                            <div>
-                                {yoomoney.map((elem, index) => (
-                                    <div key={index}>
-                                        <div className="show-payment-white-part__phone">
-                                            <div>{elem.yoomoneyAccount}</div>
-                                            <div className="show-payment-white-part__copy-img" onClick={(e) => copyData(elem.yoomoneyAccount)}/>
+                                    ))}
+                                </div>
+                            )}
+                            {yoomoney.length > 0 && select === 3 && (
+                                <div>
+                                    {yoomoney.map((elem, index) => (
+                                        <div key={index}>
+                                            <div className="show-payment-white-part__phone">
+                                                <div>{elem.yoomoneyAccount}</div>
+                                                <div className="show-payment-white-part__copy-img" onClick={(e) => copyData(elem.yoomoneyAccount)}/>
+                                            </div>
+                                            <div style={{display: 'flex', marginTop: '5px'}}>
+                                                <input
+                                                    className="show-payment-white-part__input"
+                                                    id={`pay_${payment.id}_${index}`}
+                                                    placeholder="Сообщение получателю.."/>
+                                                <button onClick={() => sendCost(document.getElementById(`pay_${payment.id}_${index}`).value)} className="show-payment-white-part__input__button">Оплатить</button>
+                                            </div>
                                         </div>
-                                        <div style={{display: 'flex', marginTop: '5px'}}>
-                                            <input
-                                                className="show-payment-white-part__input"
-                                                id={`pay_${payment.id}_${index}`}
-                                                placeholder="Сообщение получателю.."/>
-                                            <button onClick={() => sendCost(document.getElementById(`pay_${payment.id}_${index}`).value)} className="show-payment-white-part__input__button">Оплатить</button>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </div>              
+
+                    <div className="show-payment-component__paid-container">
+                        <div className="show-payment-component__paid-container_row">
+                            <div className="show-payment-component__paid-container__add-message_icon" onClick={() => delMessage()}/>
+                            <input
+                                className="show-payment-white-part__input"
+                                type="number"
+                                onChange={(e) => changeField('summ', Number(e.target.value))}
+                                placeholder="Оплаченная сумма"/>
+                            <button className="show-payment-white-part__input__button show-payment-component__paid-button"
+                                onClick={() => paidSumm()}>Оплачено</button>
+                        </div>
+                        {addMessage && (
+                            <input
+                            className="show-payment-white-part__input show-payment-white-part__input_margin-top"
+                            placeholder="Сообщение получателю.."
+                            onChange={(e) => changeField('message', e.target.value)}/>
+                        )}
+                        <div className="show-payment-component__paid-stat">Просмотреть статистику</div>
+                    </div>
+                </div>            
             )}
         </div>
     );

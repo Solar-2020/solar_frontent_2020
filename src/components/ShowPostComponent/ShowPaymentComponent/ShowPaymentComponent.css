@@ -149,8 +149,6 @@
 
 .show-payment-white-part__copy-img_white {
     background-size: contain;
-    height: 37px;
-    width: 37px;
     border: none;
     outline: none;
     background-image: url('../../../images/files-copy-interface-white.svg');
@@ -159,4 +157,68 @@
     height: 20px;
     width: 20px;
     margin-left: 10px;
+}
+
+.show-payment-component__paid-container {
+    display: flex;
+    flex-direction: column;
+    margin: 25px auto 0 auto;
+    width: fit-content;
+}
+
+.show-payment-component__paid-container_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.show-payment-component__paid-container__add-message {
+    color: var(--main-text-color);
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+.show-payment-component__paid-container__add-message_icon {
+    background-size: contain;
+    height: 30px;
+    width: 30px;
+    border: none;
+    outline: none;
+    background-image: url('../../../images/email.svg');
+    cursor: pointer;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+}
+
+.show-payment-white-part__input_margin-top {
+    margin-top: 5px;
+}
+
+.show-payment-component__paid-button {
+    background: linear-gradient(to left, var(--main-light-green), var(--main-green-color), var(--main-light-green));
+    background-size: 200%;
+    transition: 0.5s;
+
+
+    border-radius: 3px;
+    border-style: none;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    color: var(--cards-background);
+    padding-left: 15px;
+    padding-right: 15px;
+    outline: none;
+    cursor: pointer;
+}
+
+.show-payment-component__paid-button:hover {
+    background-position: right;
+}
+
+.show-payment-component__paid-stat {
+    text-align: center;
+    margin-top: 15px;
+    color: var(--main-grey-text-color);
+    cursor: pointer;
 }
