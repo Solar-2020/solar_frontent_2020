@@ -5,6 +5,7 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import fetchModule from '../../../utils/API/FetchModule';
 import {BACKEND_ADDRESS, CARD_BANK} from '../../../utils/Config/Config';
+import ShowStatistics from './ShowStatistics/ShowStatistics';
 
 /**
  * Component with payment
@@ -21,6 +22,7 @@ function ShowPaymentComponent({payment, cookies}) {
         summ: 0,
         message: '',
         addMessage: false,
+        stat: false,
     };
 
     const [state, dispatch] = useReducer(
@@ -45,6 +47,7 @@ function ShowPaymentComponent({payment, cookies}) {
         summ,
         message,
         addMessage,
+        stat,
     } = state;
 
     function changeField(field, value) {
@@ -162,6 +165,10 @@ function ShowPaymentComponent({payment, cookies}) {
                     toast('Ваш отчёт не был доставлен серверу', errToastConfig);
                 }
             });
+    };
+
+    function closeStat() {
+        changeField('stat', !stat);
     };
 
     return (
@@ -285,7 +292,10 @@ function ShowPaymentComponent({payment, cookies}) {
                             placeholder="Сообщение получателю.."
                             onChange={(e) => changeField('message', e.target.value)}/>
                         )}
-                        <div className="show-payment-component__paid-stat">Просмотреть статистику</div>
+                        <div className="show-payment-component__paid-stat" onClick={() => changeField('stat', !stat)}>Просмотреть статистику</div>
+                        {stat && (
+                            <ShowStatistics cookies={cookies} closeStat={closeStat} paymentID={payment.id}/>
+                        )}
                     </div>
                 </div>            
             )}
