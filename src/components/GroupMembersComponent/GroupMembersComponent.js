@@ -6,6 +6,7 @@ import AddDeleteGroupMembersComponent from './AddDeleteGroupMemebersComponent/Ad
 import {searchMember} from '../../utils/search';
 import '../SearchAddGroupComponent/SearchAddGroupComponent.css';
 import searchImg from '../../images/search-glass.svg';
+import GroupMemberComponent from './GroupMemberComponent';
 
 /**
  * Group members component
@@ -151,22 +152,7 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
                 okToast={okToast} errToast={errToast} changeMembersList={changeMembersList}/>
             )}
             {searchList.map((elem) => (
-                <div key={elem.userID} className="group-view-container__group-memebers-conteiner__members-list_person">
-                    <div className="show-post-component__white-part__avatar-text__avatar"></div>
-                    <div className="show-post-component__white-part__avatar-text__text">
-                        <div className="show-post-component__white-part__avatar-text__text__name">{`${elem.name} ${elem.surname} [${elem.roleName}]`}</div>
-                        <div className="show-post-component__white-part__avatar-text__text__data">{elem.email}</div>
-                    </div>
-                    <div className="dropdown">
-                        <div className="nav__settings"></div>
-                        <div className="dropdown-content">
-                            {(elem.roleID !== 1 && roleID !== 3) && (
-                                <div onClick={() => deleteUser(elem.email)}>Удалить</div>
-                            )}
-                            <div onClick={() => copyData(elem.email)}>Копировать почту</div>
-                        </div>
-                    </div>
-                </div>
+                <GroupMemberComponent elem={elem} roleID={roleID} deleteUser={deleteUser} copyData={copyData}/>
             ))}
             {!searchList.length && ifSearch && (
                 <div className="group-view-container__group-memebers-conteiner__search-empty-container">

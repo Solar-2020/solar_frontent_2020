@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px 25px;
+    padding: 25px 25px;
     background-color: var(--background-light-green);
 }
 
@@ -45,6 +45,7 @@
 
 .show-post-component__white-part__show-payment-container__requisite {
     margin: 20px 0 5px 0;
+    text-align: center;
 }
 
 .show-post-component__white-part__show-payment-container__input {
@@ -58,4 +59,166 @@
 .show-post-component__white-part__show-payment-container__input:focus {
     border: 1px solid var(--main-light-green);
     outline: none;
+}
+
+.show-payment-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--main-text-color);
+}
+
+.show-payment-white-part {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 3px;
+    margin-top: 25px;
+}
+
+.show-payment-white-part_padding {
+    padding: 25px;
+}
+
+.show-payment-white-part__select-container__select {
+    border: none;
+    background: none;
+    margin-left: 5px;
+    outline: none;
+    color: var(--main-text-color);
+    cursor: pointer;
+}
+
+.show-payment-white-part__select-container__text {
+    display: flex;
+    /* flex-direction: row; */
+    color: var(--main-text-color);
+}
+
+.show-payment-white-part__select-container {
+    display: flex;
+    border-bottom: 1px solid var(--main-text-color);
+    padding-bottom: 5px;
+}
+
+.show-payment-white-part__copy-img {
+    background-size: contain;
+    height: 37px;
+    width: 37px;
+    border: none;
+    outline: none;
+    background-image: url('../../../images/files-copy-interface-grey.svg');
+    cursor: pointer;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+    margin-left: 10px;
+}
+
+.show-payment-white-part__phone {
+    display: flex;
+    margin-top: 15px;
+    align-items: center;
+    /* color: var(--main-grey-text-color); */
+    color: var(--main-text-color);
+}
+
+.show-payment-white-part__input {
+    border-radius: 3px;
+    border: none;
+    color: var(--main-grey-text-color);
+    padding: 5px;
+    border: 1px solid var(--border-color);
+}
+
+.show-payment-white-part__input:focus {
+    border: 1px solid var(--main-light-green);
+    outline: none;
+}
+
+.show-payment-white-part__input__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.show-payment-white-part__cards-container {
+    display: flex;
+    align-items: center;
+}
+
+.show-payment-white-part__copy-img_white {
+    background-size: contain;
+    border: none;
+    outline: none;
+    background-image: url('../../../images/files-copy-interface-white.svg');
+    cursor: pointer;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+    margin-left: 10px;
+}
+
+.show-payment-component__paid-container {
+    display: flex;
+    flex-direction: column;
+    margin: 25px auto 0 auto;
+    width: fit-content;
+}
+
+.show-payment-component__paid-container_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.show-payment-component__paid-container__add-message {
+    color: var(--main-text-color);
+    cursor: pointer;
+    margin: 5px 0;
+}
+
+.show-payment-component__paid-container__add-message_icon {
+    background-size: contain;
+    height: 30px;
+    width: 30px;
+    border: none;
+    outline: none;
+    background-image: url('../../../images/email.svg');
+    cursor: pointer;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+}
+
+.show-payment-white-part__input_margin-top {
+    margin-top: 5px;
+}
+
+.show-payment-component__paid-button {
+    background: linear-gradient(to left, var(--main-light-green), var(--main-green-color), var(--main-light-green));
+    background-size: 200%;
+    transition: 0.5s;
+
+
+    border-radius: 3px;
+    border-style: none;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    color: var(--cards-background);
+    padding-left: 15px;
+    padding-right: 15px;
+    outline: none;
+    cursor: pointer;
+}
+
+.show-payment-component__paid-button:hover {
+    background-position: right;
+}
+
+.show-payment-component__paid-stat {
+    text-align: center;
+    margin-top: 15px;
+    color: var(--main-grey-text-color);
+    cursor: pointer;
 }

@@ -26,6 +26,7 @@
     min-width: 50px;
     border-radius: 100px;
     background-color: var(--background-light-green);
+    object-fit: cover;
 }
 
 .create-post-component__white-part__avatar-text__text {
@@ -146,4 +147,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.create-post_btn-p {
+    padding: 0 15px;
 }

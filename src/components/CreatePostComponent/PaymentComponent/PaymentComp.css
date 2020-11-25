@@ -25,17 +25,9 @@
 }
 
 .payment-component__payment-form {
-    /* height: 200px;
-    background-color: var(--background-light-green);
-    border-radius: 3px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15); */
     display: flex;
     flex-direction: row;
     height: 30px;
-}
-
-.payment-component__payment-form:last-child {
-    margin-top: 5px;
 }
 
 .payment-component {
@@ -46,8 +38,20 @@
 .payment-component__payment-form__summ {
     border: 1px solid var(--border-color);
     color: var(--main-grey-text-color);
-    border-radius: 0 3px 3px 0;
+    border-radius: 3px;
     outline: none;
+    margin-top: 5px;
+    padding: 0 5px;
+    height: 30px;
+    background-color: #ffffff;
+}
+
+.payment-component__payment-form__summ_margin {
+    margin-top: 10px;
+}
+
+.payment-component__payment-form__summ_card-margin {
+    margin-top: 5px;
 }
 
 .payment-component__payment-form__list {
@@ -64,10 +68,6 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-.payment-component__payment-form__summ__requisite {
-    padding-left: 5px;
-}
-
 .payment-component__payment-form__list_flex {
     display: flex;
     align-items: center;
@@ -82,4 +82,84 @@ input::-webkit-inner-spin-button {
 
 .payment-component_target a {
     color: var(--main-green-color);
+}
+
+.payment-component__payment-form__list-select {
+    border: 1px solid var(--border-color);
+    color: var(--main-grey-text-color);
+    background-color: var(--cards-background);
+    outline: none;
+    padding: 0 5px;
+    border-radius: 3px;
+}
+
+.payment-component__error {
+    color: red;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.payment-component__card-elems-container {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.payment-component__card-elems-container__card-style {
+    background: #ddd;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.payment-component__card-symbol {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.payment-component__card-symbol__img {
+    width: 30px;
+    height: 30px;
+}
+
+.payment-component__card-symbol__text {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.payment-component__card-arrays__title {
+    color: var(--main-grey-text-color);
+}
+
+.payment-component__card-arrays__title_margin {
+    margin-bottom: 15px;
+}
+
+.payment-component__title-close__close-btn_margin {
+    margin-left: 10px;
+}
+
+.payment-component__add-button {
+    height: 30px;
+    border: 1px solid var(--border-color);
+    color: var(--main-grey-text-color);
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 3px;
+    margin-left: 10px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.payment-component__add-button:focus {
+    outline: none;
+}
+
+.payment-component__add-button:hover {
+    border: 1px solid var(--main-light-green);
+}
+
+.payment-component__border-top {
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
 }

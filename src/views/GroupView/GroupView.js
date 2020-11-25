@@ -14,7 +14,7 @@ import GroupImportantCOmponent from '../../components/GroupImportantComponent/Gr
  * Group view
  * @return {jsx}
  */
-function GroupView({cookies}) {
+function GroupView({cookies, userData}) {
     const location = useLocation();
 
     const ending = (count) => {
@@ -54,6 +54,8 @@ function GroupView({cookies}) {
         group: {},
         reloadGroup: false,
         roleID: 1,
+
+        dropdown: false,
     };
 
     const [state, dispatch] = useReducer(
@@ -86,6 +88,7 @@ function GroupView({cookies}) {
         group,
         reloadGroup,
         roleID,
+        dropdown,
     } = state;
 
     useEffect(
@@ -182,8 +185,8 @@ function GroupView({cookies}) {
                             </div>
                             {roleID !== 1 && (
                                 <div className="dropdown nav__settings_margin group-view-banner__items_margin-top">
-                                    <div className="nav__settings"></div>
-                                    <div className="dropdown-content">
+                                    <div onClick={() => changeField('dropdown', !dropdown)} className="nav__settings"></div>
+                                    <div className={`dropdown-content_${dropdown}`}>
                                         <div onClick={() => deleteUser('ddd')}>Покинуть группу</div>
                                     </div>
                                 </div>
@@ -214,7 +217,7 @@ function GroupView({cookies}) {
             <div id="groupViewPostsContainer" className="group-view-posts-container">
                 <div className="group-view-posts-container__create-post">
                     {componentActive.posts && (
-                        <GroupPostsComponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast} roleID={roleID}/>
+                        <GroupPostsComponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast} roleID={roleID} userData={userData}/>
                     )}
                     {componentActive.important && (
                         <GroupImportantCOmponent cookies={cookies} id={id} okToast={createOkToast} errToast={createErrorToast} roleID={roleID}/>

@@ -12,6 +12,7 @@ import { withCookies } from 'react-cookie'
 import LoginYandex from './views/LoginYandex/LoginYandex';
 import PayView from './views/PayView/PayView';
 import ErrorPopUp from './components/ErrorPopUp/ErrorPopUp';
+import ProfileView from './views/ProfileView/ProfileView';
 
 /**
  * Application root
@@ -59,9 +60,10 @@ function App({cookies}) {
         if (location.pathname.includes('/yandexoauth')) return;
 
         if (location.pathname !== '/login' && location.pathname !== '/registration') {
-            if (!isAuth) {
-                checkProfile(location, history, cookies);
-            }
+            // if (!isAuth) {
+            //     checkProfile(location, history, cookies);
+            // }
+            checkProfile(location, history, cookies);
         } else {
             // надо доработать, чтобудет, если зайдут сразу с login
             if (isAuth) {
@@ -89,7 +91,16 @@ function App({cookies}) {
                 } else {
                     changeField('isAuth', false);
                 };
-            });    
+
+                return response.json();
+            })
+            .then((responseBody) => {
+                if (responseBody.id) {
+                    changeField('userData', responseBody);
+                } else {
+                    changeField('userData', {});
+                }
+            });
          // при неудаче редирект на логин, если это не location ='/'
     }
 
@@ -99,7 +110,7 @@ function App({cookies}) {
 
     return (
         <BrowserRouter>
-            <Header checkAuth={checkAuth} isAuth={isAuth} cookies={cookies} delAuth={delAuth}/>
+            <Header checkAuth={checkAuth} isAuth={isAuth} cookies={cookies} delAuth={delAuth} userData={userData}/>
             <div className="container">
                 <Switch>
                     <Route path={'/'} exact render={() => (<IndexView cookies={cookies}/>)}/>
@@ -108,8 +119,9 @@ function App({cookies}) {
                     <Route path={'/allgroups'} exact render={() => (<AllGroupsView cookies={cookies}/>)}/>
                     <Route path={'/yandexoauth'} render={() => (<LoginYandex cookies={cookies}/>)}/>
                     <Route path={'/pay'} render={() => (<PayView cookies={cookies}/>)}/>
-                    <Route path={'/group/:groupUrl'} render={() => (<GroupView cookies={cookies}/>)}/>
+                    <Route path={'/group/:groupUrl'} render={() => (<GroupView cookies={cookies} userData={userData}/>)}/>
                     <Route path={'/servererror'} exact render={() => (<ErrorPopUp/>)}/>
+                    <Route path={'/profile'} exact render={() => (<ProfileView cookies={cookies} userData={userData} changeData={changeField}/>)}/>
                     <Route render={() => <h1>404: Страница не найдена</h1>} />
                 </Switch>
             </div>

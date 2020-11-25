@@ -20,6 +20,7 @@
     height: 50px;
     border-radius: 100px;
     background-color: var(--background-light-green);
+    object-fit: cover;
 }
 
 .show-post-component__white-part__avatar-text__text {
