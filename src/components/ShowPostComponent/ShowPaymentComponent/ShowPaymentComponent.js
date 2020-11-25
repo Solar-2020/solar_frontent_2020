@@ -144,8 +144,6 @@ function ShowPaymentComponent({payment, cookies}) {
             cost: summ,
         };
 
-        console.log(data);
-
         fetchModule.post({
             url: BACKEND_ADDRESS + `/api/payment/paid`,
             body: JSON.stringify(data),
@@ -155,17 +153,16 @@ function ShowPaymentComponent({payment, cookies}) {
             },
         })
             .then((response) => {
-                return response.json();
-            })
-            .then((responseBody) => {
-                if (responseBody.error) {
+                if (response.ok) {
+                    toast('Данные отправлены', okToastConfig);
+                    changeField('message', '');
+                    changeField('addMessage', false);
+                    changeField('summ', 0);
+                } else {
                     toast('Ваш отчёт не был доставлен серверу', errToastConfig);
-                };
-                // if (responseBody.url) {
-                    
-                // };
+                }
             });
-    }
+    };
 
     return (
         <div className="show-post-component__white-part__show-payment-container">
