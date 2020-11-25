@@ -89,6 +89,11 @@
     margin-top: 20px;
     border-radius: 10px;
     background-position: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .index-view-container_img_content {
@@ -109,4 +114,17 @@
     background-repeat: no-repeat;
     background-position: center;
     margin-bottom: 20px;
+}
+
+.index-text_light {
+    font-size: 30px;
+    font-family: 'Roboto-Light';
+    color: #ffffff;
+}
+
+.index-text_bold {
+    font-size: 30px;
+    font-family: 'Roboto-Regular';
+    color: #ffffff;
+    font-weight: bold;
 }

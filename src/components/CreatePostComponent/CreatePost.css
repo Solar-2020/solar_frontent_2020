@@ -148,3 +148,7 @@
     flex-direction: row;
     align-items: center;
 }
+
+.create-post_btn-p {
+    padding: 0 15px;
+}

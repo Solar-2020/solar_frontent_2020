@@ -425,7 +425,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast, userData}) {
                     type="file" name="addPostDoc"
                     onChange={addDocToPostFetch}/>
 
-                <button className="create-post-component__green-part__buttons_create-post" onClick={() => submitInfo()}>Опубликовать</button>
+                <button className="create-post-component__green-part__buttons_create-post create-post_btn-p" onClick={() => submitInfo()}>Опубликовать</button>
             </div>
         </div>
     );
