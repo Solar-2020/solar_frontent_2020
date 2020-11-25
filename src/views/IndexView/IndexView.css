@@ -88,6 +88,7 @@
     background-image: url('../../images/peple.png');
     margin-top: 20px;
     border-radius: 10px;
+    background-position: center;
 }
 
 .index-view-container_img_content {
