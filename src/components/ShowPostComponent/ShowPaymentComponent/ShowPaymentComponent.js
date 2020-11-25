@@ -60,11 +60,13 @@ function ShowPaymentComponent({payment, cookies}) {
 
     useEffect(
         () => {
-            console.log(payment);
+            console.log('------', payment);
             if (payment.methods) {
                 payment.methods.forEach((elem) => {
                     if (elem.type === 'phone' || elem.type === 'yoomoney') {
                         changeElem(elem.type, [elem]);
+                        if (elem.type === 'phone') changeField('select', Number(1));
+                        if (elem.type === 'yoomoney') changeField('select', Number(3))
                     } else {
                         fetch(`https://api.cardinfo.online?input=${elem.cardNumber.replace(' ', '')}&apiKey=${CARD_BANK}&fields=bankNameLocal,formBankLogoSmallSvg,formBackgroundColor,formTextColor`)
                             .then((response) => {
@@ -73,6 +75,8 @@ function ShowPaymentComponent({payment, cookies}) {
                                 // Почему-то делается в 2 раза больше запросов
                                 let newElem = {...elem, cardBank: data.bankNameLocal, cardBankLogo: data.formBankLogoSmallSvg, backgroundColor: data.formBackgroundColor, color: data.formTextColor};
                                 changeElem(elem.type, [newElem]);
+                                changeField('select', Number(2))
+
                             }).catch(function(error) {
                                 console.error(error)
                             });
@@ -195,7 +199,7 @@ function ShowPaymentComponent({payment, cookies}) {
                         <div className="show-payment-white-part_padding">
                             <div className="show-payment-white-part__select-container">
                                 <div className="show-payment-white-part__select-container__text">Реквизиты:</div>
-                                <select className="show-payment-white-part__select-container__select" onChange={(e) => changeField('select', Number(e.target.value))}>
+                                <select className="show-payment-white-part__select-container__select" value={select} onChange={(e) => changeField('select', Number(e.target.value))}>
                                     {phone.length > 0 && (
                                         <option value="1">номера телефонов</option>
                                     )}
