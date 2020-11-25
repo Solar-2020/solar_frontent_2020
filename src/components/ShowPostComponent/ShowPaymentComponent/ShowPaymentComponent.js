@@ -105,7 +105,8 @@ function ShowPaymentComponent({payment, cookies}) {
                     toast('Кошелёк не активирован или не сужествует!', errToastConfig);
                 };
                 if (responseBody.url) {
-                    window.location.href = `${responseBody.url}?orderId=${responseBody.orderID}`;
+                    // window.location.href = `${responseBody.url}?orderId=${responseBody.orderID}`;
+                    window.open(`${responseBody.url}?orderId=${responseBody.orderID}`);
                 };
             });
     };
