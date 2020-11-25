@@ -23,11 +23,11 @@ function ShowStatistics({cookies, closeStat, paymentID}) {
     function getStat() {
         // console.log('stat');
         // const responseBody = [{"payer":{"id":281,"email":"Ad.shishova@yandex.ru","name":"Анастасия","surname":"Шишова","avatarURL":"61207/enc-bccac8eccfa2ed0b4918b8f64687f983f23d9a96d2eccac2a697ce7cd339719d"},"paidID":4,"paymentID":69,"message":"","requisiteType":3,"paidAt":"2020-11-25T13:35:00.349584+03:00","cost":"11","requisite":{"youMoneyAccount":{"id":17,"accountNumber":"1111111111111111","owner":281}}},{"payer":{"id":281,"email":"Ad.shishova@yandex.ru","name":"Анастасия","surname":"Шишова","avatarURL":"61207/enc-bccac8eccfa2ed0b4918b8f64687f983f23d9a96d2eccac2a697ce7cd339719d"},"paidID":5,"paymentID":69,"message":"","requisiteType":3,"paidAt":"2020-11-25T14:22:07.739816+03:00","cost":"100","requisite":{"youMoneyAccount":{"id":17,"accountNumber":"1111111111111111","owner":281}}},{"payer":{"id":281,"email":"Ad.shishova@yandex.ru","name":"Анастасия","surname":"Шишова","avatarURL":"61207/enc-bccac8eccfa2ed0b4918b8f64687f983f23d9a96d2eccac2a697ce7cd339719d"},"paidID":6,"paymentID":69,"message":"100","requisiteType":3,"paidAt":"2020-11-25T14:22:28.843867+03:00","cost":"1","requisite":{"youMoneyAccount":{"id":17,"accountNumber":"1111111111111111","owner":281}}}];
-        // const responseBody = [];
-        // if (Array.isArray(responseBody)) {
-        //     setStatistic(responseBody);
-        //     setIsStat(true);
-        // }
+        const responseBody = [];
+        if (Array.isArray(responseBody)) {
+            setStatistic(responseBody);
+            setIsStat(true);
+        }
 
         fetchModule.get({
             url: BACKEND_ADDRESS + `/api/payment/stat/${paymentID}`,
@@ -89,6 +89,9 @@ function ShowStatistics({cookies, closeStat, paymentID}) {
                             filename={`tablexls-${paymentID}`}
                             sheet={`PayTogether-${paymentID}`}
                             buttonText="Скачать .xls"/>
+                        )}
+                        {!isStat && (
+                            <div className="preloader"></div>
                         )}
                     </div>
                 )}

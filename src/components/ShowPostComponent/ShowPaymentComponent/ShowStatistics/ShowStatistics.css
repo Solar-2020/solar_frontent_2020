@@ -79,3 +79,16 @@
     margin-top: 15px;
     color: #ffffff;
 }
+
+.preloader {
+    margin: 0 auto 15px auto;
+    background-image: url('../../../../images/25.svg');
+    background-size: contain;
+    height: 60px;
+    width: 60px;
+    border: none;
+    outline: none;
+    background-color: var(--cards-background);
+    cursor: pointer;
+    background-repeat: no-repeat;
+}
