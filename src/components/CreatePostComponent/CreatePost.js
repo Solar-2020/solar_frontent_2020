@@ -279,6 +279,10 @@ function CreatePost({changeReload, cookies, id, okToast, errToast, userData}) {
         if (paymentComp && !paymentArrays.phones.length && !paymentArrays.cards.length && !paymentArrays.moneys.length) {
             errToast(`Заполните реквизиты для оплаты`);
             return;
+        };
+
+        if (form.payments[0].paymentValue === 0 ) {
+            form = {...form, payments: []};
         }
 
         console.log(form);
