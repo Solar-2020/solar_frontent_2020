@@ -20,6 +20,7 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+    color: var(--main-text-color);
 }
 
 .show-stat__lightbox-container__title {
@@ -66,4 +67,15 @@
 
 .show-stat-table_margin {
     margin-top: 15px;
+}
+
+.show-stat-table__save-btn {
+    background: var(--main-green-color);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 5px 10px;
+    outline: none;
+    margin-top: 15px;
+    color: #ffffff;
 }
