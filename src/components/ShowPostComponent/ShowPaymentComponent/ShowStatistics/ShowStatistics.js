@@ -90,9 +90,9 @@ function ShowStatistics({cookies, closeStat, paymentID}) {
                             sheet={`PayTogether-${paymentID}`}
                             buttonText="Скачать .xls"/>
                         )}
-                        {!isStat && (
+                        {/* {!isStat && (
                             <div className="preloader"></div>
-                        )}
+                        )} */}
                     </div>
                 )}
             </div>
