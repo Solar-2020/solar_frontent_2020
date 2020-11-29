@@ -91,7 +91,7 @@ function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, err
     function copyLinkForGroup(e) {
         e.preventDefault();
     
-        fetchModule.get({
+        fetchModule.put({
             url: BACKEND_ADDRESS + `/api/group/invite/${id}`,
             headers: {
                 'Content-Type': 'application/json',
