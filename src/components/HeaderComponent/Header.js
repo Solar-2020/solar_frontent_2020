@@ -15,6 +15,11 @@ function Header({checkAuth, isAuth, cookies, delAuth, userData}) {
 
     useEffect(() => {
         setDropdown(false);
+
+        if (localStorage.getItem('groupInvite')) {
+            console.log(localStorage.getItem('groupInvite'));
+        };
+
         checkAuth(location, history, cookies);
     }, [location]);
 

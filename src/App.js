@@ -53,24 +53,21 @@ function App({cookies}) {
     } = state;
 
     function checkAuth(location, history, cookies) {
-        // console.log('----');
-        // console.log(location);
-        // console.log(isAuth);
-        // console.log(userData);
         if (location.pathname.includes('/yandexoauth')) return;
 
-        if (location.pathname !== '/login' && location.pathname !== '/registration') {
-            // if (!isAuth) {
-            //     checkProfile(location, history, cookies);
-            // }
-            checkProfile(location, history, cookies);
-        } else {
-            // надо доработать, чтобудет, если зайдут сразу с login
-            if (isAuth) {
-                // return <Redirect to="/"/>
-                history.push('/');
-            }
-        }
+        // if (location.pathname !== '/login' && location.pathname !== '/registration') {
+        //     // if (!isAuth) {
+        //     //     checkProfile(location, history, cookies);
+        //     // }
+        //     checkProfile(location, history, cookies);
+        // } else {
+        //     // надо доработать, чтобудет, если зайдут сразу с login
+        //     if (isAuth) {
+        //         // return <Redirect to="/"/>
+        //         history.push('/');
+        //     }
+        // }
+        checkProfile(location, history, cookies);
     };
 
     function checkProfile(location, history, cookies) {
@@ -85,7 +82,11 @@ function App({cookies}) {
             .then((response) => {
                 if (response.ok) {
                     changeField('isAuth', true);
-                } else if (location.pathname !== '/') {
+
+                    if (location.pathname == '/login' && location.pathname == '/registration') {
+                        history.push('/');
+                    };
+                } else if (location.pathname !== '/' && !/\/welcome\//.test(location.pathname)) {
                     changeField('isAuth', false);
                     history.push('/login');
                 } else {
@@ -99,6 +100,12 @@ function App({cookies}) {
                     changeField('userData', responseBody);
                 } else {
                     changeField('userData', {});
+                }
+
+                if (/\/welcome\//.test(location.pathname)) {
+                    localStorage.setItem('groupInvite', location.href);
+                    alert('Необходимо быть авторизованным или зарегистрированным для добавления в группу!');
+                    history.push('/login');
                 }
             });
          // при неудаче редирект на логин, если это не location ='/'
@@ -114,6 +121,7 @@ function App({cookies}) {
             <div className="container">
                 <Switch>
                     <Route path={'/'} exact render={() => (<IndexView cookies={cookies}/>)}/>
+                    <Route path={'/welcome/:welcomeID'} render={() => (<IndexView cookies={cookies}/>)}/>
                     <Route path={'/login'} exact render={() => (<LoginView cookies={cookies}/>)}/>
                     <Route path={'/registration'} exact render={() => (<RegistrationView cookies={cookies}/>)}/>
                     <Route path={'/allgroups'} exact render={() => (<AllGroupsView cookies={cookies}/>)}/>
