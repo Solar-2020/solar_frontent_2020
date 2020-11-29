@@ -114,7 +114,7 @@ function App({cookies}) {
                 if (/\/welcome\//.test(location.pathname)) {
                     localStorage.setItem('groupInvite', `${BACKEND_ADDRESS}${location.pathname}`);
                     alert('Необходимо быть авторизованным или зарегистрированным для добавления в группу!');
-                    history.push('/login');
+                    (responseBody.id) ? history.push('/') : history.push('/login');
                 };
             });
          // при неудаче редирект на логин, если это не location ='/'
