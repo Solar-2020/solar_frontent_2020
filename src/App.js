@@ -100,13 +100,15 @@ function App({cookies}) {
                     changeField('userData', responseBody);
                 } else {
                     changeField('userData', {});
-                }
+                };
 
                 if (/\/welcome\//.test(location.pathname)) {
                     localStorage.setItem('groupInvite', location.pathname);
+                    console.log(location.pathname);
+                    console.log(localStorage.getItem('groupInvite'));
                     alert('Необходимо быть авторизованным или зарегистрированным для добавления в группу!');
                     history.push('/login');
-                }
+                };
             });
          // при неудаче редирект на логин, если это не location ='/'
     }
