@@ -7,7 +7,7 @@ import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
 /**
  * Login view
  */
-function LoginView({userData}) {
+function LoginView() {
     const oauth = {
         id: 'e50242f5de2543598a50fc9a02b2b394',
         url: 'https://oauth.yandex.ru/authorize?response_type=token&client_id=',
@@ -84,36 +84,34 @@ function LoginView({userData}) {
 
     return (
         <div className="login-view-container">
-            {!userData.hasOwnProperty('id') && (
-                <div className="login-view-container__card">
-                    <div></div>
-                    <div className="login-view-container__card__title">Авторизация аккаунта</div>
-                    {mainError && (
-                        <div className="login-view-container__card__input-block__input__error-text">{mainError}</div>
-                    )}
-                    <form className="login-view-container__form">
-                        <div className="login-view-container__card__input-block__title">Электронная почта</div>
-                        <input
-                            className="login-view-container__card__input-block__input"
-                            onChange={e => changeField('email', e.target.value)}
-                            placeholder="Электронная почта"/>
+            <div className="login-view-container__card">
+                <div></div>
+                <div className="login-view-container__card__title">Авторизация аккаунта</div>
+                {mainError && (
+                    <div className="login-view-container__card__input-block__input__error-text">{mainError}</div>
+                )}
+                <form className="login-view-container__form">
+                    <div className="login-view-container__card__input-block__title">Электронная почта</div>
+                    <input
+                        className="login-view-container__card__input-block__input"
+                        onChange={e => changeField('email', e.target.value)}
+                        placeholder="Электронная почта"/>
 
-                        <div className="login-view-container__card__input-block__title">Пароль</div>
-                        <input
-                            onChange={e => changeField('password', e.target.value)}
-                            type="password"
-                            className="login-view-container__card__input-block__input"placeholder="Введите пароль"/>
-                        
-                        <a className="login-view-container__card__yandex" href={`${oauth.url}${oauth.id}`}></a>
+                    <div className="login-view-container__card__input-block__title">Пароль</div>
+                    <input
+                        onChange={e => changeField('password', e.target.value)}
+                        type="password"
+                        className="login-view-container__card__input-block__input"placeholder="Введите пароль"/>
+                    
+                    <a className="login-view-container__card__yandex" href={`${oauth.url}${oauth.id}`}></a>
 
-                    <button
-                        type="submit"
-                        onClick={e => handleSubmit(e)}
-                        className="login-view-container__card__button login-view-container__card__button_margin">Авторизоваться</button>
-                    </form>
-                    <Link to="/registration" className="login-view-container__card__link">Ещё нет аккаунта? Создайте!</Link>
-                </div>
-            )}
+                <button
+                    type="submit"
+                    onClick={e => handleSubmit(e)}
+                    className="login-view-container__card__button login-view-container__card__button_margin">Авторизоваться</button>
+                </form>
+                <Link to="/registration" className="login-view-container__card__link">Ещё нет аккаунта? Создайте!</Link>
+            </div>
         </div>
     )
 }
