@@ -83,7 +83,7 @@ function App({cookies}) {
                 if (response.ok) {
                     changeField('isAuth', true);
 
-                    if (location.pathname == '/login' && location.pathname == '/registration') {
+                    if (location.pathname == '/login' || location.pathname == '/registration') {
                         history.push('/');
                     };
                 } else if (location.pathname !== '/' && !/\/welcome\//.test(location.pathname)) {
