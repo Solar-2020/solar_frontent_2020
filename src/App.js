@@ -7,12 +7,14 @@ import IndexView from './views/IndexView/IndexView';
 import LoginView from './views/LoginView/LoginView';
 import RegistrationView from './views/RegistrationView/RegistrationView';
 import fetchModule from './utils/API/FetchModule.js';
-import {BACKEND_ADDRESS} from './utils/Config/Config.js';
+import {BACKEND_ADDRESS, okToastConfig, errToastConfig} from './utils/Config/Config.js';
 import { withCookies } from 'react-cookie'
 import LoginYandex from './views/LoginYandex/LoginYandex';
 import PayView from './views/PayView/PayView';
 import ErrorPopUp from './components/ErrorPopUp/ErrorPopUp';
 import ProfileView from './views/ProfileView/ProfileView';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 /**
  * Application root
@@ -105,8 +107,8 @@ function App({cookies}) {
 
                 if (/\/welcome\//.test(location.pathname)) {
                     localStorage.setItem('groupInvite', `${BACKEND_ADDRESS}${location.pathname}`);
-                    alert('Необходимо быть авторизованным или зарегистрированным для добавления в группу!');
-                    (responseBody.id) ? history.push('/') : history.push('/login');
+                    toast('Необходимо быть авторизованным или зарегистрированным для добавления в группу!', okToastConfig);
+                    setTimeout(() => {(responseBody.id) ? history.push('/') : history.push('/login');}, 2500);
                 };
             });
          // при неудаче редирект на логин, если это не location ='/'
@@ -123,7 +125,16 @@ function App({cookies}) {
             },
         })
             .then((response) => {
-                console.log(response);
+                return response.json();
+            })
+            .then((responseBody) => {
+                if (responseBody.error) {
+                    toast('Вы уже состоите в группе по данной ссылке');
+                    localStorage.clear();
+                };
+                if (responseBody.group) {
+                    localStorage.clear();
+                };
             });
     };
 
@@ -134,6 +145,7 @@ function App({cookies}) {
     return (
         <BrowserRouter>
             <Header checkAuth={checkAuth} isAuth={isAuth} cookies={cookies} delAuth={delAuth} userData={userData} resolveInviteLink={resolveInviteLink}/>
+            <ToastContainer/>
             <div className="container">
                 <Switch>
                     <Route path={'/'} exact render={() => (<IndexView cookies={cookies}/>)}/>
