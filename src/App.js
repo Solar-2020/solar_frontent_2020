@@ -25,6 +25,7 @@ function App({cookies}) {
     // useEffect(() => {
     //     cookies.set('name', 'Ross', { path: '/' });
     // }, []);
+    // https://pay-together.ru/welcome/E7nQxxVK0y
 
     function changeField(field, value) {
         dispatch({ type: 'CHANGE_FIELD', field, value });
@@ -71,13 +72,6 @@ function App({cookies}) {
     };
 
     function checkProfile(location, history, cookies) {
-        // if (/\/welcome\//.test(location.pathname)) {
-        //     localStorage.setItem('groupInvite', location.pathname);
-        //     console.log(location.href);
-        //     console.log(localStorage.getItem('groupInvite'));
-        //     alert('Необходимо быть авторизованным или зарегистрированным для добавления в группу!');
-        //     history.push('/login');
-        // };
         fetchModule.get({
             url: BACKEND_ADDRESS + `/api/account/by-cookie`,
             body: null,
@@ -87,8 +81,6 @@ function App({cookies}) {
             },
         })
             .then((response) => {
-                console.log(response);
-
                 if (response.ok) {
                     changeField('isAuth', true);
 

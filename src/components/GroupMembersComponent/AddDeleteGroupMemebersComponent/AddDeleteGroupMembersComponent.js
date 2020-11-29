@@ -137,12 +137,16 @@ function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, err
                     <option value="2">Администратор</option>
                 </select>
             </div>
-            <button
-                className="group-view-container__group-memebers-conteiner__add-button"
-                onClick={(e) => addUserAction(e)}>Добавить</button>
-            <button
-                className="group-view-container__group-memebers-conteiner__add-button"
-                onClick={(e) => copyLinkForGroup(e)}>Копировать</button>
+            <div className="link-button_container">
+                <button
+                    className="group-view-container__group-memebers-conteiner__add-button"
+                    onClick={(e) => addUserAction(e)}>Добавить</button>
+                <button
+                    data-title="Ссылка приглашение"
+                    title="Ссылка приглашение"
+                    className="link-button"
+                    onClick={(e) => copyLinkForGroup(e)}/>
+            </div>
         </div>
 
     );
