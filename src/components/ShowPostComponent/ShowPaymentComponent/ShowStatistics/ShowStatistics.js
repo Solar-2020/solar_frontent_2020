@@ -61,7 +61,7 @@ function ShowStatistics({cookies, closeStat, paymentID}) {
                 {isStat && !statistic.length ? (
                     <div className="show-stat-table_margin">Пока никто из пользователей не оставил оплату</div>
                 ) : (
-                    <div className="show-stat-table_margin">
+                    <div className="show-stat-table_margin show-stat-table_overflow">
                         {isStat && (
                             <table className="show-stat-table" id={`table-to-xls-${paymentID}`}>
                                 <tbody>
@@ -82,18 +82,18 @@ function ShowStatistics({cookies, closeStat, paymentID}) {
                                 </tbody>
                             </table>
                         )}
-                        {isStat && (
-                            <ReactHTMLTableToExcel
-                            className="show-stat-table__save-btn"
-                            table={`table-to-xls-${paymentID}`}
-                            filename={`tablexls-${paymentID}`}
-                            sheet={`PayTogether-${paymentID}`}
-                            buttonText="Скачать .xls"/>
-                        )}
                         {/* {!isStat && (
                             <div className="preloader"></div>
                         )} */}
                     </div>
+                )}
+                {isStat && statistic.length > 0 && (
+                    <ReactHTMLTableToExcel
+                    className="show-stat-table__save-btn show-stat-table_margin"
+                    table={`table-to-xls-${paymentID}`}
+                    filename={`tablexls-${paymentID}`}
+                    sheet={`PayTogether-${paymentID}`}
+                    buttonText="Скачать .xls"/>
                 )}
             </div>
         </div>
