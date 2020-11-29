@@ -129,7 +129,7 @@ function App({cookies}) {
             })
             .then((responseBody) => {
                 if (responseBody.error) {
-                    toast('Вы уже состоите в группе по данной ссылке');
+                    toast('Вы уже состоите в группе по данной ссылке', errToastConfig);
                     localStorage.clear();
                 };
                 if (responseBody.group) {
