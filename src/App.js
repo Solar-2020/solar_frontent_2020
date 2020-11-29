@@ -122,7 +122,7 @@ function App({cookies}) {
         const data = {link};
 
         fetchModule.post({
-            url: BACKEND_ADDRESS + `/api/account/by-cookie`,
+            url: BACKEND_ADDRESS + `/api/group/invite/resolve`,
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
