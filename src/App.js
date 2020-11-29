@@ -113,6 +113,8 @@ function App({cookies}) {
     }
 
     function resolveInviteLink(link, history, cookies) {
+        link = link.replaceAll('/', '%2F').replaceAll(':', '%3A');
+
         fetchModule.post({
             url: BACKEND_ADDRESS + `/api/group/invite/resolve?link=${link}`,
             headers: {
