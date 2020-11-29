@@ -87,6 +87,8 @@ function App({cookies}) {
             },
         })
             .then((response) => {
+                console.log(response);
+
                 if (response.ok) {
                     changeField('isAuth', true);
 

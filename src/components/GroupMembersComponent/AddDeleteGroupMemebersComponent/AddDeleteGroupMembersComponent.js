@@ -7,7 +7,7 @@ import {BACKEND_ADDRESS} from '../../../utils/Config/Config.js';
  * Group members component
  * @return {jsx}
  */
-function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, errToast, changeMembersList}) {
+function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, errToast, changeMembersList, copyURL}) {
     function changeAddUserField(field, value) {
         dispatch({type: 'CHANGE_ADD_USER_FIELD', field, value});
     };
@@ -106,7 +106,9 @@ function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, err
                     errToast('Ошибка с копированием ссылки');
                 };
 
-                console.log(responseBody);
+                if (responseBody.link) {
+                    copyURL(responseBody.link);
+                };
             });
     };
 
