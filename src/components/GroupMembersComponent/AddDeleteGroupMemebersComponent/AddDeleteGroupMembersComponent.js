@@ -88,10 +88,24 @@ function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, err
             });
     };
 
-    function delUserAction(e) {
-        e.preventDefault();
+    function copyLinkForGroup() {
+        fetchModule.get({
+            url: BACKEND_ADDRESS + `/api/group/invite/${id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((responseBody) => {
+                if (responseBody.error) {
+                    errToast('Ошибка с копированием ссылки');
+                };
 
-        console.log(delUserEmail);
+                console.log(responseBody);
+            });
     };
 
     return (
@@ -122,6 +136,9 @@ function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, err
             <button
                 className="group-view-container__group-memebers-conteiner__add-button"
                 onClick={(e) => addUserAction(e)}>Добавить</button>
+            <button
+                className="group-view-container__group-memebers-conteiner__add-button"
+                onClick={() => copyLinkForGroup()}>Копировать</button>
         </div>
 
     );
