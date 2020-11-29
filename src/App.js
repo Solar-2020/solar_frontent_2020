@@ -71,6 +71,13 @@ function App({cookies}) {
     };
 
     function checkProfile(location, history, cookies) {
+        // if (/\/welcome\//.test(location.pathname)) {
+        //     localStorage.setItem('groupInvite', location.pathname);
+        //     console.log(location.href);
+        //     console.log(localStorage.getItem('groupInvite'));
+        //     alert('Необходимо быть авторизованным или зарегистрированным для добавления в группу!');
+        //     history.push('/login');
+        // };
         fetchModule.get({
             url: BACKEND_ADDRESS + `/api/account/by-cookie`,
             body: null,
@@ -104,8 +111,6 @@ function App({cookies}) {
 
                 if (/\/welcome\//.test(location.pathname)) {
                     localStorage.setItem('groupInvite', location.pathname);
-                    console.log(location.pathname);
-                    console.log(localStorage.getItem('groupInvite'));
                     alert('Необходимо быть авторизованным или зарегистрированным для добавления в группу!');
                     history.push('/login');
                 };
@@ -113,13 +118,29 @@ function App({cookies}) {
          // при неудаче редирект на логин, если это не location ='/'
     }
 
+    function resolveInviteLink(link, history, cookies) {
+        const data = {link};
+
+        fetchModule.post({
+            url: BACKEND_ADDRESS + `/api/account/by-cookie`,
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                console.log(response);
+            });
+    };
+
     function delAuth() {
         changeField('isAuth', false);
     };
 
     return (
         <BrowserRouter>
-            <Header checkAuth={checkAuth} isAuth={isAuth} cookies={cookies} delAuth={delAuth} userData={userData}/>
+            <Header checkAuth={checkAuth} isAuth={isAuth} cookies={cookies} delAuth={delAuth} userData={userData} resolveInviteLink={resolveInviteLink}/>
             <div className="container">
                 <Switch>
                     <Route path={'/'} exact render={() => (<IndexView cookies={cookies}/>)}/>
