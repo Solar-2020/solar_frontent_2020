@@ -86,7 +86,7 @@ function App({cookies}) {
                     if (location.pathname == '/login' || location.pathname == '/registration') {
                         history.push('/');
                     };
-                } else if (location.pathname !== '/' && !/\/welcome\//.test(location.pathname)) {
+                } else if (location.pathname !== '/' && !/\/welcome\//.test(location.pathname) && location.pathname !== '/login' && location.pathname !== '/registration') {
                     changeField('isAuth', false);
                     history.push('/login');
                 } else {
