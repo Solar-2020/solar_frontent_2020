@@ -16,7 +16,7 @@ function Header({checkAuth, isAuth, cookies, delAuth, userData, resolveInviteLin
     useEffect(() => {
         setDropdown(false);
 
-        if (location.pathname === '/' && localStorage.getItem('groupInvite') !== 'undefined') {
+        if (location.pathname === '/' && /\/welcome\//.test(String(localStorage.getItem('groupInvite')))) {
             resolveInviteLink(localStorage.getItem('groupInvite'), history, cookies);
         };
 
