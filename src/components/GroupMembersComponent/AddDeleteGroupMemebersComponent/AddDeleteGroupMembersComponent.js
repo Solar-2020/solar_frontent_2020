@@ -88,7 +88,9 @@ function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, err
             });
     };
 
-    function copyLinkForGroup() {
+    function copyLinkForGroup(e) {
+        e.preventDefault();
+    
         fetchModule.get({
             url: BACKEND_ADDRESS + `/api/group/invite/${id}`,
             headers: {
@@ -138,7 +140,7 @@ function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, err
                 onClick={(e) => addUserAction(e)}>Добавить</button>
             <button
                 className="group-view-container__group-memebers-conteiner__add-button"
-                onClick={() => copyLinkForGroup()}>Копировать</button>
+                onClick={(e) => copyLinkForGroup(e)}>Копировать</button>
         </div>
 
     );
