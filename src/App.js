@@ -102,6 +102,12 @@ function App({cookies}) {
                     changeField('isAuth', false);
                 };
 
+                if (/\/welcome\//.test(location.pathname)) {
+                    localStorage.setItem('groupInvite', `${BACKEND_ADDRESS}${location.pathname}`);
+                    alert('Необходимо быть авторизованным или зарегистрированным для добавления в группу!');
+                    history.push('/login');
+                };
+
                 return response.json();
             })
             .then((responseBody) => {
@@ -109,12 +115,6 @@ function App({cookies}) {
                     changeField('userData', responseBody);
                 } else {
                     changeField('userData', {});
-                };
-
-                if (/\/welcome\//.test(location.pathname)) {
-                    localStorage.setItem('groupInvite', `${BACKEND_ADDRESS}${location.pathname}`);
-                    alert('Необходимо быть авторизованным или зарегистрированным для добавления в группу!');
-                    history.push('/login');
                 };
             });
          // при неудаче редирект на логин, если это не location ='/'
