@@ -83,7 +83,7 @@ function App({cookies}) {
                 if (response.ok) {
                     changeField('isAuth', true);
 
-                    if (location.pathname == '/login' || location.pathname == '/registration') {
+                    if (location.pathname === '/login' || location.pathname === '/registration') {
                         history.push('/');
                     };
                 } else if (location.pathname !== '/' && !/\/welcome\//.test(location.pathname) && location.pathname !== '/login' && location.pathname !== '/registration') {
@@ -103,7 +103,7 @@ function App({cookies}) {
                 }
 
                 if (/\/welcome\//.test(location.pathname)) {
-                    localStorage.setItem('groupInvite', location.href);
+                    localStorage.setItem('groupInvite', location.pathname);
                     alert('Необходимо быть авторизованным или зарегистрированным для добавления в группу!');
                     history.push('/login');
                 }
