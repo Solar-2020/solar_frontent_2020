@@ -122,7 +122,7 @@ function App({cookies}) {
                 <Switch>
                     <Route path={'/'} exact render={() => (<IndexView cookies={cookies}/>)}/>
                     <Route path={'/welcome/:welcomeID'} render={() => (<IndexView cookies={cookies}/>)}/>
-                    <Route path={'/login'} exact render={() => (<LoginView cookies={cookies}/>)}/>
+                    <Route path={'/login'} exact render={() => (<LoginView userData={userData}/>)}/>
                     <Route path={'/registration'} exact render={() => (<RegistrationView cookies={cookies}/>)}/>
                     <Route path={'/allgroups'} exact render={() => (<AllGroupsView cookies={cookies}/>)}/>
                     <Route path={'/yandexoauth'} render={() => (<LoginYandex cookies={cookies}/>)}/>
