@@ -121,7 +121,7 @@ function App({cookies}) {
     function resolveInviteLink(link, history, cookies) {
         const data = {link};
 
-        fetchModule.post({
+        fetchModule.get({
             url: BACKEND_ADDRESS + `/api/group/invite/resolve`,
             body: JSON.stringify(data),
             headers: {
