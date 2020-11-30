@@ -66,7 +66,7 @@ function ShowStatistics({cookies, closeStat, paymentID}) {
                             <table className="show-stat-table" id={`table-to-xls-${paymentID}`}>
                                 <tbody>
                                     <tr>
-                                        <th>Платильщик</th>
+                                        <th>Оплативший</th>
                                         <th>Почта</th>
                                         <th>Сумма</th>
                                         <th>Дата</th>

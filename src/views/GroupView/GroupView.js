@@ -110,6 +110,9 @@ function GroupView({cookies, userData}) {
             .then((response) => {
                 if (response.ok) {
                     return response.json();
+                } else {
+                    createErrorToast('У Вас недостаточно прав для совершения данной операции! Вас перенаправят на список групп');
+                    setTimeout(() => {history.push('/allgroups');}, 2400);
                 }
             })
             .then((responseBody) => {
@@ -130,7 +133,6 @@ function GroupView({cookies, userData}) {
     };
 
     function deleteUser() {
-        createOkToast('Группу пока нельзя покинуть, нет функционала');
         const data = {
             group: Number(id),
             userEmail: userData.email,
@@ -148,13 +150,13 @@ function GroupView({cookies, userData}) {
                 if (response.ok) {
                     return response.json();
                 } else {
-                    createOkToast('С вашим выходом из группы произошла ошибка, обновите страницу');
+                    createErrorToast('С вашим выходом из группы произошла ошибка, обновите страницу');
                 };
             })
             .then((responseBody) => {
                 if (responseBody.userEmail) {
-                    createErrorToast(`Вы покинули группу! Вас перенаправит на список групп`);
-                    setTimeout(() => {history.push('/allgroups');}, 2300);
+                    createOkToast(`Вы покинули группу! Вас перенаправит на список групп`);
+                    setTimeout(() => {history.push('/allgroups');}, 2400);
                 };
             });
     };
