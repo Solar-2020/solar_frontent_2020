@@ -156,7 +156,7 @@ function ShowPaymentComponent({payment, cookies}) {
             paymentID: payment.id,
             message: message,
             requisiteType: reqType[selectType.split(':')[1]],
-            requisiteID: selectType.split(':')[0],
+            requisiteID: Number(selectType.split(':')[0]),
             cost: summ,
         };
 
