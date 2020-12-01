@@ -51,6 +51,33 @@ function ShowStatistics({cookies, closeStat, paymentID}) {
             });
     };
 
+    function getRequisite(elem) {
+        // switch (elem.requisiteType) {
+        //     case 1: 
+        //         return (<td>{elem.requisite.bankCard.cardNumber}</td>);
+        //     case 2:
+        //         return (<td>{elem.requisite.phonePayment.phoneNumber}</td>);
+        //     case 3:
+        //         return (<td>{elem.requisite.youMoneyAccount.accountNumber}</td>);
+        //     default:
+        //         break;
+        // };
+
+        // return (<td></td>);
+        switch (elem.requisiteType) {
+            case 1: 
+                return elem.requisite.bankCard.cardNumber;
+            case 2:
+                return elem.requisite.phonePayment.phoneNumber;
+            case 3:
+                return elem.requisite.youMoneyAccount.accountNumber;
+            default:
+                break;
+        };
+
+        return '';
+    };
+
     return (
         <div className="show-stat__lightbox">
             <div className="show-stat__lightbox-container">
@@ -69,6 +96,7 @@ function ShowStatistics({cookies, closeStat, paymentID}) {
                                         <th>Оплативший</th>
                                         <th>Почта</th>
                                         <th>Сумма</th>
+                                        <th>Реквизит</th>
                                         <th>Дата</th>
                                     </tr>
                                     {statistic.map((elem, index) => (
@@ -76,6 +104,7 @@ function ShowStatistics({cookies, closeStat, paymentID}) {
                                             <td>{`${elem.payer.name} ${elem.payer.surname}`}</td>
                                             <td>{elem.payer.email}</td>
                                             <td>{elem.cost}</td>
+                                            <td>{getRequisite(elem)}</td>
                                             <td>{elem.paidAt.split('T')[0]}</td>
                                         </tr>
                                     ))}
