@@ -85,7 +85,9 @@
     border: none;
     outline: none;
     background-repeat: no-repeat;
-    background-image: url('../../images/peple.png');
+    /* background-image: url('../../images/peple.png'); */
+    /* background-image: url('../../images/green-back.png'); */
+    background-image:linear-gradient(rgba(0, 100, 100, 0.5), rgba(0, 100, 100, 0.5)),url('../../images/green-back.png');
     margin-top: 20px;
     border-radius: 10px;
     background-position: center;
