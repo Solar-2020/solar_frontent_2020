@@ -136,7 +136,9 @@ function ShowPostComponent({data, cookies, roleID, okToast, errToast, deletePost
                 )}
             </div>
             {dataComp.text && (
-                <div className="show-post-component__white-part__post-text">{dataComp.text}</div>
+                <div className="show-post-component__white-part__post-text">
+                    {dataComp.text.trim().split('\n').map((elem, index) => <div key={index}>{elem}</div>)}
+                </div>
             )}
             {dataComp.interviews.length > 0 && dataComp.interviews[0].answers.length > 0 && (
                 <ShowInterviewComponent changeStatus={changeStatus} interview={dataComp.interviews[0]} postId={dataComp.id} cookies={cookies}/>
