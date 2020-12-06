@@ -52,7 +52,6 @@
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 3px;
-    margin-top: 10px;
     cursor: pointer;
     width: fit-content;
 }
@@ -72,4 +71,31 @@
 .add-del-group-members-component-container {
     border-bottom: 1px solid var(--border-color);
     padding: 15px 0;
+}
+
+.link-button {
+    background-image: url('../../../images/gray-link.svg');
+    background-size: contain;
+    height: 30px;
+    width: 30px;
+    border: none;
+    outline: none;
+    background-color: var(--cards-background);
+    cursor: pointer;
+    background-repeat: no-repeat;
+    margin-left: 10px;
+}
+
+.link-button:hover {
+    background-image: url('../../../images/green-link.svg');
+}
+
+/* .link-button:hover::after {
+    content: attr(data-title);
+    margin-top: 10px;
+} */
+
+.link-button_container {
+    display: flex;
+    margin-top: 10px;
 }

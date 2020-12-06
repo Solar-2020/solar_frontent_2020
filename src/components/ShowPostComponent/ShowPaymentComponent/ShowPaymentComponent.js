@@ -23,6 +23,8 @@ function ShowPaymentComponent({payment, cookies}) {
         message: '',
         addMessage: false,
         stat: false,
+
+        selectType: 'no',
     };
 
     const [state, dispatch] = useReducer(
@@ -40,6 +42,7 @@ function ShowPaymentComponent({payment, cookies}) {
     );
 
     const {
+        selectType,
         card,
         phone,
         yoomoney,
@@ -136,6 +139,11 @@ function ShowPaymentComponent({payment, cookies}) {
             return;
         };
 
+        if (selectType === 'no') {
+            toast('Выберите реквизит, на который произвели оплату', errToastConfig);
+            return;
+        };
+
         const reqType = {
             'phone': 2,
             'card': 1,
@@ -147,8 +155,8 @@ function ShowPaymentComponent({payment, cookies}) {
             groupID: payment.groupID,
             paymentID: payment.id,
             message: message,
-            requisiteType: reqType[payment.methods[0].type],
-            requisiteID: payment.methods[0].id,
+            requisiteType: reqType[selectType.split(':')[1]],
+            requisiteID: Number(selectType.split(':')[0]),
             cost: summ,
         };
 
@@ -166,6 +174,7 @@ function ShowPaymentComponent({payment, cookies}) {
                     changeField('message', '');
                     changeField('addMessage', false);
                     changeField('summ', 0);
+                    changeField('selectType', 'no');
                     document.getElementById(`show-payment-paid-input-${payment.id}`).value = '';
                 } else {
                     toast('Ваш отчёт не был доставлен серверу', errToastConfig);
@@ -293,6 +302,21 @@ function ShowPaymentComponent({payment, cookies}) {
                             <button className="show-payment-white-part__input__button show-payment-component__paid-button"
                                 onClick={() => paidSumm()}>Оплачено</button>
                         </div>
+                        <select
+                            className="show-payment-component__select-type show-payment-white-part__input_margin-top"
+                            value={selectType}
+                            onChange={(e) => changeField('selectType', e.target.value)}>
+                            <option value="no">Выберите счёт перевода</option>
+                            {phone.map((elem, index) => (
+                                <option key={index} value={`${elem.id}:${elem.type}`}>{elem.phoneNumber}</option>
+                            ))}
+                            {card.map((elem, index) => (
+                                <option key={index} value={`${elem.id}:${elem.type}`}>{elem.cardNumber}</option>
+                            ))}
+                            {yoomoney.map((elem, index) => (
+                                <option key={index} value={`${elem.id}:${elem.type}`}>{elem.yoomoneyAccount}</option>
+                            ))}
+                        </select>
                         {addMessage && (
                             <input
                             className="show-payment-white-part__input show-payment-white-part__input_margin-top"

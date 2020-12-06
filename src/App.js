@@ -7,12 +7,14 @@ import IndexView from './views/IndexView/IndexView';
 import LoginView from './views/LoginView/LoginView';
 import RegistrationView from './views/RegistrationView/RegistrationView';
 import fetchModule from './utils/API/FetchModule.js';
-import {BACKEND_ADDRESS} from './utils/Config/Config.js';
+import {BACKEND_ADDRESS, okToastConfig, errToastConfig} from './utils/Config/Config.js';
 import { withCookies } from 'react-cookie'
 import LoginYandex from './views/LoginYandex/LoginYandex';
 import PayView from './views/PayView/PayView';
 import ErrorPopUp from './components/ErrorPopUp/ErrorPopUp';
 import ProfileView from './views/ProfileView/ProfileView';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 /**
  * Application root
@@ -25,6 +27,7 @@ function App({cookies}) {
     // useEffect(() => {
     //     cookies.set('name', 'Ross', { path: '/' });
     // }, []);
+    // https://pay-together.ru/welcome/E7nQxxVK0y
 
     function changeField(field, value) {
         dispatch({ type: 'CHANGE_FIELD', field, value });
@@ -53,24 +56,21 @@ function App({cookies}) {
     } = state;
 
     function checkAuth(location, history, cookies) {
-        // console.log('----');
-        // console.log(location);
-        // console.log(isAuth);
-        // console.log(userData);
         if (location.pathname.includes('/yandexoauth')) return;
 
-        if (location.pathname !== '/login' && location.pathname !== '/registration') {
-            // if (!isAuth) {
-            //     checkProfile(location, history, cookies);
-            // }
-            checkProfile(location, history, cookies);
-        } else {
-            // надо доработать, чтобудет, если зайдут сразу с login
-            if (isAuth) {
-                // return <Redirect to="/"/>
-                history.push('/');
-            }
-        }
+        // if (location.pathname !== '/login' && location.pathname !== '/registration') {
+        //     // if (!isAuth) {
+        //     //     checkProfile(location, history, cookies);
+        //     // }
+        //     checkProfile(location, history, cookies);
+        // } else {
+        //     // надо доработать, чтобудет, если зайдут сразу с login
+        //     if (isAuth) {
+        //         // return <Redirect to="/"/>
+        //         history.push('/');
+        //     }
+        // }
+        checkProfile(location, history, cookies);
     };
 
     function checkProfile(location, history, cookies) {
@@ -85,24 +85,58 @@ function App({cookies}) {
             .then((response) => {
                 if (response.ok) {
                     changeField('isAuth', true);
-                } else if (location.pathname !== '/') {
+
+                    if (location.pathname === '/login' || location.pathname === '/registration') {
+                        history.push('/');
+                    };
+                } else if (location.pathname !== '/' && !/\/welcome\//.test(location.pathname) && location.pathname !== '/login' && location.pathname !== '/registration') {
                     changeField('isAuth', false);
                     history.push('/login');
                 } else {
                     changeField('isAuth', false);
                 };
 
-                return response.json();
+                return (response.ok) ? response.json() : {};
             })
             .then((responseBody) => {
                 if (responseBody.id) {
                     changeField('userData', responseBody);
                 } else {
                     changeField('userData', {});
-                }
+                };
+
+                if (/\/welcome\//.test(location.pathname)) {
+                    localStorage.setItem('groupInvite', `${BACKEND_ADDRESS}${location.pathname}`);
+                    toast('Необходимо быть авторизованным или зарегистрированным для добавления в группу!', okToastConfig);
+                    setTimeout(() => {(responseBody.id) ? history.push('/') : history.push('/login');}, 2500);
+                };
             });
          // при неудаче редирект на логин, если это не location ='/'
     }
+
+    function resolveInviteLink(link, history, cookies) {
+        link = link.replaceAll('/', '%2F').replaceAll(':', '%3A');
+
+        fetchModule.post({
+            url: BACKEND_ADDRESS + `/api/group/invite/resolve?link=${link}`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((responseBody) => {
+                if (responseBody.error) {
+                    toast('Вы уже состоите в группе по данной ссылке', okToastConfig);
+                    localStorage.clear();
+                };
+                if (responseBody.group) {
+                    localStorage.clear();
+                };
+            });
+    };
 
     function delAuth() {
         changeField('isAuth', false);
@@ -110,11 +144,13 @@ function App({cookies}) {
 
     return (
         <BrowserRouter>
-            <Header checkAuth={checkAuth} isAuth={isAuth} cookies={cookies} delAuth={delAuth} userData={userData}/>
+            <Header checkAuth={checkAuth} isAuth={isAuth} cookies={cookies} delAuth={delAuth} userData={userData} resolveInviteLink={resolveInviteLink}/>
+            <ToastContainer/>
             <div className="container">
                 <Switch>
                     <Route path={'/'} exact render={() => (<IndexView cookies={cookies}/>)}/>
-                    <Route path={'/login'} exact render={() => (<LoginView cookies={cookies}/>)}/>
+                    <Route path={'/welcome/:welcomeID'} render={() => (<IndexView cookies={cookies}/>)}/>
+                    <Route path={'/login'} exact render={() => (<LoginView userData={userData}/>)}/>
                     <Route path={'/registration'} exact render={() => (<RegistrationView cookies={cookies}/>)}/>
                     <Route path={'/allgroups'} exact render={() => (<AllGroupsView cookies={cookies}/>)}/>
                     <Route path={'/yandexoauth'} render={() => (<LoginYandex cookies={cookies}/>)}/>

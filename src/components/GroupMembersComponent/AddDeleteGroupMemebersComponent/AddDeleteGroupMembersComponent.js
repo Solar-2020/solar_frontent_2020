@@ -7,7 +7,7 @@ import {BACKEND_ADDRESS} from '../../../utils/Config/Config.js';
  * Group members component
  * @return {jsx}
  */
-function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, errToast, changeMembersList}) {
+function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, errToast, changeMembersList, copyURL}) {
     function changeAddUserField(field, value) {
         dispatch({type: 'CHANGE_ADD_USER_FIELD', field, value});
     };
@@ -88,10 +88,28 @@ function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, err
             });
     };
 
-    function delUserAction(e) {
+    function copyLinkForGroup(e) {
         e.preventDefault();
+    
+        fetchModule.put({
+            url: BACKEND_ADDRESS + `/api/group/invite/${id}`,
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((responseBody) => {
+                if (responseBody.error) {
+                    errToast('Ошибка с копированием ссылки');
+                };
 
-        console.log(delUserEmail);
+                if (responseBody.link) {
+                    copyURL(responseBody.link);
+                };
+            });
     };
 
     return (
@@ -119,9 +137,16 @@ function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, err
                     <option value="2">Администратор</option>
                 </select>
             </div>
-            <button
-                className="group-view-container__group-memebers-conteiner__add-button"
-                onClick={(e) => addUserAction(e)}>Добавить</button>
+            <div className="link-button_container">
+                <button
+                    className="group-view-container__group-memebers-conteiner__add-button"
+                    onClick={(e) => addUserAction(e)}>Добавить</button>
+                <button
+                    data-title="Ссылка приглашение"
+                    title="Ссылка приглашение"
+                    className="link-button"
+                    onClick={(e) => copyLinkForGroup(e)}/>
+            </div>
         </div>
 
     );

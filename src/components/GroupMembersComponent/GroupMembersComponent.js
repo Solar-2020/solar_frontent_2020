@@ -123,6 +123,16 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
         okToast(`Почта ${email} скопирована`);  
     };
 
+    function copyURL(email) {
+        const dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = email;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+        okToast(`Ссылка приглашение ${email} скопирована`);  
+    };
+
     function changeSearch(value) {
         changeField('searchList', searchMember(value.trim().toLowerCase(), membersList));
     };
@@ -149,7 +159,7 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
             </div>
             {isAddDelBtn && (
                 <AddDeleteGroupMembersComponent cookies={cookies} id={id} changeReload={changeReload}
-                okToast={okToast} errToast={errToast} changeMembersList={changeMembersList}/>
+                okToast={okToast} errToast={errToast} changeMembersList={changeMembersList} copyURL={copyURL}/>
             )}
             {searchList.map((elem) => (
                 <GroupMemberComponent elem={elem} roleID={roleID} deleteUser={deleteUser} copyData={copyData}/>

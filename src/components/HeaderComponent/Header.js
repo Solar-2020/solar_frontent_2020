@@ -7,7 +7,7 @@ import logoImg from '../../images/logo2.png';
  * Header component
  * @return {jsx}
  */
-function Header({checkAuth, isAuth, cookies, delAuth, userData}) {
+function Header({checkAuth, isAuth, cookies, delAuth, userData, resolveInviteLink}) {
     const location = useLocation();
     const history = useHistory();
 
@@ -15,6 +15,11 @@ function Header({checkAuth, isAuth, cookies, delAuth, userData}) {
 
     useEffect(() => {
         setDropdown(false);
+
+        if (location.pathname === '/' && /\/welcome\//.test(String(localStorage.getItem('groupInvite')))) {
+            resolveInviteLink(localStorage.getItem('groupInvite'), history, cookies);
+        };
+
         checkAuth(location, history, cookies);
     }, [location]);
 

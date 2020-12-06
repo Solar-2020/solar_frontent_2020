@@ -69,6 +69,11 @@
     margin-top: 15px;
 }
 
+.show-stat-table_overflow {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
 .show-stat-table__save-btn {
     background: var(--main-green-color);
     border: none;
@@ -78,6 +83,7 @@
     outline: none;
     margin-top: 15px;
     color: #ffffff;
+    width: fit-content;
 }
 
 .preloader {

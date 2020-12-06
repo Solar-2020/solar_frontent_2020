@@ -123,7 +123,6 @@
 
 .show-payment-white-part__input {
     border-radius: 3px;
-    border: none;
     color: var(--main-grey-text-color);
     padding: 5px;
     border: 1px solid var(--border-color);
@@ -221,4 +220,13 @@
     margin-top: 15px;
     color: var(--main-grey-text-color);
     cursor: pointer;
+}
+
+.show-payment-component__select-type {
+    border-radius: 3px;
+    color: var(--main-grey-text-color);
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    background-color: #ffffff;
+    outline: none;
 }

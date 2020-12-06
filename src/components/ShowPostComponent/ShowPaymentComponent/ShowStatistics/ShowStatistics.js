@@ -51,6 +51,33 @@ function ShowStatistics({cookies, closeStat, paymentID}) {
             });
     };
 
+    function getRequisite(elem) {
+        // switch (elem.requisiteType) {
+        //     case 1: 
+        //         return (<td>{elem.requisite.bankCard.cardNumber}</td>);
+        //     case 2:
+        //         return (<td>{elem.requisite.phonePayment.phoneNumber}</td>);
+        //     case 3:
+        //         return (<td>{elem.requisite.youMoneyAccount.accountNumber}</td>);
+        //     default:
+        //         break;
+        // };
+
+        // return (<td></td>);
+        switch (elem.requisiteType) {
+            case 1: 
+                return elem.requisite.bankCard.cardNumber;
+            case 2:
+                return elem.requisite.phonePayment.phoneNumber;
+            case 3:
+                return elem.requisite.youMoneyAccount.accountNumber;
+            default:
+                break;
+        };
+
+        return '';
+    };
+
     return (
         <div className="show-stat__lightbox">
             <div className="show-stat__lightbox-container">
@@ -61,14 +88,15 @@ function ShowStatistics({cookies, closeStat, paymentID}) {
                 {isStat && !statistic.length ? (
                     <div className="show-stat-table_margin">Пока никто из пользователей не оставил оплату</div>
                 ) : (
-                    <div className="show-stat-table_margin">
+                    <div className="show-stat-table_margin show-stat-table_overflow">
                         {isStat && (
                             <table className="show-stat-table" id={`table-to-xls-${paymentID}`}>
                                 <tbody>
                                     <tr>
-                                        <th>Платильщик</th>
+                                        <th>Оплативший</th>
                                         <th>Почта</th>
                                         <th>Сумма</th>
+                                        <th>Реквизит</th>
                                         <th>Дата</th>
                                     </tr>
                                     {statistic.map((elem, index) => (
@@ -76,24 +104,25 @@ function ShowStatistics({cookies, closeStat, paymentID}) {
                                             <td>{`${elem.payer.name} ${elem.payer.surname}`}</td>
                                             <td>{elem.payer.email}</td>
                                             <td>{elem.cost}</td>
+                                            <td>{getRequisite(elem)}</td>
                                             <td>{elem.paidAt.split('T')[0]}</td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                         )}
-                        {isStat && (
-                            <ReactHTMLTableToExcel
-                            className="show-stat-table__save-btn"
-                            table={`table-to-xls-${paymentID}`}
-                            filename={`tablexls-${paymentID}`}
-                            sheet={`PayTogether-${paymentID}`}
-                            buttonText="Скачать .xls"/>
-                        )}
                         {/* {!isStat && (
                             <div className="preloader"></div>
                         )} */}
                     </div>
+                )}
+                {isStat && statistic.length > 0 && (
+                    <ReactHTMLTableToExcel
+                    className="show-stat-table__save-btn show-stat-table_margin"
+                    table={`table-to-xls-${paymentID}`}
+                    filename={`tablexls-${paymentID}`}
+                    sheet={`PayTogether-${paymentID}`}
+                    buttonText="Скачать .xls"/>
                 )}
             </div>
         </div>

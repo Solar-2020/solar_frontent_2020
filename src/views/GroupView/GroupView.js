@@ -3,7 +3,7 @@ import GroupMembersComponent from '../../components/GroupMembersComponent/GroupM
 import GroupSettingsComponent from '../../components/GroupSettingsComponent/GroupSettingsComponent';
 import './GroupView.css';
 import GroupPostsComponent from '../../components/GroupPostsComponent/GroupPostsComponent';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import fetchModule from '../../utils/API/FetchModule';
 import { BACKEND_ADDRESS, okToastConfig, errToastConfig } from '../../utils/Config/Config';
 import {ToastContainer, toast} from 'react-toastify';
@@ -16,6 +16,7 @@ import GroupImportantCOmponent from '../../components/GroupImportantComponent/Gr
  */
 function GroupView({cookies, userData}) {
     const location = useLocation();
+    const history = useHistory();
 
     const ending = (count) => {
         return (/1[1-4]/.test(count) || /[0, 5-9]/.test(count % 10)) ?
@@ -109,6 +110,9 @@ function GroupView({cookies, userData}) {
             .then((response) => {
                 if (response.ok) {
                     return response.json();
+                } else {
+                    createErrorToast('У Вас недостаточно прав для совершения данной операции! Вас перенаправят на список групп');
+                    setTimeout(() => {history.push('/allgroups');}, 2400);
                 }
             })
             .then((responseBody) => {
@@ -128,34 +132,33 @@ function GroupView({cookies, userData}) {
         toast(text, errToastConfig);            
     };
 
-    function deleteUser(email) {
-        createOkToast('Группу пока нельзя покинуть, нет функционала');
-        // const data = {
-        //     group: Number(id),
-        //     userEmail: email,
-        // };
+    function deleteUser() {
+        const data = {
+            group: Number(id),
+            userEmail: userData.email,
+        };
 
-        // fetchModule.delete({
-        //     url: BACKEND_ADDRESS + `/api/group/membership`,
-        //     body: JSON.stringify(data),
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Cookie': cookies.get('SessionToken'),
-        //     },
-        // })
-        //     .then((response) => {
-        //         if (response.ok) {
-        //             return response.json();
-        //         } else {
-        //             errToast('С удалением участника произошла ошибка, обновите страницу');
-        //         };
-        //     })
-        //     .then((responseBody) => {
-        //         if (responseBody.userEmail) {
-        //             okToast(`Пользователь ${email} удалён`);
-        //             changeMembersList();
-        //         };
-        //     });
+        fetchModule.delete({
+            url: BACKEND_ADDRESS + `/api/group/membership`,
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': cookies.get('SessionToken'),
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    createErrorToast('С вашим выходом из группы произошла ошибка, обновите страницу');
+                };
+            })
+            .then((responseBody) => {
+                if (responseBody.userEmail) {
+                    createOkToast(`Вы покинули группу! Вас перенаправит на список групп`);
+                    setTimeout(() => {history.push('/allgroups');}, 2400);
+                };
+            });
     };
 
     return (
@@ -187,7 +190,7 @@ function GroupView({cookies, userData}) {
                                 <div className="dropdown nav__settings_margin group-view-banner__items_margin-top">
                                     <div onClick={() => changeField('dropdown', !dropdown)} className="nav__settings"></div>
                                     <div className={`dropdown-content_${dropdown}`}>
-                                        <div onClick={() => deleteUser('ddd')}>Покинуть группу</div>
+                                        <div onClick={() => deleteUser()}>Покинуть группу</div>
                                     </div>
                                 </div>
                             )}
