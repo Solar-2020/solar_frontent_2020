@@ -44,7 +44,7 @@ function Header({checkAuth, isAuth, cookies, delAuth, userData, resolveInviteLin
     };
 
     return (
-        <div className="header-component-container">
+        <div className="header-component-container container">
             <div className="header-component-container__content">
                 {isAuth ? (
                     <div className="header-component-container__content_padding">

@@ -119,7 +119,7 @@ function AllGroupsView({cookies}) {
                         {searchGroups.map((elem) => (
                             <div key={elem.id} className="all-groups-view-container__groups__block">
                                 <Link to={`/group/${elem.id}`} className="all-groups-view-container__groups__block__link">{elem.title}</Link>
-                                <div className="all-groups-view-container__groups__block__count">{`${elem.count} участник${ending(elem.count % 10)}`}</div>
+                                <div className="all-groups-view-container__groups__block__count">{`${elem.count} участник${ending(elem.count % 100)}`}</div>
                             </div>
                         ))}
                     </div>

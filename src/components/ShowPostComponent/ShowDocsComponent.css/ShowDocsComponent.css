@@ -17,4 +17,6 @@
 .show-post-component__white-part__show-docs-container__doc-view_title {
     margin-left: 10px;
     color: var(--main-text-color);
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

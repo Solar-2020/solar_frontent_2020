@@ -24,6 +24,8 @@ code {
 
   --width-app: 900px;
   --cards-radius: 10px;
+
+  --min-app-width: 380px;
 }
 
 @font-face {
@@ -86,4 +88,8 @@ input, textarea, button {
   border: 1px dashed var(--border-color);
   color: var(--border-color);
   margin-bottom: 20px;
+}
+
+.container {
+  min-width: var(--min-app-width);
 }
