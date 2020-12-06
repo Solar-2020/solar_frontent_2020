@@ -53,7 +53,7 @@ function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, err
     function addUserAction(e) {
         e.preventDefault();
 
-        console.log(addUser);
+        // console.log(addUser);
 
         const form = {
             userEmail: [addUser.userEmail],
@@ -73,7 +73,7 @@ function AddDeleteGroupMembersComponent({cookies, id, changeReload, okToast, err
                 return response.json();
             })
             .then((responseBody) => {
-                console.log(responseBody);
+                // console.log(responseBody);
                 if (responseBody.error) {
                     changeField('addMainError', responseBody.error);
                 };

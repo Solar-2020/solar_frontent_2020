@@ -285,7 +285,7 @@ function CreatePost({changeReload, cookies, id, okToast, errToast, userData}) {
             form = {...form, payments: []};
         }
 
-        console.log(form);
+        // console.log(form);
 
         if (checkBeforFetch()) {
             fetchModule.post({

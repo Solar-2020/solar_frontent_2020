@@ -116,7 +116,7 @@ function GroupView({cookies, userData}) {
                 }
             })
             .then((responseBody) => {
-                console.log(responseBody);
+                // console.log(responseBody);
                 if (responseBody.id) {
                     setGroup(responseBody);
                     changeField('roleID', responseBody.userRole.roleID);

@@ -70,7 +70,7 @@ function LoginView() {
                     return response.json();
                 })
                 .then((responseBody) => {
-                    console.log(responseBody);
+                    // console.log(responseBody);
 
                     if (responseBody.error) {
                         setMainError(responseBody.error);
