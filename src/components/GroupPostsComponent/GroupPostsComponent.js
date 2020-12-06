@@ -91,7 +91,7 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID, userData})
         // console.log(y);
 
         if ((Math.trunc(y + 3) > contentHeight) && (posts.length > 0)) {
-            console.log(posts[posts.length - 1].publishDate);
+            // console.log(posts[posts.length - 1].publishDate);
             getData(fixTime(posts[posts.length - 1].publishDate), 'add');
         }
     };
@@ -115,7 +115,7 @@ function GroupPostsComponent({cookies, id, okToast, errToast, roleID, userData})
                 }
             })
             .then((responseBody) => {
-                console.log(responseBody);
+                // console.log(responseBody);
                 if (Array.isArray(responseBody)) {
                     if (key === 'add') {
                         addNewPosts(responseBody.slice(1));

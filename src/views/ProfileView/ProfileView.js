@@ -167,7 +167,7 @@ function ProfileView({cookies, userData, changeData}) {
         };
 
         if (checkValidationForm()) {
-            console.log(form);
+            // console.log(form);
 
             fetchModule.put({
                 url: BACKEND_ADDRESS + `/api/account/user`,

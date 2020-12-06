@@ -79,10 +79,10 @@ function SearchAddGroupComponent({changeAllGroups, cookies, okToast, errToast, c
     function submitHandler(event) {
         event.preventDefault();
 
-        console.log(state);
+        // console.log(state);
 
         if (checkValidationForm()) {
-            console.log('успех');
+            // console.log('успех');
 
             const data = {
                 title,
@@ -103,7 +103,7 @@ function SearchAddGroupComponent({changeAllGroups, cookies, okToast, errToast, c
                     return response.json();
                 })
                 .then((responseBody) => {
-                    console.log(responseBody);
+                    // console.log(responseBody);
 
                     if (responseBody.error) {
                         setMainError(responseBody.error);

@@ -106,7 +106,7 @@ class FetchModule {
      */
     checkStatus(response, history) {
         if (response.status === 200) {
-            console.log('...');
+            // console.log('...');
         }
     }
 }

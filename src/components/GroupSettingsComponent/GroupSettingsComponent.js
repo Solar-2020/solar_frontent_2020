@@ -158,10 +158,10 @@ function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast
     function submitHandler(event) {
         event.preventDefault();
 
-        console.log(state);
+        // console.log(state);
 
         if (checkValidationForm()) {
-            console.log('успех');
+            // console.log('успех');
 
             const data = {
                 title: groupInfo.title,
@@ -182,7 +182,7 @@ function GroupSettingsComponent({changeReload, group, cookies, okToast, errToast
                     return response.json();
                 })
                 .then((responseBody) => {
-                    console.log(responseBody);
+                    // console.log(responseBody);
 
                     if (responseBody.error) {
                         setMainError(responseBody.error);

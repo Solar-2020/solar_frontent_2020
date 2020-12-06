@@ -125,7 +125,7 @@ function RegistrationView() {
         };
 
         if (checkValidationForm()) {
-            console.log(form);
+            // console.log(form);
 
             fetchModule.post({
                 url: BACKEND_ADDRESS + `/api/auth/signup`,
@@ -138,7 +138,7 @@ function RegistrationView() {
                     return response.json();
                 })
                 .then((responseBody) => {
-                    console.log(responseBody);
+                    // console.log(responseBody);
 
                     if (responseBody.error) {
                         setMainError(responseBody.error);

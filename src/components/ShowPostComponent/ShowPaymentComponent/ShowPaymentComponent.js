@@ -63,7 +63,7 @@ function ShowPaymentComponent({payment, cookies}) {
 
     useEffect(
         () => {
-            console.log('------', payment);
+            // console.log('------', payment);
             if (payment.methods) {
                 payment.methods.forEach((elem) => {
                     if (elem.type === 'phone' || elem.type === 'yoomoney') {
@@ -89,7 +89,7 @@ function ShowPaymentComponent({payment, cookies}) {
         }, [payment]);
 
     function sendCost(message) {
-        console.log(message);
+        // console.log(message);
         const data = {
             paymentID: payment.id,
             message: message,
@@ -107,7 +107,7 @@ function ShowPaymentComponent({payment, cookies}) {
                 return response.json();
             })
             .then((responseBody) => {
-                console.log(responseBody);
+                // console.log(responseBody);
                 if (responseBody.error) {
                     toast('Кошелёк не активирован или не сужествует!', errToastConfig);
                 };

@@ -15,7 +15,7 @@ function LoginYandex() {
     useEffect(
         () => {
             if (location.hash.includes('access_token')) {
-                console.log(getAccess(location.hash));
+                // console.log(getAccess(location.hash));
                 handleSubmit(getAccess(location.hash));
             }
         }, [location]);

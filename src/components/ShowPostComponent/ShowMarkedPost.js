@@ -79,7 +79,7 @@ function ShowMarkedPost({data, cookies, roleID, okToast, errToast, deletePost, d
                 if (response.ok) {
                     changeMarked(!dataComp.marked);
                     deletePostComp(dataComp.id);
-                    console.log('marked');
+                    // console.log('marked');
                     okToast('Статус поста изменён');
                 } else {
                     errToast('Что-то пошло не по плану ...');
