@@ -60,7 +60,7 @@ function LoginView() {
         };
 
         if (!form.login.trim() || !form.password.trim()) {
-            setMainError('Заполните пустые поля');
+            setMainError('Заполните пустые поля!');
             return;
         };
 
