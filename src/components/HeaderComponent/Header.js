@@ -24,7 +24,16 @@ function Header({checkAuth, isAuth, cookies, delAuth, userData, resolveInviteLin
     }, [location]);
 
     function exit() {
-        cookies.remove('SessionToken', {path: '/', domain: '.develop.pay-together.ru'});
+        // cookies.remove('SessionToken', {path: '/', domain: '.develop.pay-together.ru'});
+        let domain = '.pay-together.ru';
+    
+        if (/develop/.test(window.location.href)) {
+            domain = '.develop.pay-together.ru';
+        };
+
+        console.log('--domain', domain);
+
+        cookies.remove('SessionToken', {path: '/', domain: domain});
         delAuth();
         history.push('/');
     };
