@@ -260,7 +260,7 @@ function ProfileView({cookies, userData, changeData}) {
                                 onChange={e => validationField('name', e.target.value)}
                                 placeholder="Имя"/>
                             <input value={newData.surname}
-                                className={`${errorStyle[userNameError]} profile-view-container__context-container_margin-left`}
+                                className={`${errorStyle[userNameError]} profile-view-container__context-container_margin-left__top`}
                                 onChange={e => validationField('surname', e.target.value)}
                                 placeholder="Фамилия"/>
                         </div>

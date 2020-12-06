@@ -81,8 +81,25 @@
     margin-left: 10px;
 }
 
+.profile-view-container__context-container_margin-left__top {
+    margin-left: 10px;
+}
+
 .profile-view-container__button {
     width: fit-content;
     padding: 0 20px;
     margin-top: auto;
+}
+
+@media screen and (max-width: 690px) {
+    .profile-view-container__context-container_margin-left__top {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    .profile-view-container__context-container_margin-left {
+        margin-left: 0;
+    }
 }
