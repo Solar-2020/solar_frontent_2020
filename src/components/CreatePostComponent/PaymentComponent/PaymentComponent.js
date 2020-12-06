@@ -143,7 +143,7 @@ function PaymentComponent({delPaymentComp, changePaymentHandler, paymentArrays, 
     };
 
     const cardInput = (value) => {
-        if (value.length === 7 || value.length === 6) {
+        if (value.length === 7 || value.length === 6 || value.length === 19) {
             fetch(`https://api.cardinfo.online?input=${value.replace(' ', '')}&apiKey=${CARD_BANK}&fields=bankNameLocal,formBankLogoSmallSvg,formBackgroundColor,formTextColor`)
                 .then((response) => {
                     return response.json()
