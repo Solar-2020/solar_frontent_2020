@@ -59,6 +59,11 @@ function LoginView() {
             'password': password,
         };
 
+        if (!form.login.trim() || !form.password.trim()) {
+            setMainError('Заполните пустые поля');
+            return;
+        };
+
         fetchModule.post({
                 url: BACKEND_ADDRESS + `/api/auth/login`,
                 body: JSON.stringify(form),
