@@ -25,6 +25,7 @@ function Header({checkAuth, isAuth, cookies, delAuth, userData, resolveInviteLin
 
     function exit() {
         cookies.remove('SessionToken', {path: '/', domain: '.develop.pay-together.ru'});
+        cookies.remove('SessionToken', {path: '/', domain: '.pay-together.ru'});
         delAuth();
         history.push('/');
     };
