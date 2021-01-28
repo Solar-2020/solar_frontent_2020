@@ -3,7 +3,7 @@
     justify-content: center;
 }
 
-.group-view-banner__items {
+.group-view-banner-items {
     display: flex;
     flex-direction: column;
     width: var(--width-app);
@@ -14,7 +14,7 @@
     overflow: hidden;
 }
 
-.group-view-banner__items__image {
+.group-view-banner-items__image {
     height: 200px;
     background-color: var(--background-light-green);
     border-radius: 0 0 3px 3px;
@@ -22,7 +22,7 @@
     border: none;
 }
 
-.group-view-banner__items__links {
+.group-view-banner-items-links {
     display: flex;
     flex-direction: row;
     margin-top: 30px;
@@ -40,17 +40,17 @@
     width: var(--width-app);
 }
 
-.group-view-banner__items__info {
+.group-view-banner-items-info {
     margin-top: 10px;
     color: var(--main-text-color);
 }
 
-.group-view-banner__items__info__title {
+.group-view-banner-items-info__title {
     font-size: 16px;
     font-weight: bolder;
 }
 
-.group-view-banner__items__links__normal-link {
+.group-view-banner-items-links__normal-link {
     margin-left: 20px;
     padding-bottom: 15px;
     color: var(--main-grey-text-color);
@@ -63,7 +63,7 @@
     transition: background-size .3s;
 }
 
-.group-view-banner__items__links__active-link {
+.group-view-banner-items-links__active-link {
     margin-left: 20px;
     padding-bottom: 15px;
     color: var(--main-text-color);
@@ -75,16 +75,16 @@
     background-size: 100% 3px;
 }
 
-.group-view-banner__items__links__normal-link:hover {
+.group-view-banner-items-links__normal-link:hover {
     background-size: 100% 3px;
     color: var(--main-text-color);
 }
 
-.group-view-banner__items__links__normal-link:first-child {
+.group-view-banner-items-links__normal-link:first-child {
     margin-left: 0px;
 }
 
-.group-view-banner__items__links__active-link:first-child {
+.group-view-banner-items-links__active-link:first-child {
     margin-left: 0px;
 }
 
@@ -92,22 +92,22 @@
     margin-bottom: 20px;
 }
 
-.group-view-banner__items__info-container {
+.group-view-banner-items-info-container {
     padding: 0 35px;
 }
 
-.group-view-banner__items__info__count {
+.group-view-banner-items-info__count {
     font-size: 13px;
 }
 
-.group-view-banner__items__info_description {
+.group-view-banner-items-info_description {
     margin-top: 15px;
 }
 
-.group-view-banner__items_flex {
+.group-view-banner-items_flex {
     display: flex;
 }
 
-.group-view-banner__items_margin-top {
+.group-view-banner-items_margin-top {
     margin-top: 10px;
 }
