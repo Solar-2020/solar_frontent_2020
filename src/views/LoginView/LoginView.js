@@ -51,7 +51,7 @@ function LoginView() {
         mainError,
     } = state;
 
-    function handleSubmit(event) {
+    const handleSubmit = (event) => {
         event.preventDefault();
 
         const form = {
@@ -81,7 +81,6 @@ function LoginView() {
                         setMainError(responseBody.error);
                     }
                     if (responseBody.login) {
-                        // alert('успешная авторизация!');
                         history.push('/');
                     }
                 });
@@ -89,33 +88,33 @@ function LoginView() {
 
     return (
         <div className="login-view-container">
-            <div className="login-view-container__card">
+            <div className="login-view-container-card">
                 <div></div>
-                <div className="login-view-container__card__title">Авторизация аккаунта</div>
+                <div className="login-view-container-card__title">Авторизация аккаунта</div>
                 {mainError && (
-                    <div className="login-view-container__card__input-block__input__error-text">{mainError}</div>
+                    <div className="login-view-input-error-text">{mainError}</div>
                 )}
-                <form className="login-view-container__form">
-                    <div className="login-view-container__card__input-block__title">Электронная почта</div>
+                <form className="login-view-container-card__form">
+                    <div className="login-view-container-card__input-block-title">Электронная почта</div>
                     <input
-                        className="login-view-container__card__input-block__input"
+                        className="login-view-block-input"
                         onChange={e => changeField('email', e.target.value)}
                         placeholder="Электронная почта"/>
 
-                    <div className="login-view-container__card__input-block__title">Пароль</div>
+                    <div className="login-view-container-card__input-block-title">Пароль</div>
                     <input
                         onChange={e => changeField('password', e.target.value)}
                         type="password"
-                        className="login-view-container__card__input-block__input"placeholder="Введите пароль"/>
+                        className="login-view-block-input"placeholder="Введите пароль"/>
                     
-                    <a className="login-view-container__card__yandex" href={`${oauth.url}${oauth.id}`}></a>
+                    <a className="login-view-container-card__yandex" href={`${oauth.url}${oauth.id}`}></a>
 
                 <button
                     type="submit"
                     onClick={e => handleSubmit(e)}
-                    className="login-view-container__card__button login-view-container__card__button_margin">Авторизоваться</button>
+                    className="login-view-card-button login-view-card-button_margin">Авторизоваться</button>
                 </form>
-                <Link to="/registration" className="login-view-container__card__link">Ещё нет аккаунта? Создайте!</Link>
+                <Link to="/registration" className="login-view-link">Ещё нет аккаунта? Создайте!</Link>
             </div>
         </div>
     )
