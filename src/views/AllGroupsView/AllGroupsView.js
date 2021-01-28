@@ -61,7 +61,7 @@ function AllGroupsView({cookies}) {
         getGroupList();
     }, [allGroups.value]);
 
-    function getGroupList() {
+    const getGroupList = () => {
         // const data = [{"id":1336,"title":"Задания от яндекса","description":"Группа с заданиями от яндекса","URL":"yandextasks","avatarURL":"http://develop.nl-mail.ru/storage/photos/d1/d1f018a41401c5ae1d4179412694f0fd.png","userID":279,"userRole":{"userID":279,"groupID":0,"roleID":1,"roleName":"Создатель"},"status":1,"count":3},
         // {"id":1335,"title":"Задания от яндекса","description":"Группа с заданиями от яндекса","URL":"yandextasks","avatarURL":"http://develop.nl-mail.ru/storage/photos/d1/d1f018a41401c5ae1d4179412694f0fd.png","userID":279,"userRole":{"userID":279,"groupID":0,"roleID":1,"roleName":"Создатель"},"status":1,"count":3}];
         // changeField('groups', []);
@@ -109,34 +109,37 @@ function AllGroupsView({cookies}) {
     return (
         <div className="all-groups-view-container">
             <div className="all-groups-view-container_width">
-                <div className="all-groups-view-container__search-style">
+                <div className="all-groups-view-container-search">
                     <ToastContainer/>
-                    <div className="all-groups-view-container__search-style__title">Мои группы</div>
+
+                    <div className="all-groups-view-container-search__title">Мои группы</div>
                     <SearchAddGroupComponent changeAllGroups={changeAllGroups} cookies={cookies} okToast={createOkToast} errToast={createErrorToast}
                     changeSearch={changeSearch}/>
 
-                    <div className="all-groups-view-container__groups">
+                    <div className="all-groups-view-container-groups">
                         {searchGroups.map((elem) => (
-                            <div key={elem.id} className="all-groups-view-container__groups__block">
-                                <Link to={`/group/${elem.id}`} className="all-groups-view-container__groups__block__link">{elem.title}</Link>
-                                <div className="all-groups-view-container__groups__block__count">{`${elem.count} участник${ending(elem.count % 100)}`}</div>
+                            <div key={elem.id} className="all-groups-view-container-groups__block">
+                                <Link to={`/group/${elem.id}`} className="all-groups-view-container-groups__block-link">{elem.title}</Link>
+                                <div className="all-groups-view-container-groups__block-count">{`${elem.count} участник${ending(elem.count % 100)}`}</div>
                             </div>
                         ))}
                     </div>
+
                     {!searchGroups.length && ifSearch && (
-                        <div className="group-view-container__group-memebers-conteiner__search-empty-container">
-                            <div className="group-view-container__group-memebers-conteiner__search-empty-container__circle">
-                                <img alt="" src={searchImg} className="group-view-container__group-memebers-conteiner__search-empty-container__circle_img"/>
+                        <div className="group-view-container-group-memebers-conteiner-search-empty-container">
+                            <div className="group-view-container-group-memebers-conteiner-search-empty-container__circle">
+                                <img alt="" src={searchImg} className="group-view-container-group-memebers-conteiner-search-empty-container__circle_img"/>
                             </div>
-                            <div className="group-view-container__group-memebers-conteiner__search-empty-container__text">К сожалению, поиск не дал<br/>результатов</div>
+                            <div className="group-view-container-group-memebers-conteiner-search-empty-container__text">К сожалению, поиск не дал<br/>результатов</div>
                         </div>
                     )}
+
                     {noLength && !ifSearch && (
-                        <div className="group-view-container__group-memebers-conteiner__search-empty-container">
-                            <div className="group-view-container__group-memebers-conteiner__search-empty-container__circle">
-                                <img alt="" src={groupImg} className="group-view-container__group-memebers-conteiner__search-empty-container__circle_img"/>
+                        <div className="group-view-container-group-memebers-conteiner-search-empty-container">
+                            <div className="group-view-container-group-memebers-conteiner-search-empty-container__circle">
+                                <img alt="" src={groupImg} className="group-view-container-group-memebers-conteiner-search-empty-container__circle_img"/>
                             </div>
-                            <div className="group-view-container__group-memebers-conteiner__search-empty-container__text">У вас нет групп<br/>Создайте!</div>
+                            <div className="group-view-container-group-memebers-conteiner-search-empty-container__text">У вас нет групп<br/>Создайте!</div>
                         </div>
                     )}
                 </div>
