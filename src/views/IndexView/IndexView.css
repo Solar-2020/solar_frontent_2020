@@ -78,7 +78,7 @@
     margin: 10px 0;
 }
 
-.index-view-container_img {
+.index-view-container__img {
     background-size: cover;
     height: 300px;
     width: var(--width-app);
@@ -98,7 +98,7 @@
     flex-direction: column;
 }
 
-.index-view-container_img_content {
+.index-view-container__img-content {
     width: 100%;
     height: 100px;
     position: absolute;
@@ -107,7 +107,7 @@
     justify-content: center;
 }
 
-.index-view-container_img-white {
+.index-view-container__img-white {
     background-image: url('../../images/white.png');
     height: 750px;
     width: var(--width-app);
