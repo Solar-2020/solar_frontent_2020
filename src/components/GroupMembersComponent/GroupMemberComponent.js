@@ -53,8 +53,8 @@ function GroupMemberComponent({elem, roleID, deleteUser, copyData}) {
                 <div className="show-post-component__white-part__avatar-text__text__name">{`${elem.name} ${elem.surname} [${elem.roleName}]`}</div>
                 <div className="show-post-component__white-part__avatar-text__text__data">{elem.email}</div>
             </div>
-            <div className="dropdown nav__settings_margin">
-                <div className="nav__settings" onClick={() => changeField('dropDown', !dropDown)}></div>
+            <div className="dropdown nav-settings_margin">
+                <div className="nav-settings" onClick={() => changeField('dropDown', !dropDown)}></div>
                 <div className={`dropdown-content_${dropDown}`}>
                     {(elem.roleID !== 1 && roleID !== 3) && (
                         <div onClick={() => deleteUser(elem.email)}>Удалить</div>

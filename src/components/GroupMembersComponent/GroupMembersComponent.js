@@ -165,11 +165,11 @@ function GroupMembersComponent({cookies, id, changeReload, okToast, errToast, ro
                 <GroupMemberComponent elem={elem} roleID={roleID} deleteUser={deleteUser} copyData={copyData}/>
             ))}
             {!searchList.length && ifSearch && (
-                <div className="group-view-container__group-memebers-conteiner__search-empty-container">
-                    <div className="group-view-container__group-memebers-conteiner__search-empty-container__circle">
-                        <img alt="" src={searchImg} className="group-view-container__group-memebers-conteiner__search-empty-container__circle_img"/>
+                <div className="group-view-container-group-memebers-conteiner-search-empty-container">
+                    <div className="group-view-container-group-memebers-conteiner-search-empty-container__circle">
+                        <img alt="" src={searchImg} className="group-view-container-group-memebers-conteiner-search-empty-container__circle_img"/>
                     </div>
-                    <div className="group-view-container__group-memebers-conteiner__search-empty-container__text">К сожалению, поиск не дал<br/>результатов</div>
+                    <div className="group-view-container-group-memebers-conteiner-search-empty-container__text">К сожалению, поиск не дал<br/>результатов</div>
                 </div>
             )}
         </div>

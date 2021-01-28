@@ -53,7 +53,7 @@ function Header({checkAuth, isAuth, cookies, delAuth, userData, resolveInviteLin
                         </Link>
                         <Link to="/allgroups" className="header-component__links header-component__links_border">Мои группы</Link>
 
-                        <div className="header-dropdown nav__settings_margin">
+                        <div className="header-dropdown nav-settings_margin">
                             <div onClick={() => setDropdown(!dropdown)} className="header-nav-settings">
                                 {userData.id && (
                                     <Greeting/>

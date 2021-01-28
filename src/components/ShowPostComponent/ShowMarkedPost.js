@@ -124,8 +124,8 @@ function ShowMarkedPost({data, cookies, roleID, okToast, errToast, deletePost, d
                 
                 {roleID !== 3 ? (
                     <div className="show-post-component__white-part__avatar-text__star-button_margin">
-                        <div className="dropdown nav__settings_margin">
-                            <div onClick={() => changeField('dropdown', !dropdown)} className="nav__settings"></div>
+                        <div className="dropdown nav-settings_margin">
+                            <div onClick={() => changeField('dropdown', !dropdown)} className="nav-settings"></div>
                             <div className={`dropdown-content_${dropdown}`}>
                                 <div onClick={() => deletePost(dataComp.id)}>Удалить пост</div>
                             </div>
