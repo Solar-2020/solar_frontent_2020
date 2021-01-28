@@ -1,7 +1,7 @@
-import React, { useReducer, useEffect } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import fetchModule from '../../utils/API/FetchModule.js';
-import {BACKEND_ADDRESS, okToastConfig, errToastConfig} from '../../utils/Config/Config.js';
+import {BACKEND_ADDRESS, errToastConfig} from '../../utils/Config/Config.js';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,7 +20,7 @@ function LoginYandex() {
             }
         }, [location]);
 
-    function handleSubmit(token) {
+    const handleSubmit = (token) => {
         fetchModule.post({
                 url: BACKEND_ADDRESS + `/api/auth/yandex/${token}`,
                 headers: {
@@ -36,11 +36,11 @@ function LoginYandex() {
                 });
     };
 
-    function getAccess(hash) {
+    const getAccess = (hash) => {
         return hash.match(/access_token=([^&]*)&/i)[1];
     }
 
-    const createErrorToast= (text) => {
+    const createErrorToast = (text) => {
         toast(text, errToastConfig);            
     };
 

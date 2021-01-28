@@ -11,11 +11,11 @@ import {BACKEND_ADDRESS} from '../../utils/Config/Config.js';
 function RegistrationView() {
     const history = useHistory();
 
-    function changeField(field, value) {
+    const changeField = (field, value) => {
         dispatch({type: 'CHANGE_FIELD', field, value});
     };
 
-    function setMainError(message) {
+    const setMainError = (message) => {
         dispatch({type: 'SET_MAIN_ERROR', message});
     };
 
@@ -27,8 +27,8 @@ function RegistrationView() {
     };
 
     const errorStyle = {
-        'true': 'login-view-container__card__input-block__input__error-input',
-        'false': 'login-view-container__card__input-block__input',
+        'true': 'login-view-input-block-input-error',
+        'false': 'login-view-block-input',
     };
 
     const regExpr = {
@@ -79,7 +79,7 @@ function RegistrationView() {
         passwordScError,
     } = state;
 
-    function checkValidationForm() {
+    const checkValidationForm = () => {
         let flag = true;
 
         if (!regExpr.FIO.test(name) || !regExpr.FIO.test(surname)) {
@@ -113,7 +113,7 @@ function RegistrationView() {
         return flag;
     };
 
-    function handleSubmit(event) {
+    const handleSubmit = (event) => {
         event.preventDefault();
 
         const form = {
@@ -151,7 +151,7 @@ function RegistrationView() {
         }
     };
 
-    function validationField(key, value) {
+    const validationField = (key, value) => {
         changeField(key, value);
 
         switch(key) {
@@ -197,29 +197,29 @@ function RegistrationView() {
 
     return (
         <div className="login-view-container">
-            <div className="login-view-container__card">
+            <div className="login-view-container-card">
                 <div></div>
-                <div className="login-view-container__card__title">Регистрация аккаунта</div>
+                <div className="login-view-container-card__title">Регистрация аккаунта</div>
                 {mainError && (
-                    <div className="login-view-container__card__input-block__input__error-text">{mainError}</div>
+                    <div className="login-view-input-error-text">{mainError}</div>
                 )}
 
-                <div className="login-view-container__card__input-block__title">Данные пользователя</div>
+                <div className="login-view-container-card__input-block-title">Данные пользователя</div>
                 {userNameError && (
-                    <div className="reginstration-view__input_error">{errorMap.userNameError}</div>
+                    <div className="reginstration-view-input_error">{errorMap.userNameError}</div>
                 )}
                 <input
                     className={errorStyle[userNameError]}
                     onChange={e => validationField('name', e.target.value)}
                     placeholder="Имя"/>
                 <input
-                    className={`${errorStyle[userNameError]} reginstration-view__input_margin`}
+                    className={`${errorStyle[userNameError]} reginstration-view_input-margin`}
                     onChange={e => validationField('surname', e.target.value)}
                     placeholder="Фамилия"/>
                 
-                <div className="login-view-container__card__input-block__title">Электронная почта</div>
+                <div className="login-view-container-card__input-block-title">Электронная почта</div>
                 {emailError && (
-                    <div className="reginstration-view__input_error">{errorMap.emailError}</div>
+                    <div className="reginstration-view-input_error">{errorMap.emailError}</div>
                 )}
                 <input
                     className={errorStyle[emailError]}
@@ -227,12 +227,12 @@ function RegistrationView() {
                     placeholder="Электронная почта"/>
 
                 
-                <div className="login-view-container__card__input-block__title">Пароль</div>
+                <div className="login-view-container-card__input-block-title">Пароль</div>
                 {passwordError && (
-                    <div className="reginstration-view__input_error">{errorMap.passwordError}</div>
+                    <div className="reginstration-view-input_error">{errorMap.passwordError}</div>
                 )}
                 {passwordScError && (
-                    <div className="reginstration-view__input_error">{errorMap.passwordScError}</div>
+                    <div className="reginstration-view-input_error">{errorMap.passwordScError}</div>
                 )}
                 <input
                     type="password"
@@ -242,13 +242,13 @@ function RegistrationView() {
                 <input
                     type="password"
                     onChange={e => validationField('passwordSc', e.target.value)}
-                    className={`${errorStyle[passwordScError]} reginstration-view__input_margin`}
+                    className={`${errorStyle[passwordScError]} reginstration-view_input-margin`}
                     placeholder="Повторите пароль"/>
                 
                 <button
                     onClick={e => handleSubmit(e)}
-                    className="login-view-container__card__button">Зарегистрироваться</button>
-                <Link to="/login" className="login-view-container__card__link">Уже есть аккаунт? Войдите!</Link>
+                    className="login-view-card-button">Зарегистрироваться</button>
+                <Link to="/login" className="login-view-link">Уже есть аккаунт? Войдите!</Link>
 
             </div>
         </div>

@@ -7,7 +7,7 @@
     margin-top: 35px;
 }
 
-.login-view-container__card {
+.login-view-container-card {
     background: var(--cards-background);
     padding: 30px;
     border-radius: 10px;
@@ -19,20 +19,20 @@
     box-shadow: 0 0 10px rgba(0,0,0,.15);
 }
 
-.login-view-container__card__title {
+.login-view-container-card__title {
     text-align: center;
     margin-bottom: 10px;
     font-size: 16px;
     color: var(--main-text-color);
 }
 
-.login-view-container__card__input-block__title {
+.login-view-container-card__input-block-title {
     color: var(--main-grey-text-color);
     margin-top: 15px;
     margin-bottom: 5px;
 }
 
-.login-view-container__card__input-block__input {
+.login-view-block-input {
     height: 30px;
     border: 1px solid var(--border-color);
     align-items: center;
@@ -41,12 +41,12 @@
     border-radius: 3px;
 }
 
-.login-view-container__card__input-block__input:invalid,
-.login-view-container__card__input-block__input:invalid:focus {
+.login-view-block-input:invalid,
+.login-view-block-input:invalid:focus {
     border: 1px solid red;
 }
 
-.login-view-container__card__input-block__input__error-input {
+.login-view-input-block-input-error {
     height: 30px;
     align-items: center;
     padding-left: 5px;
@@ -56,19 +56,19 @@
     outline: none;
 }
 
-.login-view-container__card__input-block__input__error-text {
+.login-view-input-error-text {
     color: red;
     font-size: 12px;
     margin-top: 5px;
 }
 
-.login-view-container__card__input-block__input:focus {
+.login-view-block-input:focus {
     outline: none;
     border: 1px solid var(--main-light-green);
     border-radius: 3px;
 }
 
-.login-view-container__card__button {
+.login-view-card-button {
     background: linear-gradient(to left, var(--main-light-green), var(--main-green-color), var(--main-light-green));
     background-size: 200%;
     transition: 0.5s;
@@ -87,22 +87,22 @@
     margin-top: 20px;
 }
 
-.login-view-container__card__button:hover {
+.login-view-card-button:hover {
     background-position: right;
 }
 
-.login-view-container__card__link {
+.login-view-link {
     text-align: center;
     text-decoration: none;
     margin-top: 5px;
     color: var(--main-light-green);
 }
 
-.login-view-container__card__button_margin {
+.login-view-card-button_margin {
     margin-top: 10px;
 }
 
-.login-view-container__card__yandex {
+.login-view-container-card__yandex {
     width: 100%;
     background-image: url('../../images/yandex-2.svg');
     margin-top: 20px;
@@ -115,7 +115,7 @@
     border-radius: 3px;
 }
 
-.login-view-container__form {
+.login-view-container-card__form {
     display: flex;
     flex-direction: column;
 }

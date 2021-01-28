@@ -124,15 +124,15 @@ function GroupView({cookies, userData}) {
             });
     };
 
-    const createOkToast= (text) => {
+    const createOkToast = (text) => {
         toast(text, okToastConfig);            
     };
 
-    const createErrorToast= (text) => {
+    const createErrorToast = (text) => {
         toast(text, errToastConfig);            
     };
 
-    function deleteUser() {
+    const deleteUser = () => {
         const data = {
             group: Number(id),
             userEmail: userData.email,
@@ -164,31 +164,29 @@ function GroupView({cookies, userData}) {
     return (
         <div className="container">
             <div className="group-view-banner">
-                <div className="group-view-banner__items">
+                <div className="group-view-banner-items">
                     <ToastContainer/>
-                    {/* <button onClick={() => createOkToast('успешно')}>Успешный тост</button>
-                    <button onClick={() => createErrorToast('Не успешно')}>Неуспешный тост</button> */}
+
                     {group.avatarURL !== '' ? (
                         <img
-                            className="group-view-banner__items__image"
+                            className="group-view-banner-items__image"
                             alt="" src={group.avatarURL}/>
                     ) : (
-                        <img alt="" className="group-view-banner__items__image"/>
+                        <img alt="" className="group-view-banner-items__image"/>
                     )}
 
-                    <div className="group-view-banner__items__info-container">
-                        <div className="group-view-banner__items_flex">
-                            <div className="group-view-banner__items__info">
-                                <div className="group-view-banner__items__info__title">{group.title}</div>
-                                <div className="group-view-banner__items__info__count">{`${group.count} участник${ending(group.count % 100)}`}</div>
+                    <div className="group-view-banner-items-info-container">
+                        <div className="group-view-banner-items_flex">
+                            <div className="group-view-banner-items-info">
+                                <div className="group-view-banner-items-info__title">{group.title}</div>
+                                <div className="group-view-banner-items-info__count">{`${group.count} участник${ending(group.count % 100)}`}</div>
                                 {group.description && (
-                                    <div className="group-view-banner__items__info_description">{group.description}</div>
+                                    <div className="group-view-banner-items-info_description">{group.description}</div>
                                 )}
-                                {/* <div>{id}</div> */}
                             </div>
                             {roleID !== 1 && (
-                                <div className="dropdown nav__settings_margin group-view-banner__items_margin-top">
-                                    <div onClick={() => changeField('dropdown', !dropdown)} className="nav__settings"></div>
+                                <div className="dropdown nav-settings_margin group-view-banner-items_margin-top">
+                                    <div onClick={() => changeField('dropdown', !dropdown)} className="nav-settings"></div>
                                     <div className={`dropdown-content_${dropdown}`}>
                                         <div onClick={() => deleteUser()}>Покинуть группу</div>
                                     </div>
@@ -196,20 +194,20 @@ function GroupView({cookies, userData}) {
                             )}
                         </div>
                         
-                        <div className="group-view-banner__items__links">
+                        <div className="group-view-banner-items-links">
                             <div
-                                className={`group-view-banner__items__links__${(componentActive.posts) ? 'active' : 'normal'}-link`}
+                                className={`group-view-banner-items-links__${(componentActive.posts) ? 'active' : 'normal'}-link`}
                                 onClick={() => changeComponentActiveState(true, false, false, false)}>Посты</div>
                             <div
-                                className={`group-view-banner__items__links__${(componentActive.important) ? 'active' : 'normal'}-link`}
+                                className={`group-view-banner-items-links__${(componentActive.important) ? 'active' : 'normal'}-link`}
                                 onClick={() => changeComponentActiveState(false, true, false, false)}>Важное</div>
                             <div
-                                className={`group-view-banner__items__links__${(componentActive.members) ? 'active' : 'normal'}-link`}
+                                className={`group-view-banner-items-links__${(componentActive.members) ? 'active' : 'normal'}-link`}
                                 onClick={() => changeComponentActiveState(false, false, true, false)}>Участники</div>
                             
                             {roleID !== 3 && (
                                 <div
-                                className={`group-view-banner__items__links__${(componentActive.settings) ? 'active' : 'normal'}-link`}
+                                className={`group-view-banner-items-links__${(componentActive.settings) ? 'active' : 'normal'}-link`}
                                 onClick={() => changeComponentActiveState(false, false, false, true)}>Настройки</div>
                             )}
                         </div>
