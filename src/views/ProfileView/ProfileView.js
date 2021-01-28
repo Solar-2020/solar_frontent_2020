@@ -70,8 +70,8 @@ function ProfileView({cookies, userData, changeData}) {
     };
 
     const errorStyle = {
-        'true': 'login-view-container__card__input-block__input__error-input',
-        'false': 'login-view-container__card__input-block__input',
+        'true': 'login-view-input-block-input-error',
+        'false': 'login-view-block-input',
     };
 
     const checkNewDatatFields = () => {
@@ -79,7 +79,7 @@ function ProfileView({cookies, userData, changeData}) {
        (arr.length > 0) ? changeField('save', true) : changeField('save', false);
     };
 
-    function validationField(key, value) {
+    const validationField = (key, value) => {
         changeNewData(key, value);
 
         checkNewDatatFields();
@@ -156,7 +156,7 @@ function ProfileView({cookies, userData, changeData}) {
             });
     };
 
-    function handleSubmit(event) {
+    const handleSubmit = (event) => {
         event.preventDefault();
 
         const form = {
@@ -193,7 +193,7 @@ function ProfileView({cookies, userData, changeData}) {
         }
     };
 
-    function checkValidationForm() {
+    const checkValidationForm = () => {
         let flag = true;
 
         if (!regExpr.FIO.test(newData.name) || !regExpr.FIO.test(newData.surname)) {
@@ -214,15 +214,15 @@ function ProfileView({cookies, userData, changeData}) {
 
     function Greeting() {
         if (/photos/.test(newData.avatarURL)) {
-            return (<img src={newData.avatarURL} className="profile-view-container__img-container__img"/>);
+            return (<img src={newData.avatarURL} className="profile-view-container__img-view"/>);
         }
         if (!newData.avatarURL.length) {
-            return (<img className="profile-view-container__img-container__img"/>);
+            return (<img className="profile-view-container__img-view"/>);
         }
 
         const yandexIn = 'https://avatars.mds.yandex.net/get-yapic/';
         const yandexOut = '/islands-300'
-        return (<img src={`${yandexIn}${newData.avatarURL}${yandexOut}`} className="profile-view-container__img-container__img"/>);
+        return (<img src={`${yandexIn}${newData.avatarURL}${yandexOut}`} className="profile-view-container__img-view"/>);
     };
       
 
@@ -231,51 +231,58 @@ function ProfileView({cookies, userData, changeData}) {
             <div className="profile-view-container_width">
                 <div className="profile-view-container_paddding">
                     <ToastContainer/>
+
                     <div className="profile-view-container__img-container" 
                     onClick={() => document.getElementById('changeAvatarInput').click()}>
-                        <div className="profile-view-container__img-container__button_div">
-                            <div className="profile-view-container__img-container__button"/>
+                        <div className="profile-view-container__img-button_div">
+                            <div className="profile-view-container__img-button"/>
                         </div>
                         {newData.id && (
                             <Greeting/>
                         )}
                     </div>
+
                     <input
                         id="changeAvatarInput"
                         style={{display: 'none'}}
                         type="file" name="addAvatarPhoto" accept="image/png, image/jpeg, image/gif"
                         onChange={(e) => addPhoto(e.target.files[0])}/>
-                    <div className="profile-view-container__context-container">
-                        <div className="profile-view-container__context-container__title">Данные пользователя</div>
+
+                    <div className="profile-view-container-context">
+                        <div className="profile-view-container-context__title">Данные пользователя</div>
+
                         {mainError && (
-                            <div className="reginstration-view__input_error">{mainError}</div>
+                            <div className="reginstration-view-input_error">{mainError}</div>
                         )}
 
                         {userNameError && (
-                            <div className="reginstration-view__input_error">{errorMap.userNameError}</div>
+                            <div className="reginstration-view-input_error">{errorMap.userNameError}</div>
                         )}
-                        <div className="profile-view-container__context-container_margin-bottom">
+
+                        <div className="profile-view-container-context_margin-bottom">
                             <input value={newData.name}
                                 className={errorStyle[userNameError]}
                                 onChange={e => validationField('name', e.target.value)}
                                 placeholder="Имя"/>
                             <input value={newData.surname}
-                                className={`${errorStyle[userNameError]} profile-view-container__context-container_margin-left__top`}
+                                className={`${errorStyle[userNameError]} profile-view-container-context_margin-left-top`}
                                 onChange={e => validationField('surname', e.target.value)}
                                 placeholder="Фамилия"/>
                         </div>
 
                         {emailError && (
-                            <div className="reginstration-view__input_error">{errorMap.emailError}</div>
+                            <div className="reginstration-view-input_error">{errorMap.emailError}</div>
                         )}
+
                         <div>Почта:
                             <input value={newData.email}
-                                className={`${errorStyle[emailError]} profile-view-container__context-container_margin-left`}
+                                className={`${errorStyle[emailError]} profile-view-container-context_margin-left`}
                                 onChange={e => validationField('email', e.target.value)}
                                 placeholder="Электронная почта"/>
                         </div>
+
                         {save && (
-                            <button className="login-view-container__card__button profile-view-container__button" onClick={(e) => handleSubmit(e)}>Сохранить изменения</button>
+                            <button className="login-view-card-button profile-view-container__button" onClick={(e) => handleSubmit(e)}>Сохранить изменения</button>
                         )}
                     </div>
                 </div>

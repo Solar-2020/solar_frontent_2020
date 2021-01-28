@@ -46,7 +46,7 @@
     border: 1px solid red;
 }
 
-.login-view-container__card__input-block__input__error-input {
+.login-view-input-block-input-error {
     height: 30px;
     align-items: center;
     padding-left: 5px;
